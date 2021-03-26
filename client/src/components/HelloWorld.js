@@ -3,8 +3,11 @@ import React, { useState, useEffect } from "react";
 function HelloWorld() {
   const [message, setMessage] = useState(null);
 
+  const url =
+    window.location.hostname === "localhost" ? "http://localhost:8080" : "";
+
   useEffect(() => {
-    fetch("http://localhost:8080/api")
+    fetch(`${url}/api`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
