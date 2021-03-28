@@ -5,6 +5,7 @@ const users = require("../controllers/users");
 
 router.get("/api", test.getTestMessage);
 // user management
+router.get("/api/user/:userId", users.getUserById);
 router.get("/api/members/:teamId", users.getAllUsersFromTeam);
 router.post("/api/members", users.addMember);
 router.put("/api/members/:userId", users.updateMember);

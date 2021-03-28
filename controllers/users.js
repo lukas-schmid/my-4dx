@@ -117,6 +117,16 @@ exports.logout = async (req, res, next) => {
   }
 };
 
+exports.getUserById = async (req, res, next) => {
+  const userId = req.params.userId;
+  try {
+    const user = await service.getUser(userId);
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.addMember = async (req, res, next) => {
   try {
     const email = req.body.email;
