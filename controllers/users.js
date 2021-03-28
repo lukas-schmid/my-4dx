@@ -64,6 +64,59 @@ exports.registerTeam = async (req, res, next) => {
   }
 };
 
+exports.login = async (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  try {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const response = {
+          isLoggedIn: true,
+          userId: user.uid,
+          email: user.email,
+        };
+        res.status(200).json(response);
+      })
+      .catch((error) => {
+        const err = {
+          errorCode: error.code,
+          errorMessage: error.message,
+        };
+        res.status(401).json(err);
+      });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.logout = async (req, res, next) => {
+  //   const email = req.body.email;
+  //   const password = req.body.password;
+  try {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        const response = {
+          isLoggedIn: false,
+        };
+        res.status(200).json(response);
+      })
+      .catch((error) => {
+        const err = {
+          errorCode: error.code,
+          errorMessage: error.message,
+        };
+        res.status(401).json(err);
+      });
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.addMember = async (req, res, next) => {
   try {
     const email = req.body.email;
