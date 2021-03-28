@@ -11,7 +11,7 @@ exports.addUser = async (
   isAdmin,
   scoreboardInclude
 ) => {
-  const docRef = db.collection("users").doc(email);
+  const docRef = db.collection("users").doc(id);
   await docRef.set({
     id,
     email,

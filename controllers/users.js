@@ -7,6 +7,8 @@ require("../config/auth");
 require("../config/db");
 const { v4: uuidv4 } = require("uuid");
 const users = require("../models/users");
+const service = require("../services/users");
+const { ServiceUnavailable } = require("http-errors");
 
 const sendPasswordReset = async (email) => {
   await firebase
@@ -92,6 +94,74 @@ exports.addMember = async (req, res, next) => {
         );
         sendPasswordReset(email);
         res.status(201).json({ message: "New User created" });
+      })
+      .catch((error) => {
+        const err = {
+          errorCode: error.code,
+          errorMessage: error.message,
+        };
+        res.status(401).json(err);
+      });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getAllUsersFromTeam = async (req, res, next) => {
+  const teamId = req.params.teamId;
+  try {
+    const users = await service.getAllUsers(teamId);
+    if (!users) {
+      res.status(404).json({ message: "not found" });
+    } else {
+      res.status(200).json(users);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.updateMember = async (req, res, next) => {
+  const userId = req.params.userId;
+  const email = req.body.email;
+  const name = req.body.name;
+  const companyName = req.body.companyName;
+  const teamId = req.body.teamId;
+  const teamName = req.body.teamName;
+  const title = req.body.title;
+  const isAdmin = req.body.isAdmin;
+  const scoreboardInclude = req.body.scoreboardInclude;
+  try {
+    const user = await service.getUser(userId);
+    await service.updateUser(
+      user.id,
+      email,
+      name,
+      companyName,
+      teamId,
+      teamName,
+      title,
+      isAdmin,
+      scoreboardInclude
+    );
+    const updatedUser = await service.getUser(userId);
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.deleteUser = async (req, res, next) => {
+  const userId = req.params.userId;
+  try {
+    return await admin
+      .auth()
+      .deleteUser(userId)
+      .then(async () => {
+        await service.deleteUser(userId);
+        res
+          .status(204)
+          .json({ message: `User with id ${userId} has been deleted` });
       })
       .catch((error) => {
         const err = {
