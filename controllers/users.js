@@ -8,7 +8,6 @@ require("../config/db");
 const { v4: uuidv4 } = require("uuid");
 const users = require("../models/users");
 const service = require("../services/users");
-const { ServiceUnavailable } = require("http-errors");
 
 const sendPasswordReset = async (email) => {
   await firebase
