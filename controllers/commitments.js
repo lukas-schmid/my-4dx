@@ -30,8 +30,8 @@ exports.createCommitment = async (req, res, next) => {
 };
 
 exports.updateCommitment = async (req, res, next) => {
-  const commitmentId = req.body.commitmentId;
-  const userId = req.params.userId;
+  const commitmentId = req.params.commitmentId;
+  const userId = req.body.userId;
   const commitmentName = req.body.commitmentName;
   const startDate = req.body.startDate;
   const wigId = req.body.wigId;
