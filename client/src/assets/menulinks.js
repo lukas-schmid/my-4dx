@@ -1,5 +1,5 @@
 import React from 'react';
-import { BiChevronRightSquare, BiStats } from "react-icons/bi";
+import { BiStats } from "react-icons/bi";
 import { ImStatsDots, ImStatsBars2 } from "react-icons/im";
 import { GiStairsGoal, GiTeamUpgrade } from "react-icons/gi";
 import { HiOutlineDocumentReport } from "react-icons/hi";

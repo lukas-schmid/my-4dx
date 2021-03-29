@@ -5,7 +5,7 @@ import { useNavContext } from '../../navContext';
 import NavLink from './NavLink';
 import SecondaryDropdown from './SecondaryDropdown';
 // Import icons
-import { BiChevronRightSquare, BiLogOut } from "react-icons/bi";
+import { BiLogOut } from "react-icons/bi";
 import { RiAdminFill } from "react-icons/ri";
 import { FiSettings } from "react-icons/fi";
 
