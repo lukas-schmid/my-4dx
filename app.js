@@ -8,6 +8,7 @@ const cors = require("cors");
 const users = require("./routes/users");
 const wigs = require("./routes/wigs");
 const leads = require("./routes/leads");
+const commitments = require("./routes/commitments");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 app.use("/", users);
 app.use("/", wigs);
 app.use("/", leads);
+app.use("/", commitments);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
