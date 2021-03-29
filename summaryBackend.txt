@@ -21,3 +21,302 @@
 5.2 post("/api/commitments/:userId");
 5.3 put("/api/commitments/:commitmentId");
 5.4 delete("/api/commitments/:commitmentId");
+
+
+
+
+Request & Response
+
+1. register and login
+1.1 post("/api/register")
+
+Request body:
+    {
+        "email": "firstname.lastname@example.com",
+        "password": "passwort123",
+        "name": "John Doe",
+        "companyName": "XYZ ltd",
+        "teamName": "Sales Team",
+        "title": "Sales"
+    }
+Response:
+Status 201:
+    {
+        "message": "New team created"
+    }
+
+1.2 post("/api/login")
+
+Request body:
+    {
+        "email": "firstname.lastname@example.com",
+        "password": "passwort123"
+    }
+Response:
+Status 200:
+    {
+        "isLoggedIn": true,
+        "userId": "P8vvQEEasXXXXXXXXcYsdCoOMQp1",
+        "email": "firstname.lastname@example.com"
+    }
+
+1.3 post("/api/logout")
+
+Request body:
+    {}
+Response:
+Status 200:
+    {
+        "isLoggedIn": false
+    }
+
+
+
+
+2. user management
+2.1 get("/api/user/:userId")
+
+Request body:
+    {}
+Response:
+Status 200:
+    {
+        "scoreboardInclude": true,
+        "email": "firstname.lastname@example.com",
+        "isAdmin": true,
+        "teamId": "0af5baa1-XXXX-XXXX-XXXX-55830fa3009b",
+        "teamName": "Sales Team",
+        "companyName": "XYZ ltd",
+        "name": "John Doe",
+        "title": "Sales",
+        "id": "03f1EqRO3XXXXXXXXpV1CYHUmW2"
+    }
+
+
+2.2 get("/api/members/:teamId")
+
+Request body:
+    {}
+Response:
+Status 200:
+    [
+        {
+            "email": "firstname.lastname@example.com",
+            "companyName": "XYZ ltd",
+            "teamId": "0af5baa1-XXXX-XXXX-XXXX-55830fa3009b",
+            "isAdmin": false,
+            "teamName": "Sales Team",
+            "name": "John Doe",
+            "title": "Sales",
+            "scoreboardInclude": true,
+            "id": "03f1EqRO36XXXXXXX1CYHUmW2"
+        },
+        {
+            "name": "Jane Bloggs",
+            "teamId": "0af5baa1-XXXX-XXXX-XXXX-55830fa3009b",
+            "email": "firstname2.lastname2@example.com",
+            "companyName": "XYZ ltd",
+            "teamName": "Sales Team",
+            "scoreboardInclude": true,
+            "title": "Team Lead Sales",
+            "id": "StPJW8sZEXXXXXXXMIWNSP172",
+            "isAdmin": true
+        }
+    ]
+
+
+2.3 post("/api/members")
+
+Request body:
+    {
+        "email": "firstname.lastname@example.com",
+        "password": "password123",
+        "name": "Tom Johnson",
+        "companyName": "XYZ ltd",
+        "teamId": "0af5baa1-XXXX-XXXX-XXXX-55830fa3009b",
+        "teamName": "Sales Team",
+        "title": "Marketing"
+    }
+Response:
+Status 201:
+    {
+        "message": "New User created"
+    }
+
+
+2.4 put("/api/members/:userId")
+
+Request body:
+    {
+        "email": "firstname.lastname@example.com",
+        "name": "Tom Johnson",
+        "companyName": "XYZ ltd",
+        "teamId": "0af5baa1-XXXX-XXXX-XXXX-55830fa3009b",
+        "teamName": "Sales Team",
+        "title": "Marketing"
+        "isAdmin": true,
+        "scoreboardInclude": true
+    }
+Response:
+Status 200:
+    {
+        "id": "03f1EqROXXXXXXXX8ppV1CYHUmW2",
+        "email": "firstname.lastname@example.com",
+        "name": "Tom Johnson",
+        "companyName": "XYZ ltd",
+        "teamId": "0af5baa1-XXXX-XXXX-XXXX-55830fa3009b",
+        "teamName": "Sales Team",
+        "title": "Marketing"
+        "isAdmin": true,
+        "scoreboardInclude": true
+    }
+
+
+2.5 delete("/api/members/:userId")
+
+Request body:
+    {}
+Response:
+Status 204:
+    {}
+
+
+
+
+3. WIG
+3.1 post("/api/wigs");
+
+Request body:
+    {
+        "wigName": "increase sale by 30%",
+        "lagName":"increase calls",
+        "lagDataType": "percent",
+        "lagInterval": "monthly",
+        "startDate": "2021-01-01",
+        "endDate": "2021-01-31"
+    }
+Response:
+Status 201:
+    {
+        "wigId": "c7969b89-5af6-4d90-9266-fd4781959577",
+        "wigName": "increase sale by 30%",
+        "lagName":"increase calls",
+        "lagDataType": "percent",
+        "lagInterval": "monthly",
+        "startDate": "2021-01-01",
+        "endDate": "2021-01-31"
+    }
+
+
+4. Leads
+4.1 post("/api/leads");
+
+Request body:
+    {
+        "leadName": "100 phone calls per day",
+        "leadInterval": "daily",
+        "leadDataType": "number",
+        "benchmarkExists": true,
+        "benchmark": "80 calls"
+    }
+Response:
+Status 201:
+    {
+        "leadId": "0404fcb9-9920-4d2b-a11a-1e19ce65bcad",
+        "leadName": "100 phone calls per day",
+        "leadInterval": "daily",
+        "leadDataType": "number",
+        "benchmarkExists": true,
+        "benchmark": "80 calls"
+    }
+
+
+5. Commitments
+5.1 get("/api/commitments/:userId");
+
+Request body:
+    {}
+Response:
+Status 200:
+    [
+        {
+            "userId": "03f1EqRXXXXXXXppV1CYHUmW2",
+            "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
+            "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
+            "wigName": "increase sale by 40%",
+            "commitmentName": "make 200 calls",
+            "category": "category name",
+            "commitmentId": "c9638eef-5eac-45ef-9193-61a198777edd",
+            "startDate": "2021-01-15"
+        },
+        {
+            "startDate": "2021-01-15",
+            "commitmentId": "dba7fdcc-5e33-42ca-8907-079b21e40733",
+            "leadId": "a3217c85-791f-49a0-8b80-0f7da5ad63d7",
+            "userId": "03f1EqROXXXXXXV1CYHUmW2",
+            "commitmentName": "make 200 calls",
+            "wigName": "increase sale by 40%",
+            "category": "category name",
+            "wigId": "0ed521b7-8c05-4ea3-8035-249bb09e5e02"
+        }
+    ]
+
+
+5.2 post("/api/commitments/:userId");
+
+Request body:
+    {
+      "commitmentName": "make 200 calls",
+      "startDate": "2021-01-15",
+      "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
+      "wigName":"increase sales by 40%",
+      "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
+      "category":"category name"
+    }
+Response:
+Status 201:
+    {
+      "commitmentId": "c9638eef-XXXX-XXXX-XXXX-61a198777edd",
+      "commitmentName": "make 200 calls",
+      "startDate": "2021-01-15",
+      "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
+      "wigName":"increase sales by 40%",
+      "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
+      "category":"category name",
+      "userId": "03f1EqRXXXXXXXXppV1CYHUmW2"
+    }
+
+
+5.3 put("/api/commitments/:commitmentId");
+
+Request body:
+    {
+        "userId": "dba7fdcc-XXXX-XXXX-XXXX-079b21e40733",
+        "commitmentName": "make 200 calls",
+        "startDate": "2021-01-15",
+        "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
+        "wigName":"increase sale by 40%",
+        "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
+        "category":"category name"
+    }
+Response:
+Status 201:
+    {
+        "wigName": "increase sale by 40%",
+        "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
+        "commitmentName": "make 200 calls",
+        "userId": "dba7fdcc-XXXX-XXXX-XXXX-079b21e40733",
+        "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
+        "startDate": "2021-01-15",
+        "category": "category name",
+        "commitmentId": "c9638eef-XXXX-XXXX-XXXX-61a198777edd"
+    }
+
+
+5.4 delete("/api/commitments/:commitmentId");
+
+Request body:
+    {}
+Response:
+Status 204:
+    {}
