@@ -1,4 +1,4 @@
-require("../config/db");
+const db = require("../config/db");
 
 exports.createCommitment = async (
   commitmentId,

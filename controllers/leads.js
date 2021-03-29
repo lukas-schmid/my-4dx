@@ -1,6 +1,5 @@
 const { createLead } = require("../models/leads");
 const { v4: uuidv4 } = require("uuid");
-//const db = require("../config/db");
 const { getLead } = require("../services/leads");
 
 exports.createLead = async (req, res, next) => {

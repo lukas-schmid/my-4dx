@@ -1,4 +1,4 @@
-require("../config/db");
+const db = require("../config/db");
 
 exports.getUser = async (userId) => {
   const userRef = db.collection("users").doc(userId);

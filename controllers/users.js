@@ -1,10 +1,10 @@
 const firebase = require("firebase/app");
 const admin = require("firebase-admin");
-//const db = require("../config/db");
 require("firebase/auth");
 require("firebase/firestore");
 require("../config/auth");
-require("../config/db");
+//require("../config/db");
+//const db = require("../config/db");
 const { v4: uuidv4 } = require("uuid");
 const users = require("../models/users");
 const service = require("../services/users");
