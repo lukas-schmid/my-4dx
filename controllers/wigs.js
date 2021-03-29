@@ -11,7 +11,7 @@ exports.createWIG = async (req, res, next) => {
   const lagInterval = req.body.lagInterval;
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
-  const lagData = [];
+  const lagData = [{ startDate: "", actual: 0, goal: 0 }];
   try {
     await createWIG(
       wigId,

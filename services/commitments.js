@@ -9,7 +9,6 @@ exports.getAllCommitments = async (userId) => {
     return;
   } else {
     commitments.forEach((doc) => {
-      console.log(doc.data());
       userCollection.push(doc.data());
     });
 

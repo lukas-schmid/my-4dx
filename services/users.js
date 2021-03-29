@@ -19,7 +19,6 @@ exports.getAllUsers = async (teamId) => {
     return;
   } else {
     users.forEach((doc) => {
-      console.log(doc.data());
       userCollection.push(doc.data());
     });
 
