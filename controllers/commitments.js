@@ -2,6 +2,20 @@ const { createCommitment } = require("../models/commitments");
 const { v4: uuidv4 } = require("uuid");
 const service = require("../services/commitments");
 
+exports.getAllCommitments = async (req, res, next) => {
+  const userId = req.params.userId;
+  try {
+    const commitments = await service.getAllCommitments(userId);
+    if (!commitments) {
+      res.status(404).json({ message: "not found" });
+    } else {
+      res.status(200).json(commitments);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.createCommitment = async (req, res, next) => {
   const commitmentId = uuidv4();
   const userId = req.params.userId;
