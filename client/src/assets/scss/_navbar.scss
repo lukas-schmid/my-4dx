@@ -1,0 +1,127 @@
+$navbar-height: 70px;
+
+.navbar {
+    height: $navbar-height;
+    padding: 10px 0;
+
+    /* ---------- Sticky Nav ---------- */
+    // position: fixed; 
+    // width: 100vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: $primary-gold;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+
+    &__logo {
+        max-height: 50px;
+        margin-left: 20px;
+        position: relative;
+    }
+
+    &__button {
+        margin-right: 20px;
+        margin-top: 5px;
+
+        font-size: 2rem;
+        color: white;
+
+        background: none;
+        border: none;
+        width: max-content;
+        outline: none;
+        cursor: pointer;
+
+        @include transition-ease;
+    }
+
+    nav {
+        height: 0;
+        width: 300px;
+
+        position: absolute;
+        top: $navbar-height;
+        right: 0;
+
+        background-color: $dark-gold;
+        overflow: hidden;
+        border-bottom-left-radius: 5px;
+
+        @include transition-ease;
+
+        ul {
+            padding: 20px 0;
+        }
+
+        li {
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: white;
+
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                background-color: $primary-gold;
+                text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        a {
+            width: 100%;
+        }
+
+        svg {
+            margin-right: 10px;
+            font-size: 1.6rem;
+        }
+    }
+
+    hr {
+        margin: 5px auto;
+        width: 80%;
+        //border: 1px solid rgba(255, 255, 255, 0.6);
+        border: 1px solid $primary-gold;
+    }
+}
+
+.menu-primary-enter {
+    position: absolute;
+    transform: translateX(-110%);
+}
+  
+.menu-primary-enter-active {
+    transform: translateX(0%);
+    transition: all 500ms ease;
+}
+  
+.menu-primary-exit {
+    position: absolute;
+}
+  
+.menu-primary-exit-active {
+    transform: translateX(-110%);
+    transition: all 500ms ease;
+}
+
+.menu-secondary-enter {
+    transform: translateX(110%);
+}
+  
+.menu-secondary-enter-active {
+    transform: translateX(0%);
+    transition: all 500ms ease;
+}
+  
+// .menu-secondary-exit {}
+  
+.menu-secondary-exit-active {
+    transform: translateX(110%);
+    transition: all 500ms ease;
+}

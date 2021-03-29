@@ -1,0 +1,35 @@
+@import 'config';
+@import 'navbar';
+@import 'footer';
+@import 'loader';
+@import 'topMenu';
+
+body {
+  margin: 0;
+  // -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
+
+  // background-attachment: fixed;
+  // background-position: top;
+  // background-repeat: no-repeat;
+  // background-size: cover;
+}
+
+#root {
+  background-attachment: fixed;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  min-height: 100vh;
+}
+
+.page-container {
+  min-height: calc(100vh - #{$navbar-height} - #{$footer-height});
+  padding: 20px;
+
+  background: transparent;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
