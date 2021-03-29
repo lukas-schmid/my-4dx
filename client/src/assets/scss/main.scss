@@ -1,0 +1,135 @@
+// Custom
+@import 'config';
+@import 'navbar';
+@import 'footer';
+@import 'loader';
+@import 'quote';
+@import 'forms';
+
+body {
+  margin: 0;
+  // -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  background-attachment: fixed;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  min-height: 100vh;
+}
+
+.page-container {
+  min-height: calc(100vh - var(--footer-height));
+  padding: 20px 10px;
+  padding-top: calc(var(--navbar-height) + 20px);
+
+  display: flex;
+  justify-content: center;
+
+  background: transparent;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.page-content {
+  background-color: white;
+  border-radius: 10px;
+  height: max-content;
+
+  max-width: 400px;
+}
+
+.page-header {
+  background: $blue-gradient;
+  padding: 20px 40px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  height: max-content;
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  &__heading {
+    margin: 0;
+    font-size: 1.6rem;
+  }
+}
+
+.page-footer {
+  padding: 20px;
+
+  background: $blue-gradient;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: white;
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  outline: 0;
+  width: max-content;
+  //cursor: pointer;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+
+  &:active {
+    background-color: #0a58ca;
+    border-color: #0a53be;
+  }
+
+  &:focus {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+  }
+
+  &:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+  }
+}
+
+.btn-success {
+  color: #fff;
+  background-color: #198754;
+  border-color: #198754;
+
+  &:active {
+    background-color: #146c43;
+    border-color: #13653f;
+  }
+
+  &:focus {
+    background-color: #157347;
+    border-color: #146c43;
+    box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
+  }
+
+  &:hover {
+    background-color: #157347;
+    border-color: #146c43;
+  }
+}

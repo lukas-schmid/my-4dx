@@ -1,0 +1,35 @@
+.quote {
+    margin: 0 auto;
+    text-align: center;
+    font-style: italic;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 1fr auto;
+    justify-content: center;
+    grid-column-gap: 3px;
+    grid-row-gap: 10px;
+
+    &__text {
+        margin: 0;
+        padding-top: 10px;
+        padding-bottom: 5px;
+    }
+
+    &__by {
+        grid-column: span 3;
+    }
+
+    &__svg--left,
+    &__svg--right {
+        font-size: 1.5rem;
+    }
+
+    &__svg--left {
+        align-self: flex-start;
+    }
+
+    &__svg--right {
+        align-self: flex-end;
+    }
+}

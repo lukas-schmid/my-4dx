@@ -1,0 +1,63 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+
+* {
+    box-sizing: border-box;
+    --navbar-height: 50px;
+    --footer-height: 45px;
+}
+
+html {
+    font-size: 16px; // = 1rem
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+        color: inherit;
+    }
+}
+
+$dark-gold: #A19261;
+$primary-gold: #CCB477;
+$dark-blue: #00589B;
+$primary-blue: #3D98CF;
+$dark-gray: #80808099;
+$light-gray: #B3B3B3;
+
+$blue-gradient: linear-gradient(0deg, rgba(4,111,162,1) 10%, rgba(4,144,211,1) 90%);
+
+@mixin transition-ease {
+    transition: all 0.5s ease-in-out;
+}
+
+@mixin minWidth ($pixelWidth) {
+    @media only screen and (min-width: $pixelWidth) {
+        @content;
+    }
+}
+
+@mixin minWidth_PnL ($portraitWidth, $landscapeWidth) {
+    @media only screen and (min-width: $portraitWidth) and (orientation: 'portrait') {
+        @content;
+    }
+
+    @media only screen and (min-width: $landscapeWidth) and (orientation: 'landscape') {
+        @content;
+    }
+}
+
+@include minWidth_PnL(400px, 820px) {
+    * {
+        --navbar-height: 70px;
+        --footer-height: 70px;
+    }
+}
