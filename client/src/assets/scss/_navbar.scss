@@ -3,11 +3,10 @@ $navbar-height: 70px;
 .navbar {
     height: $navbar-height;
     padding: 10px 0;
+    width: 100vw;
 
-    /* ---------- Sticky Nav ---------- */
-    // position: fixed; 
-    // width: 100vw;
-
+    position: fixed; 
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
