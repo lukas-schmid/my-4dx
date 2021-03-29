@@ -1,7 +1,6 @@
-$navbar-height: 70px;
 
 .navbar {
-    height: $navbar-height;
+    height: var(--navbar-height);
     padding: 10px 0;
     width: 100vw;
 
@@ -17,7 +16,7 @@ $navbar-height: 70px;
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 
     &__logo {
-        max-height: 50px;
+        max-height: calc(var(--navbar-height) * 0.7);
         margin-left: 20px;
         position: relative;
     }
@@ -38,16 +37,19 @@ $navbar-height: 70px;
         @include transition-ease;
     }
 
-    nav {
+    .dropdown {
         height: 0;
-        width: 300px;
+        width: 90%;
+        max-width: 300px;
+        max-height: 80vh;
 
         position: absolute;
-        top: $navbar-height;
+        top: var(--navbar-height);
         right: 0;
 
         background-color: $dark-gold;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: scroll;
         border-bottom-left-radius: 5px;
 
         @include transition-ease;
@@ -58,7 +60,7 @@ $navbar-height: 70px;
 
         li {
             padding: 15px 20px;
-            font-size: 1.3rem;
+            font-size: 1rem;
             text-transform: uppercase;
             font-weight: 700;
             color: white;
@@ -69,6 +71,10 @@ $navbar-height: 70px;
             &:hover {
                 background-color: $primary-gold;
                 text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            @include minWidth_PnL(400px, 820px) {
+                font-size: 1.3rem;
             }
         }
 

@@ -29,7 +29,7 @@ export default function Dropdown() {
     const links_admin = menulinks.find(linkObj => linkObj.section === 'admin');
 
     return (
-        <nav style={{ height: menuHeight }} ref={dropdownRef}>
+        <nav style={{ height: menuHeight }} ref={dropdownRef} className="dropdown">
             <CSSTransition
                 in={activeMenu === "main"}
                 timeout={500}

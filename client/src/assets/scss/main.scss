@@ -2,7 +2,6 @@
 @import 'navbar';
 @import 'footer';
 @import 'loader';
-@import 'topMenu';
 
 body {
   margin: 0;
@@ -25,9 +24,9 @@ body {
 }
 
 .page-container {
-  min-height: calc(100vh - #{$footer-height});
-  padding: 20px;
-  padding-top: $navbar-height + 20px;
+  min-height: calc(100vh - var(--footer-height));
+  padding: 20px 10px;
+  padding-top: calc(var(--navbar-height) + 20px);
 
   background: transparent;
   overflow-x: hidden;
