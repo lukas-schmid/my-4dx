@@ -39,23 +39,21 @@ $blue-gradient: linear-gradient(0deg, rgba(4,111,162,1) 10%, rgba(4,144,211,1) 9
     transition: all 0.5s ease-in-out;
 }
 
-@mixin minWidth ($pixelWidth) {
-    @media only screen and (min-width: $pixelWidth) {
-        @content;
+@mixin non_mobile ($minWidth_portrait, $minWidth_landscape) {
+    @media only screen 
+        and (min-width: $minWidth_portrait)
+        and (min-height: 410px)  {
+            @content;
+    }
+
+    @media only screen 
+        and (min-width: $minWidth_landscape)
+        and (max-height: 410px) {
+            @content;
     }
 }
 
-@mixin minWidth_PnL ($portraitWidth, $landscapeWidth) {
-    @media only screen and (min-width: $portraitWidth) and (orientation: 'portrait') {
-        @content;
-    }
-
-    @media only screen and (min-width: $landscapeWidth) and (orientation: 'landscape') {
-        @content;
-    }
-}
-
-@include minWidth_PnL(400px, 820px) {
+@include non_mobile (400px, 820px) {
     * {
         --navbar-height: 70px;
         --footer-height: 70px;

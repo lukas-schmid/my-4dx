@@ -28,7 +28,7 @@ footer {
             margin-right: 10px;
         }
 
-        @include minWidth_PnL(400px, 800px) {
+        @include non_mobile (400px, 820px) {
             font-size: 1.3rem;
         }
     }

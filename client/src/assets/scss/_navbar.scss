@@ -73,7 +73,7 @@
                 text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
             }
 
-            @include minWidth_PnL(400px, 820px) {
+            @include non_mobile (400px, 820px) {
                 font-size: 1.3rem;
             }
         }
