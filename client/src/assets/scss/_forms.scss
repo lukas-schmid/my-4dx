@@ -1,5 +1,11 @@
+.form-container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
 .form {
-    padding: 20px;
+    padding: 20px 30px;
     width: 100%;
 }
 
@@ -8,10 +14,15 @@
     margin: 0 0 20px 0;
 }
 
-/* -------- Bootstrap -------- */
+.form-section {
+    margin: 1.5rem 0 1rem 0;
+}
+
+// -------- Bootstrap --------
 
 .form-label {
     margin-bottom: 0.5rem;
+    display: inline-block;
 }
 
 textarea.form-control {
@@ -20,7 +31,7 @@ textarea.form-control {
 
 .form-text {
     margin-top: .25rem;
-    font-size: .875em;
+    font-size: 0.875em;
     color: #6c757d;
 }
 

@@ -1,7 +1,6 @@
 .quote {
     margin: 0 auto;
     text-align: center;
-    font-style: italic;
 
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -10,18 +9,21 @@
     grid-column-gap: 3px;
     grid-row-gap: 10px;
 
+    font-family: 'Baskervville', serif;
+
     &__text {
         margin: 0;
         padding-top: 10px;
         padding-bottom: 5px;
+        font-style: italic;
     }
 
     &__by {
+        //font-style: normal;
         grid-column: span 3;
     }
 
-    &__svg--left,
-    &__svg--right {
+    &__svg {
         font-size: 1.5rem;
     }
 

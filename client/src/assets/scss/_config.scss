@@ -1,5 +1,7 @@
 /* Import Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap');
 
 * {
     box-sizing: border-box;
@@ -35,6 +37,8 @@ $light-gray: #B3B3B3;
 
 $blue-gradient: linear-gradient(0deg, rgba(4,111,162,1) 10%, rgba(4,144,211,1) 90%);
 
+$page-border-radius: 10px;
+
 @mixin transition-ease {
     transition: all 0.5s ease-in-out;
 }
@@ -50,6 +54,12 @@ $blue-gradient: linear-gradient(0deg, rgba(4,111,162,1) 10%, rgba(4,144,211,1) 9
         and (min-width: $minWidth_landscape)
         and (max-height: 410px) {
             @content;
+    }
+}
+
+@mixin min_width ($minWidth) {
+    @media only screen and (min-width: $minWidth) {
+        @content;
     }
 }
 
