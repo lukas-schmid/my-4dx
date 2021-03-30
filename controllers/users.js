@@ -128,34 +128,37 @@ exports.getUserById = async (req, res, next) => {
 
 exports.addMember = async (req, res, next) => {
   try {
-    const email = req.body.email;
-    const password = req.body.password;
-    const name = req.body.name;
-    const companyName = req.body.companyName;
-    const teamId = req.body.teamId;
-    const teamName = req.body.teamName;
-    const title = req.body.title;
-    const isAdmin = false;
-    const scoreboardInclude = true;
+    const body = {
+      email: req.body.email,
+      password: req.body.password,
+      name: req.body.name,
+      companyName: req.body.companyName,
+      teamId: req.body.teamId,
+      teamName: req.body.teamName,
+      title: req.body.title,
+      isAdmin: false,
+      scoreboardInclude: true,
+    };
 
     return await firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(body.email, body.password)
       .then((userCredential) => {
         const user = userCredential.user;
         users.addUser(
           user.uid,
-          email,
-          name,
-          companyName,
-          teamId,
-          teamName,
-          title,
-          isAdmin,
-          scoreboardInclude
+          body.email,
+          body.name,
+          body.companyName,
+          body.teamId,
+          body.teamName,
+          body.title,
+          body.isAdmin,
+          body.scoreboardInclude
         );
-        sendPasswordReset(email);
-        res.status(201).json({ message: "New User created" });
+        sendPasswordReset(body.email);
+        body.id = user.uid;
+        res.status(201).json(body);
       })
       .catch((error) => {
         const err = {

@@ -5,24 +5,34 @@
 
 2. user management
 2.1 get("/api/user/:userId")
-2.2 get("/api/members/:teamId"sersFromTeam)
-2.3 post("/api/members"er)
-2.4 put("/api/members/:userId"ember)
-2.5 delete("/api/members/:userId"ser)
+2.2 get("/api/members/:teamId")
+2.3 post("/api/members")
+2.4 put("/api/members/:userId")
+2.5 delete("/api/members/:userId")
 
 3. WIG
 3.1 post("/api/wigs")
-3.2 put("/api/wigs/:wigId) ---- MISSING!
-3.3 delete("/api/wigs/:wigId) ---- MISSING!
+3.2 put("/api/wigs/:wigId)
+3.3 delete("/api/wigs/:wigId)
 
 4. Leads
 4.1 post("/api/leads")
+4.2 put("/api/leads/:leadId")
 
-5. Commitments
-5.1 get("/api/commitments/:userId")
-5.2 post("/api/commitments/:userId")
-5.3 put("/api/commitments/:commitmentId")
-5.4 delete("/api/commitments/:commitmentId")
+5. Lag
+5.1 put("/api/lag/:wigId")
+
+6. Commitments
+6.1 get("/api/commitments/:userId")
+6.2 post("/api/commitments/:userId")
+6.3 put("/api/commitments/:commitmentId")
+6.4 delete("/api/commitments/:commitmentId")
+
+7. scoreboard
+7.1 post("/api/scoreb)
+
+
+
 
 
 
@@ -210,6 +220,44 @@ Status 201:
         "lagData": []
     }
 
+3.2 put("/api/wigs/:wigId")
+
+Request body:
+    {
+        "wigName": "increase sale by 80%",
+        "lagName":"increase calls",
+        "lagDataType": "money",
+        "lagInterval": "weekly",
+        "startDate": "2021-01-11",
+        "endDate": "2021-02-20"
+    }
+Response:
+Status 200:
+    {
+        "wigId": "c7969b89-XXXX-XXXX-XXXX-fd4781959577",
+        "wigName": "increase sale by 80%",
+        "lagName":"increase calls",
+        "lagDataType": "money",
+        "lagInterval": "weekly",
+        "startDate": "2021-01-11",
+        "endDate": "2021-01-22",
+        "lagData": [
+            {
+                "actual": 10,
+                "startDate": "2021-01-20",
+                "goal": 200
+            }
+        ]
+    }
+
+
+3.3 delete("/api/wigs/:wigId)
+Request body:
+    {}
+Response:
+Status 204:
+    {}
+
 
 4. Leads
 4.1 post("/api/leads")
@@ -231,11 +279,92 @@ Status 201:
         "leadDataType": "number",
         "benchmarkExists": true,
         "benchmark": "80 calls"
+        "leadData": [
+            {
+                "startDate": "",
+                "data": 0
+            }
+        ],
     }
 
 
-5. Commitments
-5.1 get("/api/commitments/:userId")
+4.2 put("/api/leads/:leadId")
+
+Request body:
+
+{
+    "leadName": "200 phone calls per day",
+    "leadInterval": "weekly",
+    "leadDataType": "number",
+    "benchmarkExists": false,
+    "benchmark": "100 calls per day",
+    "leadData": [
+        {
+            "startDate": "2020-07-20",
+            "data": 20
+        }
+    ]
+}
+Response:
+Status 200:
+{
+    "leadInterval": "weekly",
+    "leadName": "200 phone calls per day",
+    "leadId": "0404fcb9-9920-4d2b-a11a-1e19ce65bcad",
+    "benchmark": "100 calls per day",
+    "benchmarkExists": false,
+    "leadDataType": "number",
+    "leadData": [
+        {
+            "startDate": "2020-07-20",
+            "data": 20
+        }
+    ]
+}
+
+
+4.2 delete("/api/leads/:leadId")
+
+Request body:
+    {}
+Response:
+Status 204:
+    {}
+
+
+5. Lag
+5.1 put("/api/lag/:wigId")
+
+Request body:
+    {
+        "startDate": "2021-12-10",
+        "actual": 3000,
+        "goal": 27000
+    }
+Response:
+Status 200:
+    {
+        "lagDataType": "money",
+        "endDate": "2021-02-20",
+        "wigName": "increase sale by 80%",
+        "lagName": "increase calls",
+        "startDate": "2021-01-11",
+        "lagData": [
+            {
+                "startDate": "2021-12-10",
+                "actual": 3000,
+                "goal": 27000
+            }
+        ],
+        "lagInterval": "weekly",
+        "wigId": "e5888048-a7a9-4ab6-876f-7f8e44fb4762"
+    }
+
+
+
+
+6. Commitments
+6.1 get("/api/commitments/:userId")
 
 Request body:
     {}
@@ -265,7 +394,7 @@ Status 200:
     ]
 
 
-5.2 post("/api/commitments/:userId")
+6.2 post("/api/commitments/:userId")
 
 Request body:
     {
@@ -290,7 +419,7 @@ Status 201:
     }
 
 
-5.3 put("/api/commitments/:commitmentId")
+6.3 put("/api/commitments/:commitmentId")
 
 Request body:
     {
@@ -316,7 +445,7 @@ Status 201:
     }
 
 
-5.4 delete("/api/commitments/:commitmentId")
+6.4 delete("/api/commitments/:commitmentId")
 
 Request body:
     {}
