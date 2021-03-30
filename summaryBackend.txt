@@ -28,6 +28,9 @@
 6.3 put("/api/commitments/:commitmentId")
 6.4 delete("/api/commitments/:commitmentId")
 
+7. scoreboard
+7.1 post("/api/scoreb)
+
 
 
 

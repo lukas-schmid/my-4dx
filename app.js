@@ -10,6 +10,7 @@ const wigs = require("./routes/wigs");
 const lags = require("./routes/lags");
 const leads = require("./routes/leads");
 const commitments = require("./routes/commitments");
+const scoreboards = require("./routes/scoreboards");
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use("/", wigs);
 app.use("/", lags);
 app.use("/", leads);
 app.use("/", commitments);
+app.use("/", scoreboards);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
