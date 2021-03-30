@@ -1,4 +1,0 @@
-{
-  "errorCode": "auth/email-already-in-use",
-  "errorMessage": "The email address is already in use by another account."
-}
