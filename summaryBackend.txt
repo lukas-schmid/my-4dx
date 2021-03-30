@@ -20,13 +20,16 @@
 4.2 put("/api/leads/:leadId")
 
 5. Lag
-5.1 put("/api/lag/:wigId") ---- MISSING!
+5.1 put("/api/lag/:wigId")
 
 6. Commitments
 6.1 get("/api/commitments/:userId")
 6.2 post("/api/commitments/:userId")
 6.3 put("/api/commitments/:commitmentId")
 6.4 delete("/api/commitments/:commitmentId")
+
+
+
 
 
 
@@ -306,6 +309,37 @@ Request body:
 Response:
 Status 204:
     {}
+
+
+5. Lag
+5.1 put("/api/lag/:wigId")
+
+Request body:
+    {
+        "startDate": "2021-12-10",
+        "actual": 3000,
+        "goal": 27000
+    }
+Response:
+Status 200:
+    {
+        "lagDataType": "money",
+        "endDate": "2021-02-20",
+        "wigName": "increase sale by 80%",
+        "lagName": "increase calls",
+        "startDate": "2021-01-11",
+        "lagData": [
+            {
+                "startDate": "2021-12-10",
+                "actual": 3000,
+                "goal": 27000
+            }
+        ],
+        "lagInterval": "weekly",
+        "wigId": "e5888048-a7a9-4ab6-876f-7f8e44fb4762"
+    }
+
+
 
 
 6. Commitments
