@@ -6,7 +6,7 @@ export default function LoginForm() {
     }
 
     return (
-        <form className="form login-form" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
             <h2 className="form-title">Login</h2>
             <div className="form-section">
                 <label className="form-label" htmlFor="email">Email address</label>
