@@ -41,6 +41,14 @@
     @include min-width (400px) {
         flex-flow: wrap;
     }
+
+    &--multiCol {
+        @include min-width (345px) {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          grid-column-gap: 20px;
+        }
+    }
 }
 
 .check-gap {
@@ -180,7 +188,7 @@ textarea.form-control {
 }
 
 .input-group {
-    position: relative;
+    // position: relative;
     display: flex;
     flex-wrap: wrap;
     align-items: stretch;
@@ -215,7 +223,7 @@ textarea.form-control {
 
 .input-group > .form-control,
 .input-group > .form-select {
-    position: relative;
+    // position: relative;
     flex: 1 1 auto;
     width: 1%;
     min-width: 0;

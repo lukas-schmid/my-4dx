@@ -206,13 +206,4 @@ hr {
   .form-container {
     padding-top: 20px;
   }
-
-  .form-check-inline {
-    
-    @include min-width (345px) {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-    
-  }
 }
