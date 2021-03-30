@@ -26,7 +26,6 @@ exports.getTestMessage = async (req, res, next) => {
   }
 
   snapshot.forEach((doc) => {
-    console.log(doc.data());
     userCollection.push(doc.data());
   });
   res.status(200).json(userCollection);
