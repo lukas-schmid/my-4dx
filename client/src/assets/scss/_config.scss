@@ -1,5 +1,7 @@
 /* Import Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap');
 
 * {
     box-sizing: border-box;
@@ -26,6 +28,10 @@ a {
     }
 }
 
+.no-margin {
+    margin: 0 !important;
+}
+
 $dark-gold: #A19261;
 $primary-gold: #CCB477;
 $dark-blue: #00589B;
@@ -35,27 +41,33 @@ $light-gray: #B3B3B3;
 
 $blue-gradient: linear-gradient(0deg, rgba(4,111,162,1) 10%, rgba(4,144,211,1) 90%);
 
+$page-border-radius: 10px;
+
 @mixin transition-ease {
     transition: all 0.5s ease-in-out;
 }
 
-@mixin minWidth ($pixelWidth) {
-    @media only screen and (min-width: $pixelWidth) {
+@mixin non_mobile ($minWidth_portrait, $minWidth_landscape) {
+    @media only screen 
+        and (min-width: $minWidth_portrait)
+        and (min-height: 410px)  {
+            @content;
+    }
+
+    @media only screen 
+        and (min-width: $minWidth_landscape)
+        and (max-height: 410px) {
+            @content;
+    }
+}
+
+@mixin min_width ($minWidth) {
+    @media only screen and (min-width: $minWidth) {
         @content;
     }
 }
 
-@mixin minWidth_PnL ($portraitWidth, $landscapeWidth) {
-    @media only screen and (min-width: $portraitWidth) and (orientation: 'portrait') {
-        @content;
-    }
-
-    @media only screen and (min-width: $landscapeWidth) and (orientation: 'landscape') {
-        @content;
-    }
-}
-
-@include minWidth_PnL(400px, 820px) {
+@include non_mobile (400px, 820px) {
     * {
         --navbar-height: 70px;
         --footer-height: 70px;
