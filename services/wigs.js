@@ -8,3 +8,28 @@ exports.getWig = async (wigId) => {
     return wig.data();
   }
 };
+
+exports.updateWig = async (
+  wigId,
+  wigName,
+  lagName,
+  lagDataType,
+  lagInterval,
+  startDate,
+  endDate
+) => {
+  const docRef = db.collection("wigs").doc(wigId);
+  await docRef.update({
+    wigId,
+    wigName,
+    lagName,
+    lagDataType,
+    lagInterval,
+    startDate,
+    endDate,
+  });
+};
+
+exports.deleteWig = async (wigId) => {
+  return await db.collection("wigs").doc(wigId).delete();
+};
