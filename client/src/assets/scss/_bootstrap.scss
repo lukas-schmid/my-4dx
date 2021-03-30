@@ -41,6 +41,27 @@
       border-color: #0a58ca;
     }
 }
+
+.btn-outline-primary {
+  color: #0d6efd;
+  border-color: #0d6efd;
+
+  &:active {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5)
+  }
+
+  &:hover {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+}
   
 .btn-success {
     color: #fff;
