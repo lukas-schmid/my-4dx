@@ -71,14 +71,6 @@ body {
   color: white;
 }
 
-.login-page {
-  max-width: 350px;
-
-  @include min-width (768px) {
-    max-width: 700px;
-  }
-}
-
 .page-split {
   @include min-width (768px) {
     display: grid;
@@ -157,9 +149,23 @@ hr {
   margin: 10px auto;
 }
 
-.demo-login {
-  //padding: 10px 30px;
+.login-page {
+  max-width: 350px;
 
+  @include min-width (768px) {
+    max-width: 700px;
+  }
+}
+
+.registration-page {
+  max-width: 400px;
+
+  @include min-width (768px) {
+    max-width: 800px;
+  }
+}
+
+.demo-login {
   display: flex;
   flex-wrap: wrap;
 
