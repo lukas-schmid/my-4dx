@@ -1,45 +1,38 @@
 #!/bin/bash
-# execute in terminal bash initDemoData.sh
+# execute file in terminal with command  "bash initDemoData.sh"
+
 # 1. register and login
 # 1.1 post("/api/register")
 
-BODY=$(cat <<EOF
-{
-        "email": "demo-admin@my-4dx.herokuapp.com",
-        "password": "passwort123",
-        "name": "John Doe",
-        "companyName": "yourCompany ltd",
-        "teamName": "Sales Team",
-        "title": "Team Lead Sales"
-}
-EOF
-)
+body=$(jq -n --arg b "$teamId" '{
+    "email": "demo-admin@my-4dx.herokuapp.com",
+    "password": "passwort123",
+    "name": "John Doe",
+    "companyName": "yourCompany ltd",
+    "teamName": "Sales Team",
+    "title": "Team Lead Sales"
+}')
 
 echo "POST http://localhost:8080/api/register"
-echo "request body: $BODY"
-curl -w "\n" -d "$BODY" -H 'Content-Type: application/json' http://localhost:8080/api/register | jq .
-
-
+echo "request body: $body"
+teamId=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/register | jq .teamId)
+echo "$teamId"
 
 # 2. user management
 # 2.3 post("/api/members")
-
-BODY=$(cat <<EOF
-    {
-        "email": "demo-user@my-4dx.herokuapp.com",
-        "password": "password123",
-        "name": "Jane Doe",
-        "companyName": "yourCompany ltd",
-        "teamId": "0af5baa1-XXXX-XXXX-XXXX-55830fa3009b",
-        "teamName": "Sales Team",
-        "title": "Marketing"
-    }
-EOF
-)
+body=$(jq -n --arg b "$teamId" '{
+    "email": "demo-user@my-4dx.herokuapp.com",
+    "password": "password123",
+    "name": "Jane Doe",
+    "companyName": "yourCompany ltd",
+    "teamId": '$teamId',
+    "teamName": "Sales Team",
+    "title": "Marketing"
+}')
 
 echo "POST http://localhost:8080/api/members"
-echo "request body: $BODY"
-curl -w "\n" -d "$BODY" -H 'Content-Type: application/json' http://localhost:8080/api/members | jq .
+echo "request body: $body"
+curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/members | jq .
 
 # 3. WIG
 # 3.1 post("/api/wigs")
