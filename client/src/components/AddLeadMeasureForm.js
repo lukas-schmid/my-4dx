@@ -21,14 +21,10 @@ export default function AddLeadMeasureForm() {
             </div>
 
             <p className="form-section-title">Tracking Type:</p>
-            <div className="form-check-inline form-check-inline--multiCol">
+            <div className="form-check-inline form-check-inline">
                 <div className="form-check">
                     <input type="radio" className="form-check-input" name="trackingType" id="typeNumber" value="number" required/>
                     <label className="form-check-label" htmlFor="typeNumber">Number</label>
-                </div>
-                <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingType" id="typeMoney" value="money" required/>
-                    <label className="form-check-label" htmlFor="typeMoney">Money</label>
                 </div>
                 <div className="form-check">
                     <input type="radio" className="form-check-input" name="trackingType" id="typePercent" value="percent" required/>
