@@ -198,8 +198,21 @@ hr {
   .form-container {
     padding-top: 20px;
   }
+}
 
-  // @include min-width (768px) {
-  //   max-width: 800px;
-  // }
+.add-lead-measure-page {
+  max-width: 480px;
+
+  .form-container {
+    padding-top: 20px;
+  }
+
+  .form-check-inline {
+    
+    @include min-width (345px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    
+  }
 }

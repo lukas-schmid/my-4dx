@@ -7,7 +7,7 @@ import AddLeadMeasureForm from '../components/AddLeadMeasureForm';
 export default function AddWig() {
     return (
         <main className="page-container">
-            <section className="page-content add-wig-page">
+            <section className="page-content add-lead-measure-page">
                 <PageHeader pageTitle="Lead Measure Creation Wizard"/>
                 <article className="form-container">
                     <AddLeadMeasureForm />

@@ -27,15 +27,15 @@ export default function AddWigForm() {
             <p className="form-section-title">Tracking Type:</p>
             <div className="form-check-inline">
                 <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingType" id="typeNumber" value="number"/>
+                    <input type="radio" className="form-check-input" name="trackingType" id="typeNumber" value="number" required/>
                     <label className="form-check-label" htmlFor="typeNumber">Number</label>
                 </div>
                 <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingType" id="typeMoney" value="money"/>
+                    <input type="radio" className="form-check-input" name="trackingType" id="typeMoney" value="money" required/>
                     <label className="form-check-label" htmlFor="typeMoney">Money</label>
                 </div>
                 <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingType" id="typePercent" value="percent"/>
+                    <input type="radio" className="form-check-input" name="trackingType" id="typePercent" value="percent" required/>
                     <label className="form-check-label" htmlFor="typePercent">Percent</label>
                 </div>
             </div>
@@ -43,11 +43,11 @@ export default function AddWigForm() {
             <p className="form-section-title">Tracking Time:</p>
             <div className="form-check-inline">
                 <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingTime" id="trackWeekly" value="weekly"/>
+                    <input type="radio" className="form-check-input" name="trackingTime" id="trackWeekly" value="weekly" required/>
                     <label className="form-check-label" htmlFor="trackWeekly">Weekly</label>
                 </div>
                 <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingTime" id="trackMonthly" value="monthly"/>
+                    <input type="radio" className="form-check-input" name="trackingTime" id="trackMonthly" value="monthly" required/>
                     <label className="form-check-label" htmlFor="trackMonthly">Monthly</label>
                 </div>
             </div>
