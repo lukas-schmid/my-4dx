@@ -36,9 +36,9 @@ exports.registerTeam = async (req, res, next) => {
     return await firebase
       .auth()
       .createUserWithEmailAndPassword(body.email, body.password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        users.addUser(
+        await users.addUser(
           user.uid,
           body.email,
           body.name,
@@ -49,8 +49,8 @@ exports.registerTeam = async (req, res, next) => {
           body.isAdmin,
           body.scoreboardInclude
         );
-        body.id = user.uid;
-        res.status(201).json(body);
+        const response = await service.getUser(user.uid);
+        res.status(201).json(response);
       })
       .catch((error) => {
         const err = {
@@ -144,9 +144,9 @@ exports.addMember = async (req, res, next) => {
     return await firebase
       .auth()
       .createUserWithEmailAndPassword(body.email, body.password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        users.addUser(
+        await users.addUser(
           user.uid,
           body.email,
           body.name,
@@ -158,8 +158,8 @@ exports.addMember = async (req, res, next) => {
           body.scoreboardInclude
         );
         sendPasswordReset(body.email);
-        body.id = user.uid;
-        res.status(201).json(body);
+        const response = await service.getUser(user.uid);
+        res.status(201).json(response);
       })
       .catch((error) => {
         const err = {

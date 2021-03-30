@@ -44,17 +44,25 @@ Request & Response
 
 Request body:
     {
-        "email": "firstname.lastname@example.com",
+        "email": "demo-admin@my-4dx.herokuapp.com",
         "password": "passwort123",
         "name": "John Doe",
-        "companyName": "XYZ ltd",
+        "companyName": "yourCompany ltd",
         "teamName": "Sales Team",
-        "title": "Sales"
+        "title": "Team Lead Sales"
     }
 Response:
 Status 201:
     {
-        "message": "New team created"
+        "id": "MlybPJOwlXXXXXXXXdwqPufjAG3"
+        "email": "demo-admin@my-4dx.herokuapp.com",
+        "name": "John Doe",
+        "companyName": "yourCompany ltd",
+        "teamId": "ea67c8dd-XXXX-XXXX-XXXX-01a0f22b55a3",
+        "teamName": "Sales Team",
+        "title": "Team Lead Sales"
+        "isAdmin": true,
+        "scoreboardInclude": true,
     }
 
 1.2 post("/api/login")
@@ -141,18 +149,26 @@ Status 200:
 
 Request body:
     {
-        "email": "firstname.lastname@example.com",
+        "email": "demo-user@my-4dx.herokuapp.com",
         "password": "password123",
-        "name": "Tom Johnson",
-        "companyName": "XYZ ltd",
-        "teamId": "0af5baa1-XXXX-XXXX-XXXX-55830fa3009b",
+        "name": "Jane Doe",
+        "companyName": "yourCompany ltd",
+        "teamId": "ea67c8dd-XXXX-XXXX-XXXX-01a0f22b55a3",
         "teamName": "Sales Team",
         "title": "Marketing"
     }
 Response:
 Status 201:
     {
-        "message": "New User created"
+        "id": "MlybPJOwlXXXXXXXXdwqPufjAG3"
+        "email": "demo-user@my-4dx.herokuapp.com",
+        "name": "Jane Doe",
+        "companyName": "yourCompany ltd",
+        "teamId": "ea67c8dd-XXXX-XXXX-XXXX-01a0f22b55a3",
+        "teamName": "Sales Team",
+        "title": "Marketing",
+        "isAdmin": false,
+        "scoreboardInclude": true,
     }
 
 
