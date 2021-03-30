@@ -16,7 +16,6 @@ body=$(jq -n --arg b "$teamId" '{
 echo "POST http://localhost:8080/api/register"
 echo "request body: $body"
 teamId=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/register | jq .teamId)
-echo "$teamId"
 
 # 2. user management
 # 2.3 post("/api/members")
