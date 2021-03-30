@@ -279,6 +279,12 @@ Status 201:
         "leadDataType": "number",
         "benchmarkExists": true,
         "benchmark": "80 calls"
+        "leadData": [
+            {
+                "startDate": "",
+                "data": 0
+            }
+        ],
     }
 
 
@@ -291,7 +297,13 @@ Request body:
     "leadInterval": "weekly",
     "leadDataType": "number",
     "benchmarkExists": false,
-    "benchmark": "100 calls per day"
+    "benchmark": "100 calls per day",
+    "leadData": [
+        {
+            "startDate": "2020-07-20",
+            "data": 20
+        }
+    ]
 }
 Response:
 Status 200:
@@ -301,7 +313,13 @@ Status 200:
     "leadId": "0404fcb9-9920-4d2b-a11a-1e19ce65bcad",
     "benchmark": "100 calls per day",
     "benchmarkExists": false,
-    "leadDataType": "number"
+    "leadDataType": "number",
+    "leadData": [
+        {
+            "startDate": "2020-07-20",
+            "data": 20
+        }
+    ]
 }
 
 

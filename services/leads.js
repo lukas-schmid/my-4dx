@@ -15,7 +15,8 @@ exports.updateLead = async (
   leadInterval,
   leadDataType,
   benchmarkExists,
-  benchmark
+  benchmark,
+  leadData
 ) => {
   const docRef = db.collection("leads").doc(leadId);
   await docRef.update({
@@ -25,6 +26,7 @@ exports.updateLead = async (
     leadDataType,
     benchmarkExists,
     benchmark,
+    leadData,
   });
 };
 

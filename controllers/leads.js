@@ -9,6 +9,7 @@ exports.createLead = async (req, res, next) => {
   const leadDataType = req.body.leadDataType;
   const benchmarkExists = req.body.benchmarkExists;
   const benchmark = req.body.benchmark;
+  const leadData = [{ startDate: "", data: 0 }];
   try {
     await createLead(
       leadId,
@@ -16,7 +17,8 @@ exports.createLead = async (req, res, next) => {
       leadInterval,
       leadDataType,
       benchmarkExists,
-      benchmark
+      benchmark,
+      leadData
     );
     const response = await service.getLead(leadId);
     res.status(201).json(response);
@@ -32,6 +34,12 @@ exports.updateLead = async (req, res, next) => {
   const leadDataType = req.body.leadDataType;
   const benchmarkExists = req.body.benchmarkExists;
   const benchmark = req.body.benchmark;
+  const leadData = [
+    {
+      startDate: req.body.leadData[0].startDate,
+      date: req.body.leadData[0].data,
+    },
+  ];
   try {
     await service.updateLead(
       leadId,
@@ -39,7 +47,8 @@ exports.updateLead = async (req, res, next) => {
       leadInterval,
       leadDataType,
       benchmarkExists,
-      benchmark
+      benchmark,
+      leadData
     );
     const response = await service.getLead(leadId);
     res.status(200).json(response);
