@@ -13,8 +13,8 @@ export default function Login() {
                 <article className="form-container">
                     <LoginForm />
                     <p className="form-text register-prompt">
-                        Do not have an account? <Link to="/register" className="register-prompt__link">
-                            Sign Up!
+                        Don't have a team yet? <Link to="/register" className="register-prompt__link">
+                            Create your own!
                         </Link>
                     </p>
                     <hr />
