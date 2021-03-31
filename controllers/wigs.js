@@ -12,6 +12,7 @@ const {
 exports.createWIG = async (req, res, next) => {
   const wigId = uuidv4();
   const wigName = req.body.wigName;
+  const teamId = req.body.teamId;
   const lagName = req.body.lagName;
   const lagDataType = req.body.lagDataType;
   const lagCurrency = req.body.lagCurrency;
@@ -55,6 +56,7 @@ exports.createWIG = async (req, res, next) => {
     await createWIG(
       wigId,
       wigName,
+      teamId,
       lagName,
       lagDataType,
       lagCurrency,
