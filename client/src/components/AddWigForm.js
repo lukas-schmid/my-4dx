@@ -1,12 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useGlobalContext } from '../appContext';
+// Import components
+import FormLoaderOverlay from './FormLoaderOverlay';
+// Import data
+import currencyCodes from '../assets/currencyList.json';
 
 export default function AddWigForm() {
+    const { isLoading, setIsLoading } = useGlobalContext();
+
+    const [showCurrencyField, setShowCurrencyField] = useState(false);
+
     const handleSubmit = e => {
         e.preventDefault();
+
+        const formData = {
+            wigName: e.target.wigName.value,
+            lagName: e.target.lagName.value,
+            lagDataType: e.target.trackingType.value,
+            lagCurrency: e.target.lagCurrency ? e.target.lagCurrency.value : '',
+            lagInterval: e.target.trackingTime.value,
+            startDate: e.target.startDate.value,
+            endDate: e.target.endDate.value,
+        };
+
+        console.log(formData);
+
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
     }
 
     return (
         <form className="form" onSubmit={handleSubmit}>
+            {isLoading && <FormLoaderOverlay />}
             <div className="form-section">
                 <label className="form-label" htmlFor="wigName ">What is your WIG?</label>
                 <textarea 
@@ -27,18 +54,38 @@ export default function AddWigForm() {
             <p className="form-section-title">Tracking Type:</p>
             <div className="form-check-inline">
                 <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingType" id="typeNumber" value="number" required/>
+                    <input type="radio" className="form-check-input" name="trackingType" id="typeNumber" value="number" required
+                    onChange={() => setShowCurrencyField(false)}
+                    />
                     <label className="form-check-label" htmlFor="typeNumber">Number</label>
                 </div>
                 <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingType" id="typeMoney" value="money" required/>
+                    <input type="radio" className="form-check-input" name="trackingType" id="typeMoney" value="money" required
+                    onChange={() => setShowCurrencyField(true)}
+                    />
                     <label className="form-check-label" htmlFor="typeMoney">Money</label>
                 </div>
                 <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingType" id="typePercent" value="percent" required/>
+                    <input type="radio" className="form-check-input" name="trackingType" id="typePercent" value="percent" required
+                    onChange={() => setShowCurrencyField(false)}
+                    />
                     <label className="form-check-label" htmlFor="typePercent">Percent</label>
                 </div>
             </div>
+
+            {showCurrencyField && <div className="form-section form-section--inline">
+                <input list="currency" name="lagCurrency" id="lagCurrency" className="form-control form-control--currencyList"/>
+                <label htmlFor="lagCurrency" className="form-label--italic">Select currency</label>
+                <datalist id="currency">
+                    <option value="USD" />
+                    <option value="EUR" />
+                    <option value="GBP" />
+                    {currencyCodes.map((code, index) => {
+                        if (code === 'USD' || code === 'EUR' || code === 'GBP') return <option key={index} value="" />;
+                        return <option key={index} value={code} />;
+                    })}
+                </datalist>
+            </div>}
 
             <p className="form-section-title">Tracking Time:</p>
             <div className="form-check-inline">
@@ -54,11 +101,11 @@ export default function AddWigForm() {
 
             <div className="form-section">
                 <label className="form-label" htmlFor="startDate">Start date:</label>
-                <input type="date" className="form-control" id="startDate" name="startDate" required/>
+                <input type="date" className="form-control" id="startDate" name="startDate" />
             </div>
             <div className="form-section">
                 <label className="form-label" htmlFor="endDate">End date:</label>
-                <input type="date" className="form-control" id="endDate" name="endDate" required/>
+                <input type="date" className="form-control" id="endDate" name="endDate" />
             </div>
 
             <p className="form-section-title">Does your chosen WIG meet the following standards?</p>
@@ -87,7 +134,7 @@ export default function AddWigForm() {
                 <label className="form-check-label" htmlFor="check6">It is written in the form "from X to Y by When"</label>
             </div>
 
-            <button type="submit" className="btn btn-primary">Add WIG</button>
+            <button type="submit" className="btn btn-primary" disabled={isLoading}>Add WIG</button>
         </form>
     )
 }
