@@ -8,7 +8,7 @@ export default function NavLink({...rest}) {
     return (
         <Link {...rest} onClick={() => {
             setActiveMenu('main');
-            setShowMenu(!showMenu);
+            setShowMenu(false);
         }}></Link>
     )
 }

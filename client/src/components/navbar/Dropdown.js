@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { useNavContext } from '../../navContext';
+import { useGlobalContext } from '../../appContext';
 // Import components
 import NavLink from './NavLink';
 import SecondaryDropdown from './SecondaryDropdown';
@@ -8,8 +9,10 @@ import SecondaryDropdown from './SecondaryDropdown';
 import { BiLogOut } from "react-icons/bi";
 import { RiAdminFill } from "react-icons/ri";
 import { FiSettings } from "react-icons/fi";
+import { GiConsoleController } from 'react-icons/gi';
 
 export default function Dropdown() {
+    const { isAdmin, logOutUser } = useGlobalContext();
 
     const {
         activeMenu, 
@@ -17,7 +20,8 @@ export default function Dropdown() {
         menuHeight,  
         dropdownRef,
         calcHeight,
-        menulinks
+        menulinks,
+        removeEventListeners
     } = useNavContext();
 
     const mainRef = useRef(null);
@@ -25,8 +29,12 @@ export default function Dropdown() {
     const links_main = menulinks.find(linkObj => linkObj.section === 'main');
     const links_personal = menulinks.find(linkObj => linkObj.section === 'personal');
 
-    const links_setup = menulinks.find(linkObj => linkObj.section === '4dx setup');
-    const links_admin = menulinks.find(linkObj => linkObj.section === 'admin');
+    let links_setup = [];
+    let links_admin = [];
+    if (isAdmin) {
+        links_setup = menulinks.find(linkObj => linkObj.section === '4dx setup');
+        links_admin = menulinks.find(linkObj => linkObj.section === 'admin');
+    }
 
     return (
         <nav style={{ height: menuHeight }} ref={dropdownRef} className="dropdown">
@@ -39,30 +47,32 @@ export default function Dropdown() {
                 onEnter={() => calcHeight(mainRef)}
             >
                 <ul ref={mainRef}>
-                    {/* <li><BiChevronRightSquare className="icon"/><NavLink to="/welcome">Scoreboard</NavLink></li> */}
-                    
                     {links_main && links_main.links.map((linkItem, index) => {
                         return <li key={index}>{linkItem.icon} <NavLink to={linkItem.url}>{linkItem.label}</NavLink></li>
                     })}
 
-                    { /* Conditional rendering on isAdmin */ }
-                    <hr />
-                    <li onClick={() => {setActiveMenu('setup')}}><FiSettings />4dx setup</li>
-                    <li onClick={() => {setActiveMenu('admin')}}><RiAdminFill />admin</li>
-                    <hr />
-                    { /* ./conditionalRendering */ }
+                    {isAdmin && <>
+                        <hr />
+                        <li onClick={() => {setActiveMenu('setup')}}><FiSettings />4dx setup</li>
+                        <li onClick={() => {setActiveMenu('admin')}}><RiAdminFill />admin</li>
+                        <hr />
+                    </>}
                     
                     {links_personal && links_personal.links.map((linkItem, index) => {
                         return <li key={index}>{linkItem.icon} <NavLink to={linkItem.url}>{linkItem.label}</NavLink></li>
                     })}
 
-                    <li><BiLogOut /><NavLink to="/">logout</NavLink></li>
+                    <li><BiLogOut /><a href="#" onClick={e => {
+                        e.preventDefault();
+                        logOutUser();
+                    }}>logout</a></li>
                 </ul>
             </CSSTransition>
 
-            { /* Conditional rendering on isAdmin */ }
-            <SecondaryDropdown menuName="setup" linksObj={links_setup.links}/>
-            <SecondaryDropdown menuName="admin" linksObj={links_admin.links}/>
+            {isAdmin && <>
+                <SecondaryDropdown menuName="setup" linksObj={links_setup.links}/>
+                <SecondaryDropdown menuName="admin" linksObj={links_admin.links}/>
+            </>}
         </nav>
     )
 }

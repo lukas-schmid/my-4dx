@@ -1,8 +1,9 @@
 import React from 'react';
-// Import helpers
-import { login } from '../apiHelper';
+import { useGlobalContext } from '../appContext';
 
 export default function LoginForm() {
+    const { logInUser } = useGlobalContext();
+
     const handleSubmit = e => {
         e.preventDefault();
 
@@ -10,15 +11,9 @@ export default function LoginForm() {
             email: e.target.email.value,
             password: e.target.password.value,
         }
-        
-        login(formData)
-            .then(data => {
-                console.log(data);
-                e.target.reset();
-            })
-            .catch(err => {
-                console.error(err);
-            });
+
+        logInUser(formData.email, formData.password)
+            .then(data => e.target.reset());
     }
 
     return (
