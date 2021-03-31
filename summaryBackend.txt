@@ -75,9 +75,15 @@ Request body:
 Response:
 Status 200:
     {
-        "isLoggedIn": true,
-        "userId": "P8vvQEEasXXXXXXXXcYsdCoOMQp1",
-        "email": "firstname.lastname@example.com"
+        "name": "John Doe",
+        "email": "demo-admin@my-4dx.herokuapp.com",
+        "id": "5VttOTGHhmY2H9h8glkX30Gv4fo2",
+        "title": "Team Lead Sales",
+        "teamName": "Sales Team",
+        "companyName": "yourCompany ltd",
+        "scoreboardInclude": true,
+        "teamId": "f3971270-497a-475b-89f2-994df7cca70c",
+        "isLoggedIn": true
     }
 
 1.3 post("/api/logout")
@@ -217,6 +223,7 @@ Status 204:
 Request body:
     {
         "wigName": "increase sale by 70%",
+        "teamId": "f3971270-497a-475b-89f2-994df7cca70c",
         "lagName":"increase sale calls",
         "lagDataType": "money",
         "lagCurrency": "SEK",
