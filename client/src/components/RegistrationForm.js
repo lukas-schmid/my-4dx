@@ -3,6 +3,18 @@ import React from 'react';
 export default function RegistrationForm() {
     const handleSubmit = e => {
         e.preventDefault();
+
+        const formData = {
+            email: e.target.email.value,
+            password: e.target.password.value,
+            adminName: e.target.adminName.value,
+            companyName: e.target.company.value,
+            teamName: e.target.teamName.value,
+            title: e.target.adminTitle.value,
+        }
+
+        console.log(formData);
+
     }
 
     return (
@@ -11,6 +23,10 @@ export default function RegistrationForm() {
             <div className="form-section">
                 <label className="form-label" htmlFor="adminName">Your Name:</label>
                 <input type="text" className="form-control" id="adminName" name="adminName" required placeholder="E.g. John Watson"/>
+            </div>
+            <div className="form-section">
+                <label className="form-label" htmlFor="adminTitle">Your Role:</label>
+                <input type="text" className="form-control" id="adminTitle" name="adminTitle" placeholder="E.g. Consulting Detective"/>
             </div>
             <div className="form-section">
                 <label className="form-label" htmlFor="email">Email address:</label>
@@ -23,7 +39,7 @@ export default function RegistrationForm() {
             </div>
             <div className="form-section">
                 <label className="form-label" htmlFor="teamName">Pick a Team Name:</label>
-                <input type="text" className="form-control" id="teamName" name="teamName" required placeholder="E.g. Consulting Detectives"/>
+                <input type="text" className="form-control" id="teamName" name="teamName" required placeholder="E.g. Official Police Consultants"/>
             </div>
             <div className="form-section">
                 <label htmlFor="password" className="form-label">Choose a Password:</label>

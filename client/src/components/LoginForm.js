@@ -3,6 +3,14 @@ import React from 'react';
 export default function LoginForm() {
     const handleSubmit = e => {
         e.preventDefault();
+
+        const formData = {
+            email: e.target.email.value,
+            password: e.target.password.value,
+        }
+
+        console.log(formData);
+
     }
 
     return (
