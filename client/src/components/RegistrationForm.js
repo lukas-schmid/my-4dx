@@ -1,17 +1,14 @@
 import React from 'react';
 import { useGlobalContext } from '../appContext';
-// Import helpers
-import { register } from '../apiHelper';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function RegistrationForm() {
-    const { isLoading, setIsLoading } = useGlobalContext();
+    const { isLoading, createNewTeam } = useGlobalContext();
 
     const handleSubmit = async e => {
         e.preventDefault();
-        setIsLoading(true);
-
+        
         const formData = {
             email: e.target.email.value,
             password: e.target.password.value,
@@ -21,16 +18,8 @@ export default function RegistrationForm() {
             title: e.target.adminTitle.value,
         }
  
-        register(formData)
-            .then(data => {
-                console.log(data);
-                setIsLoading(false);
-                e.target.reset();
-            })
-            .catch(err => {
-                setIsLoading(false);
-                console.error(err);
-            });
+        createNewTeam(formData)
+            .then(data => e.target.reset());
     }
 
     return (

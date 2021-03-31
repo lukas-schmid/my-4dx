@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 // Import helpers
-import { login } from './apiHelper';
+import { login, register } from './apiHelper';
 
 const AppContext = React.createContext();
 
@@ -24,8 +24,21 @@ function AppProvider({ children }) {
       if (!data.errorCode) {
         setIsLoggedIn(true);
         setIsAdmin(data.isAdmin);
-        setIsAdmin(!isAdmin);
         history.push('/welcome');
+
+        console.log(data);
+        /* Response:
+          companyName: "CH Finance"
+          email: "goran@chfinance.org"
+          id: "BKUuVcuXO7PUrjlFV08G1bTNVvJ3"
+          isAdmin: true
+          isLoggedIn: true
+          name: "Goran Carlsson"
+          scoreboardInclude: true
+          teamId: "aceec219-e983-4bfd-979f-118c543720be"
+          teamName: "CH Finance Executive Team"
+          title: "CEO"
+        */
       }
     } catch (error) {
         console.error(error);
@@ -38,6 +51,35 @@ function AppProvider({ children }) {
     history.push('/login');
   }
 
+  const createNewTeam = async reqObject => {
+    setIsLoading(true);
+    try {
+      const data = await register(reqObject);
+      if (!data.errorCode) {
+        setIsLoggedIn(true);
+        setIsAdmin(true);
+        history.push('/welcome');
+
+        console.log(data);
+
+        /* Response:
+          companyName: "CH Finance"
+          email: "goran@chfinance.org"
+          id: "BKUuVcuXO7PUrjlFV08G1bTNVvJ3"
+          isAdmin: true
+          name: "Goran Carlsson"
+          scoreboardInclude: true
+          teamId: "aceec219-e983-4bfd-979f-118c543720be"
+          teamName: "CH Finance Executive Team"
+          title: "CEO"
+        */
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    setIsLoading(false);
+  }
+
   // ------- RETURN -------
   return (
     <AppContext.Provider value={{
@@ -46,7 +88,8 @@ function AppProvider({ children }) {
       logInUser,
       isLoggedIn,
       logOutUser,
-      isAdmin
+      isAdmin,
+      createNewTeam
     }}>
       {children}
     </AppContext.Provider>
