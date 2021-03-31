@@ -39,10 +39,11 @@ curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:808
 body=$(jq -n --arg b "$teamId" '{
     "wigName": "increase sale by 70%",
     "lagName":"increase sale calls",
-    "lagDataType": "number",
+    "lagDataType": "money",
+    "lagCurrency": "SEK",
     "lagInterval": "weekly",
     "startDate": "2021-01-15",
-    "endDate": "2021-02-15"
+    "endDate": "2021-03-31"
 }')
 
 echo "POST http://localhost:8080/api/wigs"
@@ -53,7 +54,8 @@ curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:808
 body=$(jq -n --arg b "$teamId" '{
     "wigName": "increase sale by 70%",
     "lagName":"increase sale calls",
-    "lagDataType": "number",
+    "lagDataType": "money",
+    "lagCurrency": "SEK",
     "lagInterval": "monthly",
     "startDate": "2021-01-15",
     "endDate": "2021-03-31"

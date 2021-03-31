@@ -14,6 +14,7 @@ exports.createWIG = async (req, res, next) => {
   const wigName = req.body.wigName;
   const lagName = req.body.lagName;
   const lagDataType = req.body.lagDataType;
+  const lagCurrency = req.body.lagCurrency;
   const lagInterval = req.body.lagInterval;
   let startDate = req.body.startDate;
   const endDate = req.body.endDate;
@@ -56,6 +57,7 @@ exports.createWIG = async (req, res, next) => {
       wigName,
       lagName,
       lagDataType,
+      lagCurrency,
       lagInterval,
       formatDate(startDate),
       endDate,

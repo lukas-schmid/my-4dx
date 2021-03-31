@@ -218,7 +218,8 @@ Request body:
     {
         "wigName": "increase sale by 70%",
         "lagName":"increase sale calls",
-        "lagDataType": "number",
+        "lagDataType": "money",
+        "lagCurrency": "SEK",
         "lagInterval": "weekly",
         "startDate": "2021-01-15",
         "endDate": "2021-02-15"
@@ -259,6 +260,7 @@ Status 201:
     ],
     "lagInterval": "weekly",
     "lagDataType": "number",
+    "lagCurrency": "SEK",
     "startDate": "2021-01-11"
 }
 
