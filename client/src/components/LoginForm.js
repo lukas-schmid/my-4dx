@@ -8,13 +8,13 @@ export default function LoginForm() {
             email: e.target.email.value,
             password: e.target.password.value,
         }
-
         console.log(formData);
 
+        e.target.reset();
     }
 
     return (
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit} >
             <h2 className="form-title">Login</h2>
             <div className="form-section">
                 <label className="form-label" htmlFor="email">Email address</label>
