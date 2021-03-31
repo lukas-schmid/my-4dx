@@ -22,10 +22,7 @@ export default function Welcome() {
     const { loading } = useGlobalContext();
 
     return (
-        <div style={{
-            backgroundColor: "white",
-            width: "400px",
-        }}>
+        <div className="page-container">
             <Scoreboard />
         </div>
     )
