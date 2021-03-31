@@ -1,6 +1,11 @@
 import React from 'react';
+import { useGlobalContext } from '../appContext';
+// Import components
+import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function RegistrationForm() {
+    const { isLoading, setIsLoading } = useGlobalContext();
+
     const handleSubmit = e => {
         e.preventDefault();
 
@@ -12,13 +17,17 @@ export default function RegistrationForm() {
             teamName: e.target.teamName.value,
             title: e.target.adminTitle.value,
         }
-
         console.log(formData);
 
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
     }
 
     return (
         <form className="form" onSubmit={handleSubmit}>
+            {isLoading && <FormLoaderOverlay />}
             <h2 className="form-title">Team Creation Wizard</h2>
             <div className="form-section">
                 <label className="form-label" htmlFor="adminName">Your Name:</label>
@@ -49,7 +58,7 @@ export default function RegistrationForm() {
                 <label htmlFor="passwordConfirm" className="form-label">Confirm Password:</label>
                 <input type="password" className="form-control" id="passwordConfirm" name="passwordConfirm" required placeholder="E.g. MoriartyIsEvil!"/>
             </div>
-            <button type="submit" className="btn btn-success">Create Account</button>
+            <button type="submit" className="btn btn-success" disabled={isLoading}>Create Account</button>
         </form>
     )
 }
