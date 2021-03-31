@@ -3,8 +3,6 @@ const admin = require("firebase-admin");
 require("firebase/auth");
 require("firebase/firestore");
 require("../config/auth");
-//require("../config/db");
-//const db = require("../config/db");
 const { v4: uuidv4 } = require("uuid");
 const users = require("../models/users");
 const service = require("../services/users");
@@ -23,33 +21,36 @@ const sendPasswordReset = async (email) => {
 
 exports.registerTeam = async (req, res, next) => {
   try {
-    const email = req.body.email;
-    const password = req.body.password;
-    const name = req.body.name;
-    const companyName = req.body.companyName;
-    const teamId = uuidv4();
-    const teamName = req.body.teamName;
-    const title = req.body.title;
-    const isAdmin = true;
-    const scoreboardInclude = true;
+    const body = {
+      email: req.body.email,
+      password: req.body.password,
+      name: req.body.name,
+      companyName: req.body.companyName,
+      teamId: uuidv4(),
+      teamName: req.body.teamName,
+      title: req.body.title,
+      isAdmin: true,
+      scoreboardInclude: true,
+    };
 
     return await firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+      .createUserWithEmailAndPassword(body.email, body.password)
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        users.addUser(
+        await users.addUser(
           user.uid,
-          email,
-          name,
-          companyName,
-          teamId,
-          teamName,
-          title,
-          isAdmin,
-          scoreboardInclude
+          body.email,
+          body.name,
+          body.companyName,
+          body.teamId,
+          body.teamName,
+          body.title,
+          body.isAdmin,
+          body.scoreboardInclude
         );
-        res.status(201).json({ message: "New team created" });
+        const response = await service.getUser(user.uid);
+        res.status(201).json(response);
       })
       .catch((error) => {
         const err = {
@@ -143,9 +144,9 @@ exports.addMember = async (req, res, next) => {
     return await firebase
       .auth()
       .createUserWithEmailAndPassword(body.email, body.password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        users.addUser(
+        await users.addUser(
           user.uid,
           body.email,
           body.name,
@@ -157,8 +158,8 @@ exports.addMember = async (req, res, next) => {
           body.scoreboardInclude
         );
         sendPasswordReset(body.email);
-        body.id = user.uid;
-        res.status(201).json(body);
+        const response = await service.getUser(user.uid);
+        res.status(201).json(response);
       })
       .catch((error) => {
         const err = {
