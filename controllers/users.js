@@ -71,14 +71,11 @@ exports.login = async (req, res, next) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        const response = {
-          isLoggedIn: true,
-          userId: user.uid,
-          email: user.email,
-        };
-        res.status(200).json(response);
+        const userData = await service.getUser(user.uid);
+        userData.isLoggedIn = true;
+        res.status(200).json(userData);
       })
       .catch((error) => {
         const err = {
