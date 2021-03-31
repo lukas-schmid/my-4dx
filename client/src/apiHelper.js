@@ -9,9 +9,10 @@ import { postFetch, getFetch, putFetch, deleteFetch } from "./fetchFunctions";
 //     title: "Team Lead Sales",
 //   };
 
-export function register(body) {
+export async function register(body) {
   const url = "https://my-4dx.herokuapp.com/api/register";
-  return postFetch(url, body);
+  const response = await postFetch(url, body);
+  return response;
 }
 
 // body = {
@@ -28,7 +29,7 @@ export function login(body) {
 
 export function logout() {
   const url = "https://my-4dx.herokuapp.com/api/logout";
-  return postFetch(url, body);
+  return postFetch(url);
 }
 
 // body = {
