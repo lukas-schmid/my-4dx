@@ -1,4 +1,6 @@
 import React from 'react';
+// Import helpers
+import { login } from '../apiHelper';
 
 export default function LoginForm() {
     const handleSubmit = e => {
@@ -8,9 +10,15 @@ export default function LoginForm() {
             email: e.target.email.value,
             password: e.target.password.value,
         }
-        console.log(formData);
-
-        e.target.reset();
+        
+        login(formData)
+            .then(data => {
+                console.log(data);
+                e.target.reset();
+            })
+            .catch(err => {
+                console.error(err);
+            });
     }
 
     return (

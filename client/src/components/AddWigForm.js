@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
+// Import helpers
+import { createWig } from '../apiHelper';
 // Import data
 import currencyCodes from '../assets/currencyList.json';
 
@@ -12,6 +14,7 @@ export default function AddWigForm() {
 
     const handleSubmit = e => {
         e.preventDefault();
+        setIsLoading(true);
 
         const formData = {
             wigName: e.target.wigName.value,
@@ -21,14 +24,19 @@ export default function AddWigForm() {
             lagInterval: e.target.trackingTime.value,
             startDate: e.target.startDate.value,
             endDate: e.target.endDate.value,
+            // teamId: String
         };
 
-        console.log(formData);
-
-        setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
+        createWig(formData)
+            .then(data => {
+                console.log(data);
+                setIsLoading(false);
+                e.target.reset();
+            })
+            .catch(err => {
+                setIsLoading(false);
+                console.error(err);
+            });
     }
 
     return (
