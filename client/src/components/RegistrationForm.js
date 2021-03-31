@@ -1,28 +1,36 @@
 import React from 'react';
 import { useGlobalContext } from '../appContext';
+// Import helpers
+import { register } from '../apiHelper';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function RegistrationForm() {
     const { isLoading, setIsLoading } = useGlobalContext();
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
+        setIsLoading(true);
 
         const formData = {
             email: e.target.email.value,
             password: e.target.password.value,
-            adminName: e.target.adminName.value,
+            name: e.target.adminName.value,
             companyName: e.target.company.value,
             teamName: e.target.teamName.value,
             title: e.target.adminTitle.value,
         }
-        console.log(formData);
-
-        setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
+ 
+        register(formData)
+            .then(data => {
+                console.log(data);
+                setIsLoading(false);
+                e.target.reset();
+            })
+            .catch(err => {
+                setIsLoading(false);
+                console.error(err);
+            });
     }
 
     return (
