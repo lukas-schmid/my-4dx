@@ -1,12 +1,23 @@
-import React from 'react'
+import React from 'react';
+import { useGlobalContext } from '../appContext';
+// Import components
+import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function AddLeadMeasureForm() {
+    const { isLoading, setIsLoading } = useGlobalContext();
+
     const handleSubmit = e => {
         e.preventDefault();
+
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
     }
 
     return (
         <form className="form" onSubmit={handleSubmit}>
+            {isLoading && <FormLoaderOverlay />}
             <div className="form-section">
                 <label htmlFor="wigSelect" className="form-label">Which WIG is this lag measure for?</label>
                 <select className="form-select" id="wigSelect">
@@ -75,7 +86,7 @@ export default function AddLeadMeasureForm() {
                 <label className="form-check-label" htmlFor="check4">Results are primarily driven by the performance of the team and not the team leader</label>
             </div>
 
-            <button type="submit" className="btn btn-primary">Add Lead Measure</button>
+            <button type="submit" className="btn btn-primary" disabled={isLoading}>Add Lead Measure</button>
         </form>
     )
 }

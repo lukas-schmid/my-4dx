@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function Loader() {
+export default function Loader({color}) {
     return (
-        <div className="loader">Loading...</div>
+        <div className={color ? `loader loader--${color}` : 'loader'}>Loading...</div>
     )
 }

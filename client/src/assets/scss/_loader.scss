@@ -1,3 +1,17 @@
+.loader-overlay {
+  background: white;
+  opacity: 0.9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom:0;
+  right:0;
+  z-index:2019;
+
+  display: flex;
+  align-items: flex-end;
+}
+
 .loader,
 .loader:before,
 .loader:after {
@@ -9,7 +23,6 @@
 }
 
 .loader {
-  color: $dark-gold;
   text-indent: -9999em;
   margin: 150px auto;
   font-size: 3rem;
@@ -18,6 +31,12 @@
   transform: translateZ(0);
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
+
+  color: $dark-gold;
+
+  &--blue {
+    color: $primary-blue;
+  }
 }
 
 .loader:before,

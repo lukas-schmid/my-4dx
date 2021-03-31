@@ -1,49 +1,56 @@
 import React from 'react';
-import { getWeek, addDays, getMondayDate, getFirstOfMonth } from '../helpers';
+import { useGlobalContext } from '../appContext';
+// Import components
+import FormLoaderOverlay from './FormLoaderOverlay';
+// Import helpers
+import { addDays, getMondayDate, getFirstOfMonth } from '../helpers';
 
 export default function AddWigForm() {
+    const { isLoading, setIsLoading } = useGlobalContext();
+
     const handleSubmit = e => {
         e.preventDefault();
 
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+
         // Add rejection for if startDate > endDate
 
-        // Example date
-        const formData = {
-            wigName: e.target.wigName.value,
-            lagName: e.target.lagName.value,
-            lagDataType: e.target.trackingType.value,
-            lagInterval: e.target.trackingTime.value,
-            endDate: e.target.endDate.value,
-        }
+        // const formData = {
+        //     wigName: e.target.wigName.value,
+        //     lagName: e.target.lagName.value,
+        //     lagDataType: e.target.trackingType.value,
+        //     lagInterval: e.target.trackingTime.value,
+        //     endDate: e.target.endDate.value,
+        // }
 
-        console.log(e.target.endDate.value)
+        // console.log(e.target.endDate.value)
 
-        if (formData.lagInterval === 'weekly') formData.startDate = getMondayDate(e.target.startDate.value);
-        if (formData.lagInterval === 'monthly') formData.startDate = getFirstOfMonth(e.target.startDate.value);
+        // if (formData.lagInterval === 'weekly') formData.startDate = getMondayDate(e.target.startDate.value);
+        // if (formData.lagInterval === 'monthly') formData.startDate = getFirstOfMonth(e.target.startDate.value);
 
-        if (formData.lagInterval === 'weekly') {
-            let whileArray = [];
-            let date = new Date(formData.startDate);
-            while (date < new Date(formData.endDate)) {
-                whileArray.push({
-                    startDate: date,
-                    goal: '',
-                    actual: ''
-                })
-                date = addDays(date, 7);
-            }
-            formData.lagData = whileArray;
-        }
+        // if (formData.lagInterval === 'weekly') {
+        //     let whileArray = [];
+        //     let date = new Date(formData.startDate);
+        //     while (date < new Date(formData.endDate)) {
+        //         whileArray.push({
+        //             startDate: date,
+        //             goal: '',
+        //             actual: ''
+        //         })
+        //         date = addDays(date, 7);
+        //     }
+        //     formData.lagData = whileArray;
+        // }
         
-        console.log(formData.lagData)
-
-        // Data calc improvements needed:
-            // Add calculation for if startYear < endYear
-            // Reset day to monday (if weekly) || to 1st of month (if monthly)
+        // console.log(formData.lagData)
     }
 
     return (
         <form className="form" onSubmit={handleSubmit}>
+            {isLoading && <FormLoaderOverlay />}
             <div className="form-section">
                 <label className="form-label" htmlFor="wigName ">What is your WIG?</label>
                 <textarea 
@@ -124,7 +131,7 @@ export default function AddWigForm() {
                 <label className="form-check-label" htmlFor="check6">It is written in the form "from X to Y by When"</label>
             </div>
 
-            <button type="submit" className="btn btn-primary">Add WIG</button>
+            <button type="submit" className="btn btn-primary" disabled={isLoading}>Add WIG</button>
         </form>
     )
 }
