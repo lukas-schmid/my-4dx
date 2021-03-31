@@ -35,7 +35,7 @@ const menulinks = [
     {
       section: 'personal',
       links: [
-        { label: 'manage account', icon: <RiAccountCircleLine />, url: '/account' },
+        { label: 'my account', icon: <RiAccountCircleLine />, url: '/account' },
       ],
     },
   ];

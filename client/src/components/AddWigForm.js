@@ -1,8 +1,45 @@
-import React from 'react'
+import React from 'react';
+import { getWeek, addDays, getMondayDate, getFirstOfMonth } from '../helpers';
 
 export default function AddWigForm() {
     const handleSubmit = e => {
         e.preventDefault();
+
+        // Add rejection for if startDate > endDate
+
+        // Example date
+        const formData = {
+            wigName: e.target.wigName.value,
+            lagName: e.target.lagName.value,
+            lagDataType: e.target.trackingType.value,
+            lagInterval: e.target.trackingTime.value,
+            endDate: e.target.endDate.value,
+        }
+
+        console.log(e.target.endDate.value)
+
+        if (formData.lagInterval === 'weekly') formData.startDate = getMondayDate(e.target.startDate.value);
+        if (formData.lagInterval === 'monthly') formData.startDate = getFirstOfMonth(e.target.startDate.value);
+
+        if (formData.lagInterval === 'weekly') {
+            let whileArray = [];
+            let date = new Date(formData.startDate);
+            while (date < new Date(formData.endDate)) {
+                whileArray.push({
+                    startDate: date,
+                    goal: '',
+                    actual: ''
+                })
+                date = addDays(date, 7);
+            }
+            formData.lagData = whileArray;
+        }
+        
+        console.log(formData.lagData)
+
+        // Data calc improvements needed:
+            // Add calculation for if startYear < endYear
+            // Reset day to monday (if weekly) || to 1st of month (if monthly)
     }
 
     return (
@@ -54,11 +91,11 @@ export default function AddWigForm() {
 
             <div className="form-section">
                 <label className="form-label" htmlFor="startDate">Start date:</label>
-                <input type="date" className="form-control" id="startDate" name="startDate" required/>
+                <input type="date" className="form-control" id="startDate" name="startDate" />
             </div>
             <div className="form-section">
                 <label className="form-label" htmlFor="endDate">End date:</label>
-                <input type="date" className="form-control" id="endDate" name="endDate" required/>
+                <input type="date" className="form-control" id="endDate" name="endDate" />
             </div>
 
             <p className="form-section-title">Does your chosen WIG meet the following standards?</p>
