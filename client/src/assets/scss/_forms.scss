@@ -8,6 +8,7 @@
 
 .form {
     width: 100%;
+    position: relative;
 }
 
 .form-title {
@@ -17,6 +18,17 @@
 
 .form-section {
     margin: 1.5rem 0 1rem 0;
+
+    &--inline {
+        display: flex;
+
+        align-items: center;
+    }
+}
+
+.form-control--currencyList {
+    max-width: 85px;
+    margin-right: 10px;
 }
 
 .form-section-title {
@@ -35,20 +47,20 @@
     justify-content: flex-start;
 
     .form-check-label {
-        margin-right: 1.2rem;
+        margin-right: 1.3rem;
     }
 
     @include min-width (400px) {
         flex-flow: wrap;
     }
 
-    &--multiCol {
-        @include min-width (345px) {
-          display: grid;
-          grid-template-columns: auto 1fr;
-          grid-column-gap: 20px;
-        }
-    }
+    // &--multiCol {
+    //     @include min-width (345px) {
+    //       display: grid;
+    //       grid-template-columns: auto 1fr;
+    //       grid-column-gap: 20px;
+    //     }
+    // }
 }
 
 .check-gap {
@@ -60,6 +72,10 @@
 .form-label {
     margin-bottom: 0.5rem;
     display: inline-block;
+
+    &--italic {
+        font-style: italic;
+    }
 }
 
 textarea.form-control {

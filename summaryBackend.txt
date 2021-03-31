@@ -44,17 +44,25 @@ Request & Response
 
 Request body:
     {
-        "email": "firstname.lastname@example.com",
+        "email": "demo-admin@my-4dx.herokuapp.com",
         "password": "passwort123",
         "name": "John Doe",
-        "companyName": "XYZ ltd",
+        "companyName": "yourCompany ltd",
         "teamName": "Sales Team",
-        "title": "Sales"
+        "title": "Team Lead Sales"
     }
 Response:
 Status 201:
     {
-        "message": "New team created"
+        "id": "MlybPJOwlXXXXXXXXdwqPufjAG3"
+        "email": "demo-admin@my-4dx.herokuapp.com",
+        "name": "John Doe",
+        "companyName": "yourCompany ltd",
+        "teamId": "ea67c8dd-XXXX-XXXX-XXXX-01a0f22b55a3",
+        "teamName": "Sales Team",
+        "title": "Team Lead Sales"
+        "isAdmin": true,
+        "scoreboardInclude": true,
     }
 
 1.2 post("/api/login")
@@ -141,18 +149,26 @@ Status 200:
 
 Request body:
     {
-        "email": "firstname.lastname@example.com",
+        "email": "demo-user@my-4dx.herokuapp.com",
         "password": "password123",
-        "name": "Tom Johnson",
-        "companyName": "XYZ ltd",
-        "teamId": "0af5baa1-XXXX-XXXX-XXXX-55830fa3009b",
+        "name": "Jane Doe",
+        "companyName": "yourCompany ltd",
+        "teamId": "ea67c8dd-XXXX-XXXX-XXXX-01a0f22b55a3",
         "teamName": "Sales Team",
         "title": "Marketing"
     }
 Response:
 Status 201:
     {
-        "message": "New User created"
+        "id": "MlybPJOwlXXXXXXXXdwqPufjAG3"
+        "email": "demo-user@my-4dx.herokuapp.com",
+        "name": "Jane Doe",
+        "companyName": "yourCompany ltd",
+        "teamId": "ea67c8dd-XXXX-XXXX-XXXX-01a0f22b55a3",
+        "teamName": "Sales Team",
+        "title": "Marketing",
+        "isAdmin": false,
+        "scoreboardInclude": true,
     }
 
 
@@ -200,25 +216,53 @@ Status 204:
 
 Request body:
     {
-        "wigName": "increase sale by 30%",
-        "lagName":"increase calls",
-        "lagDataType": "percent",
-        "lagInterval": "monthly",
-        "startDate": "2021-01-01",
-        "endDate": "2021-01-31"
+        "wigName": "increase sale by 70%",
+        "lagName":"increase sale calls",
+        "lagDataType": "money",
+        "lagCurrency": "SEK",
+        "lagInterval": "weekly",
+        "startDate": "2021-01-15",
+        "endDate": "2021-02-15"
     }
 Response:
 Status 201:
     {
-        "wigId": "c7969b89-5af6-4d90-9266-fd4781959577",
-        "wigName": "increase sale by 30%",
-        "lagName":"increase calls",
-        "lagDataType": "percent",
-        "lagInterval": "monthly",
-        "startDate": "2021-01-01",
-        "endDate": "2021-01-31",
-        "lagData": []
-    }
+    "wigId": "54605be5-82e2-45a1-8e15-7b19e71cea22",
+    "lagName": "increase sale calls",
+    "endDate": "2021-02-15",
+    "wigName": "increase sale by 70%",
+    "lagData": [
+        {
+            "startDate": "2021-01-11",
+            "actual": "",
+            "goal": ""
+        },
+        {
+            "goal": "",
+            "startDate": "2021-01-18",
+            "actual": ""
+        },
+        {
+            "startDate": "2021-01-25",
+            "actual": "",
+            "goal": ""
+        },
+        {
+            "startDate": "2021-02-01",
+            "goal": "",
+            "actual": ""
+        },
+        {
+            "goal": "",
+            "startDate": "2021-02-08",
+            "actual": ""
+        }
+    ],
+    "lagInterval": "weekly",
+    "lagDataType": "number",
+    "lagCurrency": "SEK",
+    "startDate": "2021-01-11"
+}
 
 3.2 put("/api/wigs/:wigId")
 
