@@ -1,51 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
-// Import helpers
-import { addDays, getMondayDate, getFirstOfMonth } from '../helpers';
+// Import data
+import currencyCodes from '../assets/currencyList.json';
 
 export default function AddWigForm() {
     const { isLoading, setIsLoading } = useGlobalContext();
 
+    const [showCurrencyField, setShowCurrencyField] = useState(false);
+
     const handleSubmit = e => {
         e.preventDefault();
+
+        const formData = {
+            wigName: e.target.wigName.value,
+            lagName: e.target.lagName.value,
+            lagDataType: e.target.trackingType.value,
+            lagCurrency: e.target.lagCurrency ? e.target.lagCurrency.value : '',
+            lagInterval: e.target.trackingTime.value,
+            startDate: e.target.startDate.value,
+            endDate: e.target.endDate.value,
+        };
+
+        console.log(formData);
 
         setIsLoading(true);
         setTimeout(() => {
             setIsLoading(false);
         }, 3000);
-
-        // Add rejection for if startDate > endDate
-
-        // const formData = {
-        //     wigName: e.target.wigName.value,
-        //     lagName: e.target.lagName.value,
-        //     lagDataType: e.target.trackingType.value,
-        //     lagInterval: e.target.trackingTime.value,
-        //     endDate: e.target.endDate.value,
-        // }
-
-        // console.log(e.target.endDate.value)
-
-        // if (formData.lagInterval === 'weekly') formData.startDate = getMondayDate(e.target.startDate.value);
-        // if (formData.lagInterval === 'monthly') formData.startDate = getFirstOfMonth(e.target.startDate.value);
-
-        // if (formData.lagInterval === 'weekly') {
-        //     let whileArray = [];
-        //     let date = new Date(formData.startDate);
-        //     while (date < new Date(formData.endDate)) {
-        //         whileArray.push({
-        //             startDate: date,
-        //             goal: '',
-        //             actual: ''
-        //         })
-        //         date = addDays(date, 7);
-        //     }
-        //     formData.lagData = whileArray;
-        // }
-        
-        // console.log(formData.lagData)
     }
 
     return (
@@ -71,18 +54,38 @@ export default function AddWigForm() {
             <p className="form-section-title">Tracking Type:</p>
             <div className="form-check-inline">
                 <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingType" id="typeNumber" value="number" required/>
+                    <input type="radio" className="form-check-input" name="trackingType" id="typeNumber" value="number" required
+                    onChange={() => setShowCurrencyField(false)}
+                    />
                     <label className="form-check-label" htmlFor="typeNumber">Number</label>
                 </div>
                 <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingType" id="typeMoney" value="money" required/>
+                    <input type="radio" className="form-check-input" name="trackingType" id="typeMoney" value="money" required
+                    onChange={() => setShowCurrencyField(true)}
+                    />
                     <label className="form-check-label" htmlFor="typeMoney">Money</label>
                 </div>
                 <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingType" id="typePercent" value="percent" required/>
+                    <input type="radio" className="form-check-input" name="trackingType" id="typePercent" value="percent" required
+                    onChange={() => setShowCurrencyField(false)}
+                    />
                     <label className="form-check-label" htmlFor="typePercent">Percent</label>
                 </div>
             </div>
+
+            {showCurrencyField && <div className="form-section form-section--inline">
+                <input list="currency" name="lagCurrency" id="lagCurrency" className="form-control form-control--currencyList"/>
+                <label htmlFor="lagCurrency" className="form-label--italic">Select currency</label>
+                <datalist id="currency">
+                    <option value="USD" />
+                    <option value="EUR" />
+                    <option value="GBP" />
+                    {currencyCodes.map((code, index) => {
+                        if (code === 'USD' || code === 'EUR' || code === 'GBP') return <option key={index} value="" />;
+                        return <option key={index} value={code} />;
+                    })}
+                </datalist>
+            </div>}
 
             <p className="form-section-title">Tracking Time:</p>
             <div className="form-check-inline">

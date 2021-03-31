@@ -18,6 +18,17 @@
 
 .form-section {
     margin: 1.5rem 0 1rem 0;
+
+    &--inline {
+        display: flex;
+
+        align-items: center;
+    }
+}
+
+.form-control--currencyList {
+    max-width: 85px;
+    margin-right: 10px;
 }
 
 .form-section-title {
@@ -61,6 +72,10 @@
 .form-label {
     margin-bottom: 0.5rem;
     display: inline-block;
+
+    &--italic {
+        font-style: italic;
+    }
 }
 
 textarea.form-control {
