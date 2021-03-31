@@ -3,6 +3,7 @@ const db = require("../config/db");
 exports.createWIG = async (
   wigId,
   wigName,
+  teamId,
   lagName,
   lagDataType,
   lagCurrency,
@@ -15,6 +16,7 @@ exports.createWIG = async (
   await docRef.set({
     wigId,
     wigName,
+    teamId,
     lagName,
     lagDataType,
     lagCurrency,

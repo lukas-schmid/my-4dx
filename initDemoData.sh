@@ -6,7 +6,7 @@
 
 body=$(jq -n --arg b "$teamId" '{
     "email": "demo-admin@my-4dx.herokuapp.com",
-    "password": "passwort123",
+    "password": "password123",
     "name": "John Doe",
     "companyName": "yourCompany ltd",
     "teamName": "Sales Team",
@@ -38,6 +38,7 @@ curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:808
 # weekly intervals
 body=$(jq -n --arg b "$teamId" '{
     "wigName": "increase sale by 70%",
+    "teamId": "eec0360b-XXXX-XXXX-XXXX-cb7c2c01c7bc",
     "lagName":"increase sale calls",
     "lagDataType": "money",
     "lagCurrency": "SEK",
@@ -53,6 +54,7 @@ curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:808
 # monthly intervals
 body=$(jq -n --arg b "$teamId" '{
     "wigName": "increase sale by 70%",
+    "teamId": "eec0360b-XXXX-XXXX-XXXX-cb7c2c01c7bc",
     "lagName":"increase sale calls",
     "lagDataType": "money",
     "lagCurrency": "SEK",
