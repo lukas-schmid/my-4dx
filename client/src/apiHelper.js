@@ -45,3 +45,17 @@ export function createWig(body) {
   const url = "https://my-4dx.herokuapp.com/api/wigs";
   return postFetch(url, body);
 }
+
+// not specified yet. -> ref to wig, user ....
+// body = {
+// "leadName": "100 phone calls per day",
+// "leadInterval": "daily",
+// "leadDataType": "number",
+// "benchmarkExists": true,
+// "benchmark": "80 calls"
+//   };
+
+export function createLead(body) {
+  const url = "https://my-4dx.herokuapp.com/api/leads";
+  return postFetch(url, body);
+}
