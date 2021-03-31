@@ -216,25 +216,51 @@ Status 204:
 
 Request body:
     {
-        "wigName": "increase sale by 30%",
-        "lagName":"increase calls",
-        "lagDataType": "percent",
-        "lagInterval": "monthly",
-        "startDate": "2021-01-01",
-        "endDate": "2021-01-31"
+        "wigName": "increase sale by 70%",
+        "lagName":"increase sale calls",
+        "lagDataType": "number",
+        "lagInterval": "weekly",
+        "startDate": "2021-01-15",
+        "endDate": "2021-02-15"
     }
 Response:
 Status 201:
     {
-        "wigId": "c7969b89-5af6-4d90-9266-fd4781959577",
-        "wigName": "increase sale by 30%",
-        "lagName":"increase calls",
-        "lagDataType": "percent",
-        "lagInterval": "monthly",
-        "startDate": "2021-01-01",
-        "endDate": "2021-01-31",
-        "lagData": []
-    }
+    "wigId": "54605be5-82e2-45a1-8e15-7b19e71cea22",
+    "lagName": "increase sale calls",
+    "endDate": "2021-02-15",
+    "wigName": "increase sale by 70%",
+    "lagData": [
+        {
+            "startDate": "2021-01-11",
+            "actual": "",
+            "goal": ""
+        },
+        {
+            "goal": "",
+            "startDate": "2021-01-18",
+            "actual": ""
+        },
+        {
+            "startDate": "2021-01-25",
+            "actual": "",
+            "goal": ""
+        },
+        {
+            "startDate": "2021-02-01",
+            "goal": "",
+            "actual": ""
+        },
+        {
+            "goal": "",
+            "startDate": "2021-02-08",
+            "actual": ""
+        }
+    ],
+    "lagInterval": "weekly",
+    "lagDataType": "number",
+    "startDate": "2021-01-11"
+}
 
 3.2 put("/api/wigs/:wigId")
 

@@ -35,7 +35,33 @@ curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:808
 
 # 3. WIG
 # 3.1 post("/api/wigs")
+# weekly intervals
+body=$(jq -n --arg b "$teamId" '{
+    "wigName": "increase sale by 70%",
+    "lagName":"increase sale calls",
+    "lagDataType": "number",
+    "lagInterval": "weekly",
+    "startDate": "2021-01-15",
+    "endDate": "2021-02-15"
+}')
 
+echo "POST http://localhost:8080/api/wigs"
+echo "request body: $body"
+curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/wigs | jq .
+
+# monthly intervals
+body=$(jq -n --arg b "$teamId" '{
+    "wigName": "increase sale by 70%",
+    "lagName":"increase sale calls",
+    "lagDataType": "number",
+    "lagInterval": "monthly",
+    "startDate": "2021-01-15",
+    "endDate": "2021-03-31"
+}')
+
+echo "POST http://localhost:8080/api/wigs"
+echo "request body: $body"
+curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/wigs | jq .
 
 # 3.2 put("/api/wigs/:wigId)
 # 3.3 delete("/api/wigs/:wigId)

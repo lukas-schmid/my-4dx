@@ -1,6 +1,13 @@
 const { createWIG } = require("../models/wigs");
 const { v4: uuidv4 } = require("uuid");
 const service = require("../services/wigs");
+const {
+  getFirstOfMonth,
+  getMondayDate,
+  addDays,
+  addMonth,
+  formatDate,
+} = require("../helpers/helperfunctions");
 
 exports.createWIG = async (req, res, next) => {
   const wigId = uuidv4();
@@ -8,9 +15,41 @@ exports.createWIG = async (req, res, next) => {
   const lagName = req.body.lagName;
   const lagDataType = req.body.lagDataType;
   const lagInterval = req.body.lagInterval;
-  const startDate = req.body.startDate;
+  let startDate = req.body.startDate;
   const endDate = req.body.endDate;
-  const lagData = [{ startDate: "", actual: 0, goal: 0 }];
+  let lagData = [];
+
+  if (lagInterval === "weekly") startDate = getMondayDate(startDate);
+  if (lagInterval === "monthly") startDate = getFirstOfMonth(startDate);
+
+  if (lagInterval === "weekly") {
+    let whileArray = [];
+    let date = new Date(startDate);
+    while (date < new Date(endDate)) {
+      whileArray.push({
+        startDate: formatDate(date),
+        goal: "",
+        actual: "",
+      });
+      date = addDays(date, 7);
+    }
+    lagData = whileArray;
+  }
+
+  if (lagInterval === "monthly") {
+    let whileArray = [];
+    let date = new Date(startDate);
+    while (date < new Date(endDate)) {
+      whileArray.push({
+        startDate: formatDate(new Date(date)),
+        goal: "",
+        actual: "",
+      });
+      date = addMonth(date);
+    }
+    lagData = whileArray;
+  }
+
   try {
     await createWIG(
       wigId,
@@ -18,7 +57,7 @@ exports.createWIG = async (req, res, next) => {
       lagName,
       lagDataType,
       lagInterval,
-      startDate,
+      formatDate(startDate),
       endDate,
       lagData
     );
