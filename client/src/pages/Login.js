@@ -5,8 +5,6 @@ import { useGlobalContext } from '../appContext';
 import PageFooter from '../components/PageFooter';
 import PageHeader from '../components/PageHeader';
 import LoginForm from '../components/LoginForm';
-// Import helpers
-import { login } from '../apiHelper';
 
 export default function Login() {
     const { logInUser } = useGlobalContext();

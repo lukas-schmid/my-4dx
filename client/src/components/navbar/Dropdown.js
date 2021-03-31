@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { useNavContext } from '../../navContext';
 import { useGlobalContext } from '../../appContext';
+import { useLocation } from 'react-router-dom';
 // Import components
 import NavLink from './NavLink';
 import SecondaryDropdown from './SecondaryDropdown';
@@ -9,22 +10,20 @@ import SecondaryDropdown from './SecondaryDropdown';
 import { BiLogOut } from "react-icons/bi";
 import { RiAdminFill } from "react-icons/ri";
 import { FiSettings } from "react-icons/fi";
-import { GiConsoleController } from 'react-icons/gi';
 
 export default function Dropdown() {
     const { isAdmin, logOutUser } = useGlobalContext();
-
     const {
         activeMenu, 
         setActiveMenu, 
         menuHeight,  
         dropdownRef,
         calcHeight,
-        menulinks,
-        removeEventListeners
+        menulinks
     } = useNavContext();
 
     const mainRef = useRef(null);
+    let location = useLocation();
 
     const links_main = menulinks.find(linkObj => linkObj.section === 'main');
     const links_personal = menulinks.find(linkObj => linkObj.section === 'personal');
@@ -62,7 +61,7 @@ export default function Dropdown() {
                         return <li key={index}>{linkItem.icon} <NavLink to={linkItem.url}>{linkItem.label}</NavLink></li>
                     })}
 
-                    <li><BiLogOut /><a href="#" onClick={e => {
+                    <li><BiLogOut /><a href={`${location.pathname}#`} onClick={e => {
                         e.preventDefault();
                         logOutUser();
                     }}>logout</a></li>
