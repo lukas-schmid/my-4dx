@@ -9,6 +9,13 @@ exports.getLead = async (leadId) => {
   }
 };
 
+exports.addLeadToWig = async (wigId, leadMeasures) => {
+  const docRef = db.collection("wigs").doc(wigId);
+  await docRef.update({
+    leadMeasures,
+  });
+};
+
 exports.updateLead = async (
   leadId,
   leadName,

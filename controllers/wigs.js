@@ -20,6 +20,7 @@ exports.createWIG = async (req, res, next) => {
   let startDate = req.body.startDate;
   const endDate = req.body.endDate;
   let lagData = [];
+  const leadMeasures = [];
 
   if (lagInterval === "weekly") startDate = getMondayDate(startDate);
   if (lagInterval === "monthly") startDate = getFirstOfMonth(startDate);
@@ -63,7 +64,8 @@ exports.createWIG = async (req, res, next) => {
       lagInterval,
       formatDate(startDate),
       endDate,
-      lagData
+      lagData,
+      leadMeasures
     );
     const response = await service.getWig(wigId);
     res.status(201).json(response);

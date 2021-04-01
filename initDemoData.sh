@@ -49,7 +49,7 @@ body=$(jq -n --arg b "$teamId" '{
 
 echo "POST http://localhost:8080/api/wigs"
 echo "request body: $body"
-curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/wigs | jq .
+wigId=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/wigs | jq -r .wigId)
 
 # monthly intervals
 body=$(jq -n --arg b "$teamId" '{
@@ -71,7 +71,26 @@ curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:808
 # 3.3 delete("/api/wigs/:wigId)
 
 # 4. Leads
-# 4.1 post("/api/leads")
+# 4.1 post("/api/:wigId/leads")
+body=$(jq -n --arg b "$teamId" '{
+    "leadName": "1000 phone calls per day",
+    "leadInterval": "daily",
+    "leadDataType": "percent",
+    "benchmarkExists": true,
+    "benchmark": "20000 calls",
+    "leadData": [
+        {
+            "startDate": "2020-07-30",
+            "data": 9
+        }
+    ]
+}')
+
+echo "POST http://localhost:8080/api/$wigId/leads"
+echo "request body: $body"
+curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/"$wigId"/leads | jq .
+
+
 # 4.2 put("/api/leads/:leadId")
 
 # 5. Lag
