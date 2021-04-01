@@ -25,6 +25,13 @@ export function login(body) {
   return postFetch(url, body);
 }
 
+// get all members from Team
+export function getTeamMembers(teamId) {
+  const url = `http://my-4dx.herokuapp.com/api/members/${teamId}`;
+  return getFetch(url);
+}
+
+
 // body = {
 //     email: "demo-admin@my-4dx.herokuapp.com",
 //   };
@@ -32,6 +39,23 @@ export function login(body) {
 export function sendPasswordReset(body) {
   const url = "https://my-4dx.herokuapp.com/api/members/passwordreset";
   return postFetch(url, body);
+}
+
+
+// body = {
+//     "email": "demo-user@my-4dx.herokuapp.com",
+//     "password": "password123",
+//     "name": "Jane Doe",
+//     "companyName": "yourCompany ltd",
+//     "teamId": "ea67c8dd-XXXX-XXXX-XXXX-01a0f22b55a3",
+//     "teamName": "Sales Team",
+//     "title": "Marketing"
+// }
+
+export async function addMember(body) {
+  const url = "https://my-4dx.herokuapp.com/api/members";
+  const response = await postFetch(url, body);
+  return response;
 }
 
 // body = {
@@ -77,6 +101,7 @@ export function createWig(body) {
   return postFetch(url, body);
 }
 
+
 // body = {
 //   "leadName": "999 phone calls per day",
 //   "leadInterval": "daily",
@@ -114,6 +139,8 @@ export function updateLead(wigId, leadId, body) {
   const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}`;
   return putFetch(url, body);
 }
+
+
 
 export function deleteLead(wigId, leadId) {
   const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}`;
