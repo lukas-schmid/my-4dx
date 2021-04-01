@@ -84,3 +84,8 @@ export function updateLead(wigId, leadId, body) {
   const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}`;
   return putFetch(url, body);
 }
+
+export function deleteLead(wigId, leadId) {
+  const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}`;
+  return deleteFetch(url);
+}
