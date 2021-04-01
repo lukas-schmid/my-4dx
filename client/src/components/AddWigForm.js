@@ -8,14 +8,14 @@ import { createWig } from '../apiHelper';
 import currencyCodes from '../assets/currencyList.json';
 
 export default function AddWigForm() {
-    const { isLoading, setIsLoading } = useGlobalContext();
+    const { currentUserInfo ,isLoading, setIsLoading } = useGlobalContext();
 
     const [showCurrencyField, setShowCurrencyField] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();
         setIsLoading(true);
-
+        console.log(currentUserInfo)
         const formData = {
             wigName: e.target.wigName.value,
             lagName: e.target.lagName.value,
@@ -24,7 +24,7 @@ export default function AddWigForm() {
             lagInterval: e.target.trackingTime.value,
             startDate: e.target.startDate.value,
             endDate: e.target.endDate.value,
-            // teamId: String
+            teamId: currentUserInfo.teamId
         };
 
         createWig(formData)
