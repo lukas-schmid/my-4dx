@@ -47,16 +47,40 @@ export function createWig(body) {
   return postFetch(url, body);
 }
 
-// not specified yet. -> ref to wig, user ....
 // body = {
-// "leadName": "100 phone calls per day",
-// "leadInterval": "daily",
-// "leadDataType": "number",
-// "benchmarkExists": true,
-// "benchmark": "80 calls"
-//   };
+//   "leadName": "999 phone calls per day",
+//   "leadInterval": "daily",
+//   "leadDataType": "money",
+//   "benchmarkExists": false,
+//   "benchmark": "some calls",
+//   "leadData": [
+//       {
+//           "startDate": "2020-07-01",
+//           "data": 20
+//       }
+//   ]
+// }
 
-export function createLead(body) {
-  const url = "https://my-4dx.herokuapp.com/api/leads";
+export function createLead(wigId, body) {
+  const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads`;
   return postFetch(url, body);
+}
+
+// body = {
+//   "leadName": "999 phone calls per day",
+//   "leadInterval": "daily",
+//   "leadDataType": "money",
+//   "benchmarkExists": false,
+//   "benchmark": "some calls",
+//   "leadData": [
+//       {
+//           "startDate": "2020-07-01",
+//           "data": 20
+//       }
+//   ]
+// }
+
+export function updateLead(wigId, leadId, body) {
+  const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}`;
+  return putFetch(url, body);
 }
