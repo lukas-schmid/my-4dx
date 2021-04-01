@@ -87,6 +87,7 @@ export default function UserAccountForm() {
                 <button onClick={handleDeleteUser} type="button" className="btn btn-danger mt-30">Delete Account</button>
             </div>
             <button type="submit" className="btn btn-outline-primary mt-30">Update</button>
+            <button onClick={handleDeleteUser} type="button" className="btn btn-danger mt-30">Delete Account</button>
         </form>
     )
 }
