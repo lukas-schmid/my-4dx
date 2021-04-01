@@ -17,7 +17,7 @@
 
 4. Leads
 4.1 post("/api/:wigId/leads")
-4.2 put("/api/leads/:leadId")
+4.2 put("/api/:wigId/leads/:leadId")
 
 5. Lag
 5.1 put("/api/lag/:wigId")
@@ -315,77 +315,107 @@ Status 204:
 
 Request body:
     {
-        "leadName": "1000 phone calls per day",
+        "leadName": "999 phone calls per day",
         "leadInterval": "daily",
-        "leadDataType": "percent",
-        "benchmarkExists": true,
-        "benchmark": "20000 calls",
+        "leadDataType": "money",
+        "benchmarkExists": false,
+        "benchmark": "some calls",
         "leadData": [
             {
-                "startDate": "2020-07-30",
-                "data": 9
+                "startDate": "2020-07-01",
+                "data": 20
             }
         ]
     }
 Response:
-Status 201:
-        {
-        "startDate": "2021-01-01",
-        "lagDataType": "money",
+Status 200:
+    {
         "lagData": [
             {
+                "startDate": "2021-01-11",
                 "actual": "",
-                "startDate": "2021-01-01",
                 "goal": ""
+            },
+            {
+                "startDate": "2021-01-18",
+                "goal": "",
+                "actual": ""
+            },
+            {
+                "goal": "",
+                "startDate": "2021-01-25",
+                "actual": ""
+            },
+            {
+                "actual": "",
+                "startDate": "2021-02-01",
+                "goal": ""
+            },
+            {
+                "startDate": "2021-02-08",
+                "goal": "",
+                "actual": ""
+            },
+            {
+                "goal": "",
+                "startDate": "2021-02-15",
+                "actual": ""
+            },
+            {
+                "goal": "",
+                "startDate": "2021-02-22",
+                "actual": ""
+            },
+            {
+                "startDate": "2021-03-01",
+                "goal": "",
+                "actual": ""
+            },
+            {
+                "goal": "",
+                "startDate": "2021-03-08",
+                "actual": ""
             },
             {
                 "actual": "",
                 "goal": "",
-                "startDate": "2021-02-01"
+                "startDate": "2021-03-15"
             },
             {
+                "goal": "",
+                "startDate": "2021-03-22",
+                "actual": ""
+            },
+            {
+                "goal": "",
                 "actual": "",
-                "startDate": "2021-03-01",
-                "goal": ""
+                "startDate": "2021-03-28"
             }
         ],
+        "lagCurrency": "SEK",
+        "wigId": "84b86d84-31f0-4772-915b-5c1e428991e8",
         "lagName": "increase sale calls",
+        "lagDataType": "money",
+        "endDate": "2021-03-31",
+        "wigName": "increase sale by 70%",
+        "lagInterval": "weekly",
+        "teamId": null,
+        "startDate": "2021-01-11",
         "leadMeasures": [
             {
-                "benchmarkExists": false,
-                "leadDataType": "percent",
                 "leadData": [
                     {
-                        "data": 0,
-                        "startDate": ""
+                        "date": 20,
+                        "startDate": "2020-07-01"
                     }
                 ],
-                "leadId": "f590921f-1e82-49c9-b267-b4598be1cfe7",
+                "benchmarkExists": false,
+                "leadName": "999 phone calls per day",
                 "leadInterval": "daily",
-                "benchmark": "20 calls",
-                "leadName": "700 phone calls per day"
-            },
-            {
-                "leadId": "03bb35c9-5019-4a70-bca0-3e66cfc601a4",
-                "leadName": "1000 phone calls per day",
-                "leadInterval": "daily",
-                "benchmarkExists": true,
-                "benchmark": "20000 calls",
-                "leadDataType": "percent",
-                "leadData": [
-                    {
-                        "startDate": "",
-                        "data": 0
-                    }
-                ]
+                "benchmark": "some calls",
+                "leadDataType": "money"
             }
-        ],
-        "wigName": "increase sale by 70%",
-        "teamId": null,
-        "endDate": "2021-03-31",
-        "lagCurrency": "SEK",
-        "wigId": "02e73019-12fd-48f7-9585-f167e1601210",
-        "lagInterval": "monthly"
+        ]
     }
 
 
