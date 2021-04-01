@@ -24,10 +24,10 @@ export default function Login() {
                     <div className="demo-login">
                         <p className="form-text demo-login__text">Try a demo user!</p>
                         <button className="btn btn-outline-primary demo-login__btn" onClick={() => {
-                            logInUser('demo-admin@my-4dx.herokuapp.com', 'passwort123');
+                            logInUser('demo-admin@my-4dx.herokuapp.com', 'password123');
                         }}>Team Admin</button>
                         <button className="btn btn-outline-primary demo-login__btn" onClick={() => {
-                            logInUser('demo-user@my-4dx.herokuapp.com', 'passwort123');
+                            logInUser('demo-user@my-4dx.herokuapp.com', 'password123');
                         }}>Team Member</button>
                     </div>
                 </article>

@@ -18,6 +18,7 @@ function AppProvider({ children }) {
 
   // ------- STATE MANAGEMENT FUNCTIONS -------
   const logInUser = async (email, password) => {
+    console.log('logging in...', email, password)
     setIsLoading(true);
     try {
       const data = await login({ email, password });
