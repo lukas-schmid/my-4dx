@@ -29,9 +29,30 @@ export function login(body) {
 //     email: "demo-admin@my-4dx.herokuapp.com",
 //   };
 
-export function sendPasswortReset(body) {
+export function sendPasswordReset(body) {
   const url = "https://my-4dx.herokuapp.com/api/members/passwordreset";
   return postFetch(url, body);
+}
+
+// body = {
+    // "email": "firstname.lastname@example.com",
+    // "name": "Tom Johnson",
+    // "companyName": "XYZ ltd",
+    // "teamId": "0af5baa1-XXXX-XXXX-XXXX-55830fa3009b",
+    // "teamName": "Sales Team",
+    // "title": "Marketing"
+    // "isAdmin": true,
+    // "scoreboardInclude": true
+//   };
+
+export function updateMember(userId, body) {
+  const url = `https://my-4dx.herokuapp.com/api/members/${userId}`;
+  return putFetch(url, body);
+}
+
+export function deleteMember(userId, body) {
+  const url = `https://my-4dx.herokuapp.com/api/members/${userId}`;
+  return deleteFetch(url, body);
 }
 
 // maybe not necessary?! maybe for proper logout on google firebase
