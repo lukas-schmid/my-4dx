@@ -83,9 +83,6 @@ export default function UserAccountForm() {
             <div class="span9 btn-block">
                 <button onClick={handlePasswordReset} class="btn btn-large btn-block btn-primary" type="button">Send Reset Link</button>
             </div>
-            <div class="span9 btn-block">
-                <button onClick={handleDeleteUser} type="button" className="btn btn-danger mt-30">Delete Account</button>
-            </div>
             <button type="submit" className="btn btn-outline-primary mt-30">Update</button>
             <button onClick={handleDeleteUser} type="button" className="btn btn-danger mt-30">Delete Account</button>
         </form>
