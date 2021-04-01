@@ -41,10 +41,10 @@ export default function AddLeadMeasureForm() {
                     <input type="radio" className="form-check-input" name="trackingType" id="typePercent" value="percent" required/>
                     <label className="form-check-label" htmlFor="typePercent">Percent</label>
                 </div>
-                <div className="form-check">
+                {/* <div className="form-check">
                     <input type="radio" className="form-check-input" name="trackingType" id="typeBoolean" value="boolean" required/>
                     <label className="form-check-label" htmlFor="typeBoolean">True / False</label>
-                </div>
+                </div> */}
             </div>
 
             <p className="form-section-title">Tracking Time:</p>

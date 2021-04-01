@@ -14,7 +14,7 @@ const menulinks = [
         { label: 'scoreboard', icon: <ImStatsDots />, url: '/welcome' },
         { label: 'wig session', icon: <FaCalendarCheck />, url: '/wig-session' },
         { label: 'wig session summary', icon: <HiOutlineDocumentReport />, url: '/wig-session-summary' },
-        { label: 'team scoresheet', icon: <GiTeamUpgrade />, url: '/team-scoresheet' },
+        // { label: 'team scoresheet', icon: <GiTeamUpgrade />, url: '/team-scoresheet' },
       ],
     },
     {
