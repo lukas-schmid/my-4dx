@@ -1,9 +1,13 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
+import { useGlobalContext } from './appContext';
+// Import assets
 import menulinks from './assets/menulinks';
 
 const NavContext = React.createContext();
 
 const NavProvider = ({ children }) => {
+    const { isLoggedIn } = useGlobalContext();
+
     const [showMenu, setShowMenu] = useState(false);
     const [activeMenu, setActiveMenu] = useState('main');
     const [menuHeight, setMenuHeight] = useState(null);
@@ -12,38 +16,51 @@ const NavProvider = ({ children }) => {
     const burgerRef = useRef(null);
   
     useEffect(() => {
-        if (showMenu) {
-            document.addEventListener('mouseup', handleClickOutside);
-            document.addEventListener('keyup', handleKeyUp);
+        setShowMenu(false);
+        setMenuHeight(0);
+    }, [isLoggedIn]);
 
-            setMenuHeight(dropdownRef.current?.firstChild.offsetHeight);
-            burgerRef.current.style.transform = 'rotate(90deg)';
+    useEffect(() => {
+        if (isLoggedIn) {
+            if (showMenu) {
+                document.addEventListener('mouseup', handleClickOutside);
+                document.addEventListener('keyup', handleKeyUp);
+    
+                setMenuHeight(dropdownRef.current?.firstChild.offsetHeight);
+                burgerRef.current.style.transform = 'rotate(90deg)';
+            } else {
+                document.removeEventListener('mouseup', handleClickOutside);
+                document.removeEventListener('keyup', handleKeyUp);
+    
+                setMenuHeight(0);
+                burgerRef.current.style.transform = 'rotate(0deg)';
+            }
+            return () => {
+                document.removeEventListener('mouseup', handleClickOutside);
+                document.removeEventListener('keyup', handleKeyUp);
+            };
         } else {
             document.removeEventListener('mouseup', handleClickOutside);
             document.removeEventListener('keyup', handleKeyUp);
-
-            setMenuHeight(0);
-            burgerRef.current.style.transform = 'rotate(0deg)';
         }
-        return () => {
-            document.removeEventListener('mouseup', handleClickOutside);
-            document.removeEventListener('keyup', handleKeyUp);
-        };
     }, [showMenu])
 
     const handleClickOutside = e => {
+        if (!dropdownRef.current || !burgerRef.current || !e.target) return;
         if (dropdownRef.current.contains(e.target) || burgerRef.current.contains(e.target)) {
             return;
         } else {
             setActiveMenu('main');
             setShowMenu(false);
+            document.removeEventListener('mouseup', handleClickOutside);
         }
     }
 
     const handleKeyUp = e => {
         if (e.keyCode === 27) {
             setActiveMenu('main');
-            setShowMenu(false)
+            setShowMenu(false);
+            document.removeEventListener('keyup', handleKeyUp);
         }
     };
 

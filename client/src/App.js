@@ -19,34 +19,40 @@ import LeadLagTracker from './pages/LeadLagTracker';
 // Import Components
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/Footer';
+// Import context
+import { AppProvider, useGlobalContext } from './appContext';
 
 function App() {
+  // const { isAdmin } = useGlobalContext();
+
   return (
     <Router>
-      <NavProvider>
-        <Navbar />
-      </NavProvider>
-      <Switch>
-        <Route exact path="/"><Redirect to="/login" /></Route>
-        <Route path="/login"><Login /></Route>
-        <Route path="/register"><Registration /></Route>
-        <Route path="/about"><About /></Route>
-        {/* ALL USER Routes - Add ternary: isLoggedIn ? <Page /> : <Login />*/}
-        <Route path="/welcome"><Welcome /></Route>
-        <Route path="/wig-session-summary"><WigSessionSummary /></Route>
-        <Route path="/wig-session"><WigSession /></Route>
-        <Route path="/team-scoresheet"><TeamScoresheet /></Route>
-        <Route path="/account"><Account /></Route>
-        {/* ADMIN Routes - Add ternary: isAdmin ? <Page /> : <Redirect to="/welcome"*/}
-        <Route path="/admin/member-management"><MemberManagement /></Route>
-        <Route path="/setup/add-wig"><AddWig /></Route>
-        <Route path="/setup/add-lead-measures"><AddLeadMeasures /></Route>
-        <Route path="/setup/scoreboard-builder"><ScoreboardBuilder /></Route>
-        <Route path="/setup/lead-lag-tracker"><LeadLagTracker /></Route>
-        {/* 404 */}
-        <Route path="*"><NotFound /></Route>
-      </Switch>
-      <Footer />
+      <AppProvider>
+        <NavProvider>
+          <Navbar />
+        </NavProvider>
+        <Switch>
+          <Route exact path="/"><Redirect to="/login" /></Route>
+          <Route path="/login"><Login /></Route>
+          <Route path="/register"><Registration /></Route>
+          <Route path="/about"><About /></Route>
+          {/* ALL USER Routes - Add ternary: isLoggedIn ? <Page /> : <Login />*/}
+          <Route path="/welcome"><Welcome /></Route>
+          <Route path="/wig-session-summary"><WigSessionSummary /></Route>
+          <Route path="/wig-session"><WigSession /></Route>
+          <Route path="/team-scoresheet"><TeamScoresheet /></Route>
+          <Route path="/account"><Account /></Route>
+          {/* ADMIN Routes - Add ternary: isAdmin ? <Page /> : <Redirect to="/welcome"*/}
+          <Route path="/admin/member-management"><MemberManagement /></Route>
+          <Route path="/setup/add-wig"><AddWig /></Route>
+          <Route path="/setup/add-lead-measures"><AddLeadMeasures /></Route>
+          <Route path="/setup/scoreboard-builder"><ScoreboardBuilder /></Route>
+          <Route path="/setup/lead-lag-tracker"><LeadLagTracker /></Route>
+          {/* 404 */}
+          <Route path="*"><NotFound /></Route>
+        </Switch>
+        <Footer />
+      </AppProvider>
     </Router>
   );
 }
