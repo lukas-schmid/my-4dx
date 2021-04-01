@@ -1,12 +1,15 @@
 import React from 'react';
 import { useNavContext } from '../../navContext';
-
+import { useGlobalContext } from '../../appContext';
+// Import assets && icons
 import logo from '../../assets/images/logo.png';
 import { GiHamburgerMenu } from "react-icons/gi";
-
+// Import components
 import Dropdown from './Dropdown';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
+    const { isLoggedIn } = useGlobalContext();
     const { 
         showMenu,
         setShowMenu,
@@ -15,13 +18,12 @@ export default function Navbar() {
 
     return (
         <header className="navbar">
-            <img src={logo} alt="" className="navbar__logo"></img>
+            <Link to="/"><img src={logo} alt="" className="navbar__logo"></img></Link>
             
-            <button className="navbar__button" onClick={() => setShowMenu(!showMenu)} ref={burgerRef}>
+            {isLoggedIn && <button className="navbar__button" onClick={() => setShowMenu(!showMenu)} ref={burgerRef}>
                 <GiHamburgerMenu/>
-            </button>
-
-            <Dropdown />
+            </button>}
+            {isLoggedIn && <Dropdown />}
         </header>
     )
 }
