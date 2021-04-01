@@ -25,6 +25,15 @@ export function login(body) {
   return postFetch(url, body);
 }
 
+// body = {
+//     email: "demo-admin@my-4dx.herokuapp.com",
+//   };
+
+export function sendPasswortReset(body) {
+  const url = "https://my-4dx.herokuapp.com/api/members/passwordreset";
+  return postFetch(url, body);
+}
+
 // maybe not necessary?! maybe for proper logout on google firebase
 
 export function logout() {
