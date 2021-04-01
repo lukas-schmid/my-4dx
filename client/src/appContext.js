@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 // Import helpers
 import { login, register } from './apiHelper';
@@ -11,6 +11,7 @@ function AppProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  const [currentUserInfo, setCurrentUserInfo] = useState({});
   // ------- HOOKS -------
   let history = useHistory();
 
@@ -23,6 +24,8 @@ function AppProvider({ children }) {
     try {
       const data = await login({ email, password });
       if (!data.errorCode) {
+        setCurrentUserInfo(data);
+
         setIsLoggedIn(true);
         setIsAdmin(data.isAdmin);
         history.push('/welcome');
@@ -48,6 +51,7 @@ function AppProvider({ children }) {
   }
 
   const logOutUser = () => {
+    setCurrentUserInfo({});
     setIsLoggedIn(false);
     history.push('/login');
   }
@@ -90,7 +94,8 @@ function AppProvider({ children }) {
       isLoggedIn,
       logOutUser,
       isAdmin,
-      createNewTeam
+      createNewTeam,
+      currentUserInfo
     }}>
       {children}
     </AppContext.Provider>
