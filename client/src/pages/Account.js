@@ -12,7 +12,7 @@ export default function Account() {
                 <article className="form-container">
                     <UserAccountForm />
                 </article>
-                <PageFooter empty={true}/>
+                <PageFooter excludeQuote={true}/>
             </section>
         </main>
     )

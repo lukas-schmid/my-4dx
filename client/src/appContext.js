@@ -7,9 +7,9 @@ const AppContext = React.createContext();
 
 function AppProvider({ children }) {
   // ------- STATE -------
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(true);
 
   const [currentUserInfo, setCurrentUserInfo] = useState({});
   // ------- HOOKS -------

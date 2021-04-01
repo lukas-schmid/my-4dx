@@ -4,13 +4,13 @@ import quotesList from '../assets/quotes.json';
 import { randomItemFromArray } from '../helpers';
 import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
 
-export default function PageFooter({nonRandomQuote, empty}) {
+export default function PageFooter({nonRandomQuote, excludeQuote}) {
 
     const quote = nonRandomQuote || randomItemFromArray(quotesList);
 
     return (
         <div className="page-footer">
-            {!empty && <div className="quote">
+            {!excludeQuote && <div className="quote">
                 <FaQuoteLeft className="quote__svg quote__svg--left"/>
                 <p className="quote__text">{quote.quote}</p>
                 <FaQuoteRight className="quote__svg quote__svg--right"/>
