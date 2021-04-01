@@ -63,9 +63,15 @@ exports.updateLead = async (req, res, next) => {
 };
 
 exports.deleteLead = async (req, res, next) => {
+  const wigId = req.params.wigId;
   const leadId = req.params.leadId;
   try {
-    await leadService.deleteLead(leadId);
+    const wig = await wigService.getWig(wigId);
+    const currentLeadMeasures = wig.leadMeasures;
+    const newLeadMeasures = currentLeadMeasures.filter(
+      (obj) => obj.leadId !== leadId
+    );
+    await leadService.addLeadToWig(wigId, newLeadMeasures);
     res
       .status(204)
       .json({ message: `Lead with id ${leadId} has been deleted` });
