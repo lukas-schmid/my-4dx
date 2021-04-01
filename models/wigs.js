@@ -10,7 +10,8 @@ exports.createWIG = async (
   lagInterval,
   startDate,
   endDate,
-  lagData
+  lagData,
+  leadMeasures
 ) => {
   const docRef = db.collection("wigs").doc(wigId);
   await docRef.set({
@@ -24,5 +25,6 @@ exports.createWIG = async (
     startDate,
     endDate,
     lagData,
+    leadMeasures,
   });
 };

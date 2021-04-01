@@ -1,35 +1,44 @@
 const db = require("../config/db");
 
-exports.getLead = async (leadId) => {
-  const lead = await db.collection("leads").doc(leadId).get();
-  if (!lead) {
-    return { message: `No lead with id ${leadId} found` };
-  } else {
-    return lead.data();
-  }
-};
+// can be deleted
+// exports.getLead = async (leadId) => {
+//   const lead = await db.collection("leads").doc(leadId).get();
+//   if (!lead) {
+//     return { message: `No lead with id ${leadId} found` };
+//   } else {
+//     return lead.data();
+//   }
+// };
 
-exports.updateLead = async (
-  leadId,
-  leadName,
-  leadInterval,
-  leadDataType,
-  benchmarkExists,
-  benchmark,
-  leadData
-) => {
-  const docRef = db.collection("leads").doc(leadId);
+exports.addLeadToWig = async (wigId, leadMeasures) => {
+  const docRef = db.collection("wigs").doc(wigId);
   await docRef.update({
-    leadId,
-    leadName,
-    leadInterval,
-    leadDataType,
-    benchmarkExists,
-    benchmark,
-    leadData,
+    leadMeasures,
   });
 };
 
-exports.deleteLead = async (leadId) => {
-  return await db.collection("leads").doc(leadId).delete();
-};
+//can be deleted
+// exports.updateLead = async (
+//   leadId,
+//   leadName,
+//   leadInterval,
+//   leadDataType,
+//   benchmarkExists,
+//   benchmark,
+//   leadData
+// ) => {
+//   const docRef = db.collection("leads").doc(leadId);
+//   await docRef.update({
+//     leadId,
+//     leadName,
+//     leadInterval,
+//     leadDataType,
+//     benchmarkExists,
+//     benchmark,
+//     leadData,
+//   });
+// };
+
+// exports.deleteLead = async (leadId) => {
+//   return await db.collection("leads").doc(leadId).delete();
+// };
