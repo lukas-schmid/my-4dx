@@ -40,7 +40,7 @@ function App() {
           <Route path="/welcome"><Welcome /></Route>
           <Route path="/wig-session-summary"><WigSessionSummary /></Route>
           <Route path="/wig-session"><WigSession /></Route>
-          <Route path="/team-scoresheet"><TeamScoresheet /></Route>
+          {/* <Route path="/team-scoresheet"><TeamScoresheet /></Route> */}
           <Route path="/account"><Account /></Route>
           {/* ADMIN Routes - Add ternary: isAdmin ? <Page /> : <Redirect to="/welcome"*/}
           <Route path="/admin/member-management"><MemberManagement /></Route>
