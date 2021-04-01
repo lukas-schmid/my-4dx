@@ -49,30 +49,63 @@ body=$(jq -n --arg b "$teamId" '{
 
 echo "POST http://localhost:8080/api/wigs"
 echo "request body: $body"
-curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/wigs | jq .
+wigId=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/wigs | jq -r .wigId)
 
 # monthly intervals
-body=$(jq -n --arg b "$teamId" '{
-    "wigName": "increase sale by 70%",
-    "teamId": '$teamId',
-    "lagName":"increase sale calls",
-    "lagDataType": "money",
-    "lagCurrency": "SEK",
-    "lagInterval": "monthly",
-    "startDate": "2021-01-15",
-    "endDate": "2021-03-31"
-}')
+# body=$(jq -n --arg b "$teamId" '{
+#     "wigName": "increase sale by 70%",
+#     "teamId": '$teamId',
+#     "lagName":"increase sale calls",
+#     "lagDataType": "money",
+#     "lagCurrency": "SEK",
+#     "lagInterval": "monthly",
+#     "startDate": "2021-01-15",
+#     "endDate": "2021-03-31"
+# }')
 
-echo "POST http://localhost:8080/api/wigs"
-echo "request body: $body"
-curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/wigs | jq .
+# echo "POST http://localhost:8080/api/wigs"
+# echo "request body: $body"
+# curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/wigs | jq .
 
-# 3.2 put("/api/wigs/:wigId)
-# 3.3 delete("/api/wigs/:wigId)
 
 # 4. Leads
-# 4.1 post("/api/leads")
-# 4.2 put("/api/leads/:leadId")
+# 4.1 post("/api/:wigId/leads")
+body=$(jq -n --arg b "$teamId" '{
+    "leadName": "1000 phone calls per day",
+    "leadInterval": "daily",
+    "leadDataType": "percent",
+    "benchmarkExists": true,
+    "benchmark": "20000 calls",
+    "leadData": [
+        {
+            "startDate": "2020-07-30",
+            "data": 9
+        }
+    ]
+}')
+
+echo "POST http://localhost:8080/api/$wigId/leads"
+echo "request body: $body"
+leadId=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/"$wigId"/leads | jq -r .leadMeasures[0].leadId)
+
+# 4.2 put("/api/:wigId/leads/:leadId")
+body=$(jq -n --arg b "$teamId" '{
+    "leadName": "999 phone calls per day",
+    "leadInterval": "daily",
+    "leadDataType": "money",
+    "benchmarkExists": false,
+    "benchmark": "555",
+    "leadData": [
+        {
+            "startDate": "2020-07-01",
+            "data": 20
+        }
+    ]
+}')
+
+echo "PUT http://localhost:8080/api/$wigId/leads/$leadId"
+echo "request body: $body"
+curl -w "\n" -d "$body" -H 'Content-Type: application/json' -X PUT http://localhost:8080/api/"$wigId"/leads/"$leadId" | jq .
 
 # 5. Lag
 # 5.1 put("/api/lag/:wigId")
