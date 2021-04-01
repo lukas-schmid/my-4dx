@@ -38,7 +38,7 @@ curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:808
 # weekly intervals
 body=$(jq -n --arg b "$teamId" '{
     "wigName": "increase sale by 70%",
-    "teamId": "eec0360b-XXXX-XXXX-XXXX-cb7c2c01c7bc",
+    "teamId": '$teamId',
     "lagName":"increase sale calls",
     "lagDataType": "money",
     "lagCurrency": "SEK",
@@ -54,7 +54,7 @@ curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:808
 # monthly intervals
 body=$(jq -n --arg b "$teamId" '{
     "wigName": "increase sale by 70%",
-    "teamId": "eec0360b-XXXX-XXXX-XXXX-cb7c2c01c7bc",
+    "teamId": '$teamId',
     "lagName":"increase sale calls",
     "lagDataType": "money",
     "lagCurrency": "SEK",
