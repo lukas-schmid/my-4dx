@@ -51,3 +51,38 @@ export function getFirstOfMonth(argDate) {
     const firstOfMonth = dateCopy.setDate(dateCopy.getDate() - (dayDate - 1));
     return new Date(firstOfMonth);
 }
+
+export function decimalToPercent(decimal) {
+    const float = parseFloat(decimal);
+    return `${float * 100}%`;
+}
+
+export function formatMonthYear(date) {
+    const monthNames = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ]
+    const month = new Date(date).getMonth();
+    const year = new Date(date).getUTCFullYear();
+    return `${monthNames[month]} ${year}`
+}
+
+export function formatWeekFromTo(date) {
+    const mon = getMondayDate(date);
+    const sun = addDays(mon, 7);
+
+    const monDDMMYY = `${mon.getDate()}/${mon.getMonth()}-${mon.getFullYear()}`;
+    const sunDDMMYY = `${sun.getDate()}/${sun.getMonth()}-${sun.getFullYear()}`;
+
+    return `(${monDDMMYY} > ${sunDDMMYY})`;
+}

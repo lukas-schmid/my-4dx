@@ -15,7 +15,7 @@ export default function WigLagLeadEditDisplay({wig}) {
             <div className="form-section">
                 <textarea 
                     cols="10"
-                    rows="5"
+                    rows="4"
                     className="form-control" 
                     value={currentWig.wigName}
                     readOnly

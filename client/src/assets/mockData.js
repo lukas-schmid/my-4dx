@@ -58,12 +58,12 @@ export const wigDataMock = [
             {
                 startDate: '2021-04-05',
                 target: 0.8,
-                actual: null
+                actual: ''
             },
             {
                 startDate: '2021-04-12',
                 target: 0.9,
-                actual: null
+                actual: ''
             }
         ],
         leadMeasures: [
