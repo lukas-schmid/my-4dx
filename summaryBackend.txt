@@ -457,12 +457,6 @@ Request body:
         "leadDataType": "money",
         "benchmarkExists": false,
         "benchmark": "some calls",
-        "leadData": [
-            {
-                "startDate": "2020-07-01",
-                "data": 20
-            }
-        ]
     }
 Response:
 Status 200:

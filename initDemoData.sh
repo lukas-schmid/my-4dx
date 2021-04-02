@@ -78,12 +78,6 @@ body=$(jq -n --arg b "$teamId" '{
     "leadDataType": "percent",
     "benchmarkExists": true,
     "benchmark": "20000 calls",
-    "leadData": [
-        {
-            "startDate": "2020-07-30",
-            "data": 9
-        }
-    ]
 }')
 
 echo "POST http://localhost:8080/api/$wigId/leads"
