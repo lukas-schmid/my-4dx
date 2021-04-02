@@ -1,0 +1,64 @@
+.member-management-page {
+    align-items: flex-start !important;
+
+    .page-content {
+        max-width: 390px;
+        margin-bottom: 30px;
+    }
+
+    .form {
+      max-width: 400px;
+    }
+  
+    &__list {
+      min-width: 0;
+      padding: 20px;
+    }
+
+    @include min-width (800px) {
+        .page-content {
+            margin: 0 30px 30px 30px;
+        }
+    }
+}
+  
+  .member-card {
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    width: 100%;
+  
+    &__header {
+      background-color: $primary-blue;
+      color: white;
+      text-shadow: 1px 1px 1px $dark-gray;
+    }
+  
+    &__body {
+      font-size: 0.8rem;
+      padding-top: 0;
+      padding-bottom: 0;
+      bordeR: 1px solid $primary-blue;
+
+      border-bottom-left-radius: calc(.25rem - 1px);
+      border-bottom-right-radius: calc(.25rem - 1px);
+    }
+  
+    &__title {
+      font-style: italic;
+    }
+  
+    &__listItem {
+      margin: 10px 0;
+  
+      & > input {
+        margin: 0;
+        margin-right: 4px;
+      }
+    }
+  
+    &__btn {
+      font-size: 0.8rem;
+      padding: 3px 7px;
+    }
+}
