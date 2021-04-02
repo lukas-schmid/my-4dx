@@ -1,27 +1,47 @@
 import React from 'react';
 import { useGlobalContext } from '../appContext';
+// Import helpers
+import { addMember } from '../apiHelper';
 
 export default function InviteUserForm() {
-    const { isLoading, setIsLoading } = useGlobalContext();
+    const { currentUserInfo } = useGlobalContext();
 
     const handleSubmit = e => {
         e.preventDefault();
+        //setIsLoading(true);
 
-        setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
+        const formData = {
+            email: e.target.email.value,
+            password: "initPassword123",
+            name: e.target.name.value,
+            companyName: currentUserInfo.companyName,
+            teamId: currentUserInfo.teamId,
+            teamName: currentUserInfo.teamName,
+            title: e.target.role.value,
+            isAdmin: e.target.isAdmin.checked,
+            scoreboardInclude: e.target.scoreboardInclude.checked
+        };
+
+        addMember(formData)
+            .then(data => {
+                console.log(data);
+                //setIsLoading(false);
+            })
+            .catch(err => {
+                //setIsLoading(false);
+                console.error(err);
+            });
     }
 
     return (
         <form className="form" onSubmit={handleSubmit}>
             <div className="form-section mt-0">
-                <label className="form-label" htmlFor="adminName">Name:</label>
-                <input type="text" className="form-control" id="adminName" name="adminName" required placeholder="E.g. John Watson"/>
+                <label className="form-label" htmlFor="name">Name:</label>
+                <input type="text" className="form-control" id="name" name="name" required placeholder="E.g. John Watson"/>
             </div>
             <div className="form-section">
-                <label className="form-label" htmlFor="adminTitle">Role:</label>
-                <input type="text" className="form-control" id="adminTitle" name="adminTitle" placeholder="E.g. Consulting Detective"/>
+                <label className="form-label" htmlFor="role">Role:</label>
+                <input type="text" className="form-control" id="role" name="role" placeholder="E.g. Consulting Detective"/>
             </div>
             <div className="form-section">
                 <label className="form-label" htmlFor="email">Email:</label>
@@ -29,7 +49,7 @@ export default function InviteUserForm() {
                 <div id="emailHelp" className="form-text">We'll never share their email with anyone else.</div>
             </div>
             <div className="form-check check-gap">
-                <input type="checkbox" className="form-check-input" id="isAdmin" name="isAdmin" required/>
+                <input type="checkbox" className="form-check-input" id="isAdmin" name="isAdmin"/>
                 <label className="form-check-label not-italic" htmlFor="isAdmin">Team admin?</label>
             </div>
             <div className="form-check check-gap">

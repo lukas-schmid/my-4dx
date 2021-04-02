@@ -144,8 +144,8 @@ exports.addMember = async (req, res, next) => {
       teamId: req.body.teamId,
       teamName: req.body.teamName,
       title: req.body.title,
-      isAdmin: false,
-      scoreboardInclude: true,
+      isAdmin: req.body.isAdmin,
+      scoreboardInclude: req.body.scoreboardInclude,
     };
 
     return await firebase
