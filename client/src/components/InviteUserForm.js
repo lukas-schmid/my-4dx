@@ -22,6 +22,8 @@ export default function InviteUserForm() {
             scoreboardInclude: e.target.scoreboardInclude.checked
         };
 
+        console.log(formData)
+
         addMember(formData)
             .then(data => {
                 console.log(data);
