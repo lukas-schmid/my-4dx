@@ -41,6 +41,10 @@ body {
   background: transparent;
   overflow-x: hidden;
   overflow-y: scroll;
+
+  &--multi-col {
+    align-items: flex-start;
+  }
 }
 
 .page-content {
@@ -48,6 +52,11 @@ body {
   border-radius: $page-border-radius;
   height: max-content;
   min-width: 0;
+  margin-bottom: 30px;
+
+  @include min-width (800px) {
+    margin: 0 30px 30px 30px;
+  }
 }
 
 .page-header {
@@ -225,6 +234,10 @@ hr {
   margin-top: 30px !important;
 }
 
+.mt-10 {
+  margin-top: 10px !important;
+}
+
 .mt-0 {
   margin-top: 0 !important;
 }
@@ -237,6 +250,30 @@ hr {
   margin-bottom: 0 !important;
 }
 
+.mb-5 {
+  margin-bottom: 5px !important;
+}
+
 .not-italic {
   font-style: normal !important;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.lagTracker-page {
+
+  &__select {
+    max-width: 200px;
+    margin: 0 auto 30px auto;
+  }
+
+  &__infoColumn {
+    width: 70vw;
+    min-width: 0;
+    max-width: 300px;
+    
+  }
+
 }

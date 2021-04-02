@@ -9,6 +9,20 @@ const {
   formatDate,
 } = require("../helpers/helperfunctions");
 
+exports.getWIGSByTeamId = async (req, res, next) => {
+  const teamId = req.params.teamId;
+  try {
+    const users = await service.getAllWigsByTeamId(teamId);
+    if (!users) {
+      res.status(404).json({ message: "not found" });
+    } else {
+      res.status(200).json(users);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.createWIG = async (req, res, next) => {
   const wigId = uuidv4();
   const wigName = req.body.wigName;

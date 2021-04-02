@@ -1,16 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { deleteMember, updateMember } from '../apiHelper';
 
 export default function CurrentMemberCard({teamMember, index}) {
+    const [adminChecked, setAdminChecked] = useState(teamMember.isAdmin);
+    const [scoreBoardIncludeChecked, setScoreBoardIncludeChecked] = useState(teamMember.scoreboardInclude);
+
     const removeUser = (id) => {
         console.log(id);
+        console.log(teamMember)
+        deleteMember(teamMember.id)
+        .then(data => {
+            console.log(data);
+           // setIsLoading(false);
+        })
+        .catch(err => {
+           // setIsLoading(false);
+            console.error(err);
+        });
     }
 
-    const updateIsAdmin = (id) => {
-        console.log(id);
+    useEffect(() => {
+        const formData = {
+            email: teamMember.email,
+            name: teamMember.name,
+            companyName: teamMember.companyName,
+            teamId: teamMember.teamId,
+            teamName: teamMember.teamName,
+            title: teamMember.title,
+            isAdmin: adminChecked,
+            scoreboardInclude: scoreBoardIncludeChecked,
+        };
+        console.log(formData)
+
+        updateMember(teamMember.id, formData)
+            .then(data => {
+                console.log(data);
+                //setIsLoading(false);
+            })
+            .catch(err => {
+                //setIsLoading(false);
+                console.error(err);
+            });
+    }, [adminChecked, scoreBoardIncludeChecked])
+
+    const updateIsAdmin = () => {
+        adminChecked ? setAdminChecked(false) : setAdminChecked(true)
     }
 
-    const updateScoreboardInclude = (id) => {
-        console.log(id);
+    const updateScoreboardInclude = () => {
+        scoreBoardIncludeChecked ? setScoreBoardIncludeChecked(false) : setScoreBoardIncludeChecked(true)
     }
 
     return (
@@ -30,7 +68,7 @@ export default function CurrentMemberCard({teamMember, index}) {
                             name={`admin-${index}`}
                             id={`admin-${index}`}
                             defaultChecked={teamMember.isAdmin}
-                            onChange={() => updateIsAdmin(teamMember.id)}
+                            onChange={updateIsAdmin}
                         />
                         <label className="form-check-label" htmlFor={`admin-${index}`}>
                             Admin
@@ -43,7 +81,7 @@ export default function CurrentMemberCard({teamMember, index}) {
                             name={`scoreboardInclude-${index}`}
                             id={`scoreboardInclude-${index}`}
                             defaultChecked={teamMember.scoreboardInclude}
-                            onChange={() => updateScoreboardInclude(teamMember.id)}
+                            onChange={updateScoreboardInclude}
                         />
                         <label className="form-check-label" htmlFor={`scoreboardInclude-${index}`}>
                             Include in scoreboard
