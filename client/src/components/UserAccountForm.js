@@ -66,7 +66,7 @@ export default function UserAccountForm() {
 
     return (
         <form className="form" onSubmit={handleSubmit}>
-            {isLoading && <FormLoaderOverlay />}
+            {isLoading && <FormLoaderOverlay size="medium"/>}
             <div className="form-section mt-0">
                 <label className="form-label form-title" htmlFor="name">Name:</label>
                 <input type="text" className="form-control" id="name" name="name" defaultValue={currentUserInfo && currentUserInfo.name}/>

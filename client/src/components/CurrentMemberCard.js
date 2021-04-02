@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useGlobalContext } from '../appContext';
+// Import helpers
 import { deleteMember, updateMember } from '../apiHelper';
 
 export default function CurrentMemberCard({teamMember, index}) {
+    const { isLoading, setIsLoading } = useGlobalContext();
+
     const [adminChecked, setAdminChecked] = useState(teamMember.isAdmin);
     const [scoreBoardIncludeChecked, setScoreBoardIncludeChecked] = useState(teamMember.scoreboardInclude);
 
@@ -89,10 +93,10 @@ export default function CurrentMemberCard({teamMember, index}) {
                     </li>
                     <li className="member-card__listItem">
                         <button
-                            className="btn btn-danger member-card__btn" 
+                            className="btn btn-danger member-card__btn sending" 
                             onClick={() => removeUser(teamMember.id)}
                         >
-                            Remove Member
+                            Remove member
                         </button>
                     </li>
                 </ul>

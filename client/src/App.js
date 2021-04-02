@@ -8,7 +8,6 @@ import Registration from './pages/Registration';
 import Welcome from './pages/Welcome';
 import WigSessionSummary from './pages/WigSessionSummary';
 import WigSession from './pages/WigSession';
-import TeamScoresheet from './pages/TeamScoresheet';
 import Account from './pages/Account';
 import MemberManagement from './pages/MemberManagement';
 import AddWig from './pages/AddWig';

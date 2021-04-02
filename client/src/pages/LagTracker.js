@@ -17,7 +17,7 @@ export default function LagTracker() {
                 <PageHeader pageTitle="Lag Measure Data"/>
                     <article className="form-container">
                         {wigData.length > 0 && <select className="form-select lagTracker-page__select" onChange={e => setIndex(e.target.value)}>
-                        {wigData.map((wig, index) => {
+                        {wigData.length > 0 && wigData.map((wig, index) => {
                             return <option key={index} value={index}>{wig.wigName}</option>
                         })}
                         </select>}

@@ -1,10 +1,12 @@
 import React from 'react';
 import { useGlobalContext } from '../appContext';
+// Import components
+import FormLoaderOverlay from './FormLoaderOverlay';
 // Import helpers
 import { addMember } from '../apiHelper';
 
 export default function InviteUserForm() {
-    const { currentUserInfo } = useGlobalContext();
+    const { currentUserInfo, isLoading } = useGlobalContext();
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -37,6 +39,7 @@ export default function InviteUserForm() {
 
     return (
         <form className="form" onSubmit={handleSubmit}>
+            {isLoading && <FormLoaderOverlay size="medium"/>}
             <div className="form-section mt-0">
                 <label className="form-label" htmlFor="name">Name:</label>
                 <input type="text" className="form-control" id="name" name="name" required placeholder="E.g. John Watson"/>

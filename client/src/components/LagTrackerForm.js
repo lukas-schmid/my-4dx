@@ -24,7 +24,7 @@ export default function LagTrackerForm({wig}) {
 
     return (
         <form className="form" onSubmit={handleSubmit}>
-            {wig.lagData.map((data, index) => {
+            {wig.lagData.length > 0 && wig.lagData.map((data, index) => {
                 return <LagTrackerInputGroup 
                     key={index} 
                     lagDataObj={data} 

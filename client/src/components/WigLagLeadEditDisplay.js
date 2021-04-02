@@ -57,7 +57,7 @@ export default function WigLagLeadEditDisplay({wig}) {
             </div>
             
             <h3 className="form-title mt-30">Lead Measures</h3>
-            {wig.leadMeasures.map((lead, index) => {
+            {wig.leadMeasures.length > 0 && wig.leadMeasures.map((lead, index) => {
                 return <LeadMeasureSummaryCard leadMeasure={lead} key={index} index={index}/>
             })}
         </div>

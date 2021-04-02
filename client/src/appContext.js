@@ -3,23 +3,31 @@ import { useHistory } from 'react-router-dom';
 // Import helpers
 import { login, register } from './apiHelper';
 // Mock data
-import { wigDataMock } from './assets/mockData';
+import { wigDataMock, teamMembersMock } from './assets/mockData';
 
 const AppContext = React.createContext();
 
 function AppProvider({ children }) {
   // ------- STATE -------
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [fetch, setFetch] = useState(false);
+  const [error, setError] = useState({});
 
   const [currentUserInfo, setCurrentUserInfo] = useState({});
 
   const [wigData, setWigData] = useState([...wigDataMock]);
+
+  const [teamData, setTeamData] = useState([...teamMembersMock]);
   // ------- HOOKS -------
   let history = useHistory();
 
   // ------- LIFECYCLE METHODS -------
+
+  // getAllWigsByTeamId(currentUserInfo.teamId)
+  // getTeamMembers(currentUserInfo.teamId)
+
 
   // ------- STATE MANAGEMENT FUNCTIONS -------
   const logInUser = async (email, password) => {
@@ -100,7 +108,8 @@ function AppProvider({ children }) {
       isAdmin,
       createNewTeam,
       currentUserInfo,
-      wigData
+      wigData,
+      teamData
     }}>
       {children}
     </AppContext.Provider>
