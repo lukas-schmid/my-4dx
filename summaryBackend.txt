@@ -15,6 +15,7 @@
 3.1 post("/api/wigs")
 3.2 put("/api/wigs/:wigId)
 3.3 delete("/api/wigs/:wigId)
+3.4 get("/api/wigs/:teamId)
 
 4. Leads
 4.1 post("/api/:wigId/leads")
@@ -318,6 +319,130 @@ Request body:
 Response:
 Status 204:
     {}
+
+
+3.4 get("/api/wigs/:teamId)
+Request body:
+    {}
+Response:
+Status 200:
+[
+    {
+        "wigId": "3dbe408c-f084-4e30-8bf8-764da319abad",
+        "wigName": "test123",
+        "lagDataType": "money",
+        "leadMeasures": [],
+        "lagInterval": "weekly",
+        "lagCurrency": "BSD",
+        "teamId": "47540831-3054-441b-b4c0-b62a7c055bdd",
+        "endDate": "2021-04-24",
+        "startDate": "2021-04-26",
+        "lagData": [],
+        "lagName": "test123"
+    },
+    {
+        "wigId": "95f117c0-c4fd-4cc8-bcf8-1803c789730b",
+        "endDate": "2021-04-08",
+        "lagData": [],
+        "lagInterval": "weekly",
+        "lagCurrency": "",
+        "wigName": "asdasd",
+        "lagDataType": "number",
+        "lagName": "asdasdasd",
+        "startDate": "2021-04-12",
+        "leadMeasures": [],
+        "teamId": "47540831-3054-441b-b4c0-b62a7c055bdd"
+    },
+    {
+        "startDate": "2021-01-11",
+        "endDate": "2021-03-31",
+        "lagCurrency": "SEK",
+        "lagData": [
+            {
+                "startDate": "2021-01-11",
+                "goal": "",
+                "actual": ""
+            },
+            {
+                "goal": "",
+                "startDate": "2021-01-18",
+                "actual": ""
+            },
+            {
+                "startDate": "2021-01-25",
+                "goal": "",
+                "actual": ""
+            },
+            {
+                "actual": "",
+                "goal": "",
+                "startDate": "2021-02-01"
+            },
+            {
+                "actual": "",
+                "goal": "",
+                "startDate": "2021-02-08"
+            },
+            {
+                "startDate": "2021-02-15",
+                "goal": "",
+                "actual": ""
+            },
+            {
+                "actual": "",
+                "startDate": "2021-02-22",
+                "goal": ""
+            },
+            {
+                "goal": "",
+                "actual": "",
+                "startDate": "2021-03-01"
+            },
+            {
+                "startDate": "2021-03-08",
+                "goal": "",
+                "actual": ""
+            },
+            {
+                "startDate": "2021-03-15",
+                "goal": "",
+                "actual": ""
+            },
+            {
+                "actual": "",
+                "goal": "",
+                "startDate": "2021-03-22"
+            },
+            {
+                "actual": "",
+                "startDate": "2021-03-28",
+                "goal": ""
+            }
+        ],
+        "lagInterval": "weekly",
+        "wigName": "increase sale by 70%",
+        "wigId": "f7aad1ae-8e45-4232-beae-2149ea7981e2",
+        "teamId": "47540831-3054-441b-b4c0-b62a7c055bdd",
+        "lagDataType": "money",
+        "lagName": "increase sale calls",
+        "leadMeasures": [
+            {
+                "leadInterval": "daily",
+                "leadDataType": "money",
+                "leadName": "999 phone calls per day",
+                "benchmark": "555",
+                "leadData": [
+                    {
+                        "startDate": "2020-07-01",
+                        "date": 20
+                    }
+                ],
+                "leadId": "742299cb-bc42-4918-8221-52c099280524",
+                "benchmarkExists": false
+            }
+        ]
+    }
+]
 
 
 4. Leads

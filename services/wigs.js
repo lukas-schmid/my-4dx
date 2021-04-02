@@ -9,6 +9,21 @@ exports.getWig = async (wigId) => {
   }
 };
 
+exports.getAllWigsByTeamId = async (teamId) => {
+  const userCollection = [];
+  const docRef = db.collection("wigs").where("teamId", "==", teamId);
+  const wigs = await docRef.get();
+  if (wigs.empty) {
+    console.log("No matching documents.");
+    return;
+  } else {
+    wigs.forEach((doc) => {
+      userCollection.push(doc.data());
+    });
+    return userCollection;
+  }
+};
+
 exports.updateWig = async (
   wigId,
   wigName,
