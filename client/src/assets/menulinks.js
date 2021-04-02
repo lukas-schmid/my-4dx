@@ -14,7 +14,6 @@ const menulinks = [
         { label: 'scoreboard', icon: <ImStatsDots />, url: '/welcome' },
         { label: 'wig session', icon: <FaCalendarCheck />, url: '/wig-session' },
         { label: 'wig session summary', icon: <HiOutlineDocumentReport />, url: '/wig-session-summary' },
-        // { label: 'team scoresheet', icon: <GiTeamUpgrade />, url: '/team-scoresheet' },
       ],
     },
     {
@@ -22,7 +21,6 @@ const menulinks = [
       links: [
         { label: 'add wig', icon: <GiStairsGoal />, url: '/setup/add-wig' },
         { label: 'add lead measures', icon: <ImStatsBars2 />, url: '/setup/add-lead-measures' },
-        { label: 'scoreboard builder', icon: <IoBuild />, url: '/setup/scoreboard-builder' },
         { label: 'tracking', icon: <BiStats />, url: '/setup/lead-lag-tracker' },
       ],
     },
