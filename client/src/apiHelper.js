@@ -27,7 +27,7 @@ export function login(body) {
 
 // get all members from Team
 export function getTeamMembers(teamId) {
-  const url = `http://my-4dx.herokuapp.com/api/members/${teamId}`;
+  const url = `https://my-4dx.herokuapp.com/api/members/${teamId}`;
   return getFetch(url);
 }
 
@@ -99,6 +99,13 @@ export function logout() {
 export function createWig(body) {
   const url = "https://my-4dx.herokuapp.com/api/wigs";
   return postFetch(url, body);
+}
+
+export function getAllWigsByTeamId(teamId) {
+  //const url = `https://my-4dx.herokuapp.com/api/wigs/${teamId}`;
+  const url = `http://localhost:8080/api/wigs/${teamId}`;
+
+  return getFetch(url);
 }
 
 
