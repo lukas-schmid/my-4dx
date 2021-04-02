@@ -67,15 +67,6 @@ export default function AddLeadMeasureForm() {
             });
     }
 
-    // const handleSubmit = e => {
-    //     e.preventDefault();
-
-    //     setIsLoading(true);
-    //     setTimeout(() => {
-    //         setIsLoading(false);
-    //     }, 3000);
-    // }
-
     return (
         <form className="form" onSubmit={handleSubmit}>
             {isLoading && <FormLoaderOverlay />}

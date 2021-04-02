@@ -102,9 +102,7 @@ export function createWig(body) {
 }
 
 export function getAllWigsByTeamId(teamId) {
-  //const url = `https://my-4dx.herokuapp.com/api/wigs/${teamId}`;
-  const url = `http://localhost:8080/api/wigs/${teamId}`;
-
+  const url = `https://my-4dx.herokuapp.com/api/wigs/${teamId}`;
   return getFetch(url);
 }
 
