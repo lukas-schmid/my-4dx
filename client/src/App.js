@@ -20,11 +20,9 @@ import LeadLagTracker from './pages/LeadLagTracker';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/Footer';
 // Import context
-import { AppProvider, useGlobalContext } from './appContext';
+import { AppProvider } from './appContext';
 
 function App() {
-  // const { isAdmin } = useGlobalContext();
-
   return (
     <Router>
       <AppProvider>
@@ -36,7 +34,8 @@ function App() {
           <Route path="/login"><Login /></Route>
           <Route path="/register"><Registration /></Route>
           <Route path="/about"><About /></Route>
-          {/* ALL USER Routes - Add ternary: isLoggedIn ? <Page /> : <Login />*/}
+
+          {/* isLoggedIn */}
           <Route path="/welcome"><Welcome /></Route>
           <Route path="/wig-session-summary"><WigSessionSummary /></Route>
           <Route path="/wig-session"><WigSession /></Route>
@@ -48,6 +47,7 @@ function App() {
           <Route path="/setup/add-lead-measures"><AddLeadMeasures /></Route>
           <Route path="/setup/scoreboard-builder"><ScoreboardBuilder /></Route>
           <Route path="/setup/lead-lag-tracker"><LeadLagTracker /></Route>
+
           {/* 404 */}
           <Route path="*"><NotFound /></Route>
         </Switch>
