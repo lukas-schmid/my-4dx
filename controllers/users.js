@@ -114,6 +114,16 @@ exports.logout = async (req, res, next) => {
   }
 };
 
+exports.sendPasswortReset = async (req, res, next) => {
+  const email = req.body.email;
+  try {
+    sendPasswordReset(email);
+    res.status(200).json({ message: `Reset link has been sent to ${email}` });
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.getUserById = async (req, res, next) => {
   const userId = req.params.userId;
   try {
