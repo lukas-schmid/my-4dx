@@ -40,11 +40,9 @@ export async function putFetch(url, reqBody) {
 
 export async function deleteFetch(url) {
   try {
-    const json = await fetch(url, {
+    return await fetch(url, {
       method: "DELETE",
     });
-    const data = await json.json();
-    return data;
   } catch (error) {
     return error;
   }

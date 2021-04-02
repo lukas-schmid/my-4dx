@@ -9,6 +9,7 @@
 2.3 post("/api/members")
 2.4 put("/api/members/:userId")
 2.5 delete("/api/members/:userId")
+2.6 post("/api/members/passwordreset")
 
 3. WIG
 3.1 post("/api/wigs")
@@ -214,7 +215,16 @@ Response:
 Status 204:
     {}
 
-
+2.6 post("/api/members/passwordreset")
+Request body:
+    {
+        "email": "firstname.lastname@example.com"
+    }
+Response:
+Status 204:
+    {
+        "message": "Reset link has been sent to firstname.lastname@example.com"
+    }
 
 
 3. WIG

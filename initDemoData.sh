@@ -37,14 +37,14 @@ curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:808
 # 3.1 post("/api/wigs")
 # weekly intervals
 body=$(jq -n --arg b "$teamId" '{
-    "wigName": "increase sale by 70%",
+    "wigName": "Increase percent of annual revenue from new products from 15 percent to 21 percent by December 31st",
     "teamId": '$teamId',
-    "lagName":"increase sale calls",
+    "lagName":"Monthly Sales",
     "lagDataType": "money",
     "lagCurrency": "SEK",
     "lagInterval": "weekly",
     "startDate": "2021-01-15",
-    "endDate": "2021-03-31"
+    "endDate": "2021-02-28"
 }')
 
 echo "POST http://localhost:8080/api/wigs"
