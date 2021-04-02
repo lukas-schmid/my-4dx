@@ -21,7 +21,7 @@ const menulinks = [
       links: [
         { label: 'add wig', icon: <GiStairsGoal />, url: '/setup/add-wig' },
         { label: 'add lead measures', icon: <ImStatsBars2 />, url: '/setup/add-lead-measures' },
-        { label: 'tracking', icon: <BiStats />, url: '/setup/lead-lag-tracker' },
+        { label: 'tracking', icon: <BiStats />, url: '/setup/lag-tracker' },
       ],
     },
     {

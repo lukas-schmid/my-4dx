@@ -5,7 +5,6 @@ import { NavProvider } from './navContext';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Registration from './pages/Registration';
-import About from './pages/About';
 import Welcome from './pages/Welcome';
 import WigSessionSummary from './pages/WigSessionSummary';
 import WigSession from './pages/WigSession';
@@ -14,8 +13,7 @@ import Account from './pages/Account';
 import MemberManagement from './pages/MemberManagement';
 import AddWig from './pages/AddWig';
 import AddLeadMeasures from './pages/AddLeadMeasures';
-import ScoreboardBuilder from './pages/ScoreboardBuilder';
-import LeadLagTracker from './pages/LeadLagTracker';
+import LagTracker from './pages/LagTracker';
 // Import Components
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/Footer';
@@ -43,7 +41,7 @@ function App() {
           <Route path="/admin/member-management"><MemberManagement /></Route>
           <Route path="/setup/add-wig"><AddWig /></Route>
           <Route path="/setup/add-lead-measures"><AddLeadMeasures /></Route>
-          <Route path="/setup/lead-lag-tracker"><LeadLagTracker /></Route>
+          <Route path="/setup/lag-tracker"><LagTracker /></Route>
 
           {/* 404 */}
           <Route path="*"><NotFound /></Route>
