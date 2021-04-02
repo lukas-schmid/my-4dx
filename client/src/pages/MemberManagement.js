@@ -35,9 +35,15 @@ export default function MemberManagement() {
     ]
 
     return (
-        <main className="page-container">
-            <section className="page-content member-management-page">
-                <PageHeader pageTitle="Member Management Wizard"/>
+        <main className="page-container member-management-page">
+            <section className="page-content">
+                <PageHeader pageTitle="Invite Team Members"/>
+                <div className="form-container">
+                    <InviteUserForm />
+                </div>
+                <PageFooter excludeQuote={true} />
+
+                {/* <PageHeader pageTitle="Member Management Wizard"/>
                     <article className="member-management-page__container">
                         <div className="member-management-page__form-container">
                             <h2 className="form-title">Invite Team Members</h2>
@@ -50,6 +56,15 @@ export default function MemberManagement() {
                             })}
                         </div>
                     </article>
+                <PageFooter excludeQuote={true} /> */}
+            </section>
+            <section className="page-content">
+                <PageHeader pageTitle="Current Team Members"/>
+                <div className="member-management-page__list">
+                    {teamMembersMock.map((member, index) => {
+                        return <CurrentMemberCard teamMember={member} key={index} index={index}/>
+                    })}
+                </div>
                 <PageFooter excludeQuote={true} />
             </section>
         </main>
