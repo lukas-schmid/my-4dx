@@ -52,7 +52,7 @@ useEffect(() => {
     // ]
 
     return (
-        <main className="page-container member-management-page">
+        <main className="page-container page-container--multi-col member-management-page">
             <section className="page-content">
                 <PageHeader pageTitle="Invite Team Members"/>
                 <div className="form-container">
