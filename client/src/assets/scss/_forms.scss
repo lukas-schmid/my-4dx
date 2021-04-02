@@ -64,6 +64,10 @@
     // }
 }
 
+.form-check-label {
+    text-transform: capitalize;
+}
+
 .check-gap {
     margin: 15px 0;
 }
@@ -87,6 +91,10 @@
 textarea.form-control {
     min-height: calc(1.5em + .75rem + 2px);
     width: 100%;
+
+    &:read-only {
+        resize:none;
+    }
 }
 
 .form-text {
@@ -123,6 +131,12 @@ textarea.form-control {
     &:disabled {
         background-color: #e9ecef;
         opacity: 0.5;
+    }
+
+    &:read-only {
+        outline: none !important;
+        box-shadow: none;
+        border-color: #86b7fe;
     }
 }
 

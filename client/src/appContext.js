@@ -2,16 +2,20 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 // Import helpers
 import { login, register } from './apiHelper';
+// Mock data
+import { wigDataMock } from './assets/mockData';
 
 const AppContext = React.createContext();
 
 function AppProvider({ children }) {
   // ------- STATE -------
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(true);
 
   const [currentUserInfo, setCurrentUserInfo] = useState({});
+
+  const [wigData, setWigData] = useState([...wigDataMock]);
   // ------- HOOKS -------
   let history = useHistory();
 
@@ -95,7 +99,8 @@ function AppProvider({ children }) {
       logOutUser,
       isAdmin,
       createNewTeam,
-      currentUserInfo
+      currentUserInfo,
+      wigData
     }}>
       {children}
     </AppContext.Provider>

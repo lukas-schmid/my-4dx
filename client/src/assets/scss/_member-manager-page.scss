@@ -1,9 +1,7 @@
 .member-management-page {
-    align-items: flex-start !important;
 
     .page-content {
         max-width: 390px;
-        margin-bottom: 30px;
     }
 
     .form {
@@ -13,12 +11,6 @@
     &__list {
       min-width: 0;
       padding: 20px;
-    }
-
-    @include min-width (800px) {
-        .page-content {
-            margin: 0 30px 30px 30px;
-        }
     }
 }
   
