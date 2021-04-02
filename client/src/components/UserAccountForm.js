@@ -77,7 +77,7 @@ export default function UserAccountForm() {
             </div>
             <div className="form-section">
                 <label className="form-label form-title" htmlFor="email">Email:</label>
-                <input readOnly type="text" className="form-control" id="email" name="email" defaultValue={currentUserInfo && currentUserInfo.email}/>
+                <input readOnly type="text" className="form-control" id="email" name="email" defaultValue={currentUserInfo && currentUserInfo.email} disabled/>
             </div>
             <h3 className="form-title mt-30 mb-10">Change Password:</h3>
             <div class="span9 btn-block">
