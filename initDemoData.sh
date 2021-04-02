@@ -26,7 +26,9 @@ body=$(jq -n --arg b "$teamId" '{
     "companyName": "yourCompany ltd",
     "teamId": '$teamId',
     "teamName": "Sales Team",
-    "title": "Sales Representative"
+    "title": "Sales Representative",
+    "isAdmin": false,
+    "scoreboardInclude": true,
 }')
 
 echo "POST http://localhost:8080/api/members"

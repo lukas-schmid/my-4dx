@@ -16,7 +16,7 @@ export default function UserAccountForm() {
             email: currentUserInfo.email,
             name: e.target.name.value,
             companyName: currentUserInfo.companyName,
-            teamId: currentUserInfo.teamName,
+            teamId: currentUserInfo.teamId,
             teamName: currentUserInfo.teamName,
             title: e.target.role.value,
             isAdmin: currentUserInfo.isAdmin,
