@@ -9,6 +9,9 @@ import { getAllWigsByTeamId, getTeamMembers } from '../apiHelper';
 import Select from 'react-select';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { registerLocale, setDefaultLocale } from  "react-datepicker";
+import en from 'date-fns/locale/en-GB';
+registerLocale('en', en)
 
 
 
@@ -23,6 +26,7 @@ export default function Scoreboard(){
   const [chartData, setChartData] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
+  const [dateRange, setDateRange] = useState();
 
   useEffect(() => {
     getAllWigsByTeamId(currentUserInfo.teamId)
@@ -31,6 +35,13 @@ export default function Scoreboard(){
           let defaultWig = data[0];
           setChartData([defaultWig]);
           setLeadMeasure([defaultWig][0].leadMeasures[0]);
+          const defaultDateRange = [defaultWig][0].leadMeasures[0].leadData.map(date => date.startDate);
+          setDateRange(defaultDateRange);
+          const startDate = new Date([defaultWig][0].startDate);
+          const endDate = new Date([defaultWig][0].endDate);
+          setStartDate(startDate);
+          setEndDate(endDate);
+          handleDateFilter(startDate, endDate);
           //setIsLoading(false);
       })
       .catch(err => {
@@ -57,6 +68,11 @@ export default function Scoreboard(){
     setChartData(chartData);
     const lead = chartData[0].leadMeasures[0];
     setLeadMeasure(lead);
+    const startDate = new Date(chartData[0].startDate);
+    const endDate = new Date(chartData[0].endDate);
+    setStartDate(startDate);
+    setEndDate(endDate);
+    handleDateFilter(startDate, endDate);
   }
 
   const handleSelectedMembers = (selectedOption) => {
@@ -74,14 +90,25 @@ export default function Scoreboard(){
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+    handleDateFilter(start, end);
     console.log(start)
     console.log(end);
   };
 
-const showData = () => {
-  console.log(chartData);
-  console.log(leadMeasure)
-}
+  const handleDateFilter = (startDate = chartData[0].startDate, endDate = chartData[0].endDate) => {
+    const dates = leadMeasure.leadData.map(date => new Date(date.startDate).getTime());
+    const start = startDate?.getTime();
+    const end = endDate?.getTime();
+    const range = dates.filter(date => date >= start && date <= end)
+    const formattedDateArray = range.map(date => new Date(date).toISOString().split("T")[0]);
+    setDateRange(formattedDateArray);
+  }
+
+  const showData = () => {
+    console.log(chartData);
+    console.log(leadMeasure);
+    console.log(dateRange);
+  }
 
 
   
@@ -123,7 +150,7 @@ const showData = () => {
   }
   
   const dataLine = {
-      labels: dates,
+      labels: dateRange,
       datasets: [
         {
           label: '# of cold calls / team',
@@ -169,65 +196,72 @@ const showData = () => {
 
   return (
     <>
-   <div className="filterOptions"> 
-      <button type="button" onClick={showData}>console.log</button>
-      <section className="filterOption-wig">
-          <label htmlFor="wigSelect" className="form-label">WIG</label>
-          <select onChange={handleSelectedWig} className="form-select" id="wigSelect" name="wigSelect">
-          {wigs.length > 0 && wigs.map((wig, index) => 
-              <option key={index} value={wig.wigId}>{wig.wigName}</option>
-          )}
-          </select>
-      </section>
-      <section className="filterOption-leadMeasure">
-          <label htmlFor="leadMeasureSelect" className="form-label">Lead Measures</label>
-          <select value={defaultLeadMeasureDropdownValue} onChange={handleSelectedLeadMeasure} className="form-select" id="leadMeasureSelect" name="leadMeasureSelect">
-          {chartData.length > 0 && chartData[0]?.leadMeasures.map((lead, index) => 
-              <option key={index} value={lead.leadId}>{lead.leadName}</option>
-          )}
-          </select>
-      </section>
-      <section className="filterOption-date">
-        <label className="form-label" htmlFor="datePicker">Date:</label>
-        <DatePicker
-          id="datePicker" 
-          name="datePicker" 
-          selected={startDate}
-          onChange={onChangeDate}
-          startDate={startDate}
-          endDate={endDate}
-          selectsRange
-          inline
-        />
-      </section>
-      <section className="filterOption-teamMembers"></section>
-          <label htmlFor="teamMember" className="form-label">TeamMember</label>
-          <Select
-            isMulti
-            id="teamMember"
-            name="teamMembers"
-            options={teamMembersDropdown}
-            className="basic-multi-select"
-            classNamePrefix="select"
-            onChange={handleSelectedMembers}
-          />
-   </div>
-    <div className= 'scoreBoard'>
-        <section className="page-content add-lead-measure-page" style={{width: 400, height: 300}}>
-            <PageHeader pageTitle="Individual lead measures"/> 
-                <Bar data={dataBar} options={optionsBar} style={{
-                    backgroundColor: 'white',
-                    }}/>
-        </section>
-    </div>
-    <div className= 'scoreBoard'>
-        <section className="page-content add-lead-measure-page" style={{width: 400, height: 300}}>
-            <PageHeader pageTitle="Team lead measures"/> 
-                <Line data={dataLine} options={optionsLine} style={{
-                    backgroundColor: 'white',
-                    }}/>
-        </section>
-    </div>
+      <p>
+          <h1>{chartData.length > 0 ? chartData[0].wigName : ''}</h1>
+      </p>
+      <p>
+          <h2>from: {chartData.length > 0 ? chartData[0].startDate : ''} until: {chartData.length > 0 ? chartData[0].endDate : ''}</h2>
+      </p>
+      <div className="filterOptions"> 
+          <button type="button" onClick={showData}>console.log</button>
+          <section className="filterOption-wig">
+              <label htmlFor="wigSelect" className="form-label">WIG</label>
+              <select onChange={handleSelectedWig} className="form-select" id="wigSelect" name="wigSelect">
+              {wigs.length > 0 && wigs.map((wig, index) => 
+                  <option key={index} value={wig.wigId}>{wig.wigName}</option>
+              )}
+              </select>
+          </section>
+          <section className="filterOption-leadMeasure">
+              <label htmlFor="leadMeasureSelect" className="form-label">Lead Measures</label>
+              <select value={defaultLeadMeasureDropdownValue} onChange={handleSelectedLeadMeasure} className="form-select" id="leadMeasureSelect" name="leadMeasureSelect">
+              {chartData.length > 0 && chartData[0]?.leadMeasures.map((lead, index) => 
+                  <option key={index} value={lead.leadId}>{lead.leadName}</option>
+              )}
+              </select>
+          </section>
+          <section className="filterOption-date">
+            <label className="form-label" htmlFor="datePicker">Date:</label>
+            <DatePicker
+              locale="en"
+              id="datePicker" 
+              name="datePicker" 
+              selected={startDate}
+              onChange={onChangeDate}
+              startDate={startDate}
+              endDate={endDate}
+              selectsRange
+              inline
+            />
+          </section>
+          <section className="filterOption-teamMembers"></section>
+              <label htmlFor="teamMember" className="form-label">TeamMember</label>
+              <Select
+                isMulti
+                id="teamMember"
+                name="teamMembers"
+                options={teamMembersDropdown}
+                className="basic-multi-select"
+                classNamePrefix="select"
+                onChange={handleSelectedMembers}
+              />
+      </div>
+        <div className= 'scoreBoard'>
+            <section className="page-content add-lead-measure-page" style={{width: 400, height: 300}}>
+                <PageHeader pageTitle="Individual lead measures"/> 
+                    <Bar data={dataBar} options={optionsBar} style={{
+                        backgroundColor: 'white',
+                        }}/>
+            </section>
+        </div>
+        <div className= 'scoreBoard'>
+            <section className="page-content add-lead-measure-page" style={{width: 400, height: 300}}>
+                <PageHeader pageTitle="Team lead measures"/> 
+                    <Line data={dataLine} options={optionsLine} style={{
+                        backgroundColor: 'white',
+                        }}/>
+            </section>
+        </div>
   </>
   )
 }
