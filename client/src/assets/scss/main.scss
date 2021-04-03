@@ -40,8 +40,9 @@ body {
   flex-wrap: wrap;
 
   background: transparent;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  // overflow-x: hidden;
+  // overflow-y: scroll;
+  overflow: hidden;
 
   &--multi-col {
     align-items: flex-start;
