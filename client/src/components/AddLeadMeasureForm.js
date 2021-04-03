@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import helpers
 import { getAllWigsByTeamId, createLead } from '../apiHelper';
@@ -6,7 +6,8 @@ import { getAllWigsByTeamId, createLead } from '../apiHelper';
 import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function AddLeadMeasureForm() {
-    const { isLoading, setIsLoading, wigData } = useGlobalContext();
+    const { wigData } = useGlobalContext();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();

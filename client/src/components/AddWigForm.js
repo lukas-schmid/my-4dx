@@ -8,8 +8,9 @@ import { createWig } from '../apiHelper';
 import currencyCodes from '../assets/currencyList.json';
 
 export default function AddWigForm() {
-    const { currentUserInfo ,isLoading, setIsLoading } = useGlobalContext();
+    const { currentUserInfo } = useGlobalContext();
 
+    const [isLoading, setIsLoading] = useState(false);
     const [showCurrencyField, setShowCurrencyField] = useState(false);
 
     const handleSubmit = e => {

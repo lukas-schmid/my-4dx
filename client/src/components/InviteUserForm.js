@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
@@ -6,11 +6,12 @@ import FormLoaderOverlay from './FormLoaderOverlay';
 import { addMember } from '../apiHelper';
 
 export default function InviteUserForm() {
-    const { currentUserInfo, isLoading } = useGlobalContext();
+    const { currentUserInfo } = useGlobalContext();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();
-        //setIsLoading(true);
+        setIsLoading(true);
 
         const formData = {
             email: e.target.email.value,
@@ -29,10 +30,10 @@ export default function InviteUserForm() {
         addMember(formData)
             .then(data => {
                 console.log(data);
-                //setIsLoading(false);
+                setIsLoading(false);
             })
             .catch(err => {
-                //setIsLoading(false);
+                setIsLoading(false);
                 console.error(err);
             });
     }
@@ -61,7 +62,7 @@ export default function InviteUserForm() {
                 <input type="checkbox" className="form-check-input" id="scoreboardInclude" name="scoreboardInclude" defaultChecked/>
                 <label className="form-check-label not-italic" htmlFor="scoreboardInclude">Include in scoreboard?</label>
             </div>
-            <button type="sbumit" className="btn btn-success">Invite Member</button>
+            <button type="sbumit" className="btn btn-success" disabled={isLoading}>Invite Member</button>
         </form>
     )
 }

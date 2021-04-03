@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 // Import helpers
-import { login, register } from './apiHelper';
+import { login, register, getAllWigsByTeamId, getTeamMembers } from './apiHelper';
 // Mock data
 import { wigDataMock, teamMembersMock } from './assets/mockData';
 
@@ -10,15 +10,17 @@ const AppContext = React.createContext();
 function AppProvider({ children }) {
   // ------- STATE -------
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(true);
+
   const [fetch, setFetch] = useState(false);
   const [error, setError] = useState({});
 
   const [currentUserInfo, setCurrentUserInfo] = useState({});
 
   const [wigData, setWigData] = useState([...wigDataMock]);
-
+  const [userLeadData, setUserLeadDate] = useState([]);
+  const [useCommitmentData, setUseCommitmentDate] = useState([]);
   const [teamData, setTeamData] = useState([...teamMembersMock]);
   // ------- HOOKS -------
   let history = useHistory();
@@ -27,7 +29,6 @@ function AppProvider({ children }) {
 
   // getAllWigsByTeamId(currentUserInfo.teamId)
   // getTeamMembers(currentUserInfo.teamId)
-
 
   // ------- STATE MANAGEMENT FUNCTIONS -------
   const logInUser = async (email, password) => {

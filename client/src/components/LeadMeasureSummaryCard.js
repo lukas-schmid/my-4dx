@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function LeadMeasureSummaryCard({leadMeasure}) {
+    const [isLoading, setIsLoading] = useState(false);
 
     const deleteLeadMeasure = (id) => {
+        setIsLoading(true);
+
         console.log(id);
+
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
     }
 
     return (
@@ -26,8 +33,9 @@ export default function LeadMeasureSummaryCard({leadMeasure}) {
                         <button
                             className="btn btn-danger member-card__btn" 
                             onClick={() => deleteLeadMeasure(leadMeasure.leadId)}
+                            disabled={isLoading}
                         >
-                                Delete Lead Measure
+                                {isLoading ? 'Loading...' : 'Delete Lead Measure'}
                         </button>
                     </li>
                 </ul>

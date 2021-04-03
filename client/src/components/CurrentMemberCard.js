@@ -4,7 +4,9 @@ import { useGlobalContext } from '../appContext';
 import { deleteMember, updateMember } from '../apiHelper';
 
 export default function CurrentMemberCard({teamMember, index}) {
-    const { isLoading, setIsLoading } = useGlobalContext();
+    // const { isLoading, setIsLoading } = useGlobalContext();
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [adminChecked, setAdminChecked] = useState(teamMember.isAdmin);
     const [scoreBoardIncludeChecked, setScoreBoardIncludeChecked] = useState(teamMember.scoreboardInclude);
@@ -36,15 +38,15 @@ export default function CurrentMemberCard({teamMember, index}) {
         };
         console.log(formData)
 
-        updateMember(teamMember.id, formData)
-            .then(data => {
-                console.log(data);
-                //setIsLoading(false);
-            })
-            .catch(err => {
-                //setIsLoading(false);
-                console.error(err);
-            });
+        // updateMember(teamMember.id, formData)
+        //     .then(data => {
+        //         console.log(data);
+        //         //setIsLoading(false);
+        //     })
+        //     .catch(err => {
+        //         //setIsLoading(false);
+        //         console.error(err);
+        //     });
     }, [adminChecked, scoreBoardIncludeChecked])
 
     const updateIsAdmin = () => {
@@ -73,6 +75,7 @@ export default function CurrentMemberCard({teamMember, index}) {
                             id={`admin-${index}`}
                             defaultChecked={teamMember.isAdmin}
                             onChange={updateIsAdmin}
+                            disabled={isLoading}
                         />
                         <label className="form-check-label" htmlFor={`admin-${index}`}>
                             Admin
@@ -86,6 +89,7 @@ export default function CurrentMemberCard({teamMember, index}) {
                             id={`scoreboardInclude-${index}`}
                             defaultChecked={teamMember.scoreboardInclude}
                             onChange={updateScoreboardInclude}
+                            disabled={isLoading}
                         />
                         <label className="form-check-label" htmlFor={`scoreboardInclude-${index}`}>
                             Include in scoreboard
@@ -95,8 +99,9 @@ export default function CurrentMemberCard({teamMember, index}) {
                         <button
                             className="btn btn-danger member-card__btn sending" 
                             onClick={() => removeUser(teamMember.id)}
+                            disabled={isLoading}
                         >
-                            Remove member
+                            {isLoading ? 'Loading...' : 'Remove member'}
                         </button>
                     </li>
                 </ul>

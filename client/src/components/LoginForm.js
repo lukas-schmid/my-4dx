@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
 
 import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function LoginForm() {
-    const { logInUser, isLoading, setIsLoading } = useGlobalContext();
+    const { logInUser } = useGlobalContext();
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -16,7 +18,11 @@ export default function LoginForm() {
         }
 
         // logInUser(formData.email, formData.password)
-        //     .then(data => e.target.reset());
+        //     .then(data => {
+        //         setIsLoading(false);
+        //         e.target.reset();
+        //     })
+        //     .catch(error => console.error(error));
     }
 
     return (
@@ -32,7 +38,7 @@ export default function LoginForm() {
                 <label htmlFor="password" className="form-label">Password</label>
                 <input type="password" className="form-control" id="password" name="password" required/>
             </div>
-            <button type="submit" className="btn btn-success">Sign In</button>
+            <button type="submit" className="btn btn-success" disabled={isLoading}>Sign In</button>
         </form>
     )
 }
