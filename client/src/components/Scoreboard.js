@@ -43,7 +43,14 @@ export default function Scoreboard(){
           const endDate = new Date([defaultWig][0].endDate);
           setStartDate(startDate);
           setEndDate(endDate);
-          handleDateFilter(startDate, endDate);
+
+          const dates = [defaultWig][0].leadMeasures[0].leadData.map(date => new Date(date.startDate).getTime());
+          const start = startDate.getTime();
+          const end = endDate.getTime();
+          const range = dates.filter(date => date >= start && date <= end)
+          const formattedDateArray = range.map(date => new Date(date).toISOString().split("T")[0]);
+          setDateRange(formattedDateArray);
+          //handleDateFilter(startDate, endDate);
           }
           setIsLoading(false);
       })
@@ -90,6 +97,7 @@ export default function Scoreboard(){
     const lead = currentWig[0].leadMeasures.filter(lead => lead.leadId === e.target.value);
     setLeadMeasure(lead[0]);
     setDefaultLeadMeasureDropdownValue(e.target.value);
+    handleDateFilter(new Date(currentWig[0].startDate), new Date(currentWig[0].endDate));
   }
 
   const onChangeDate = dates => {
@@ -102,10 +110,10 @@ export default function Scoreboard(){
   };
 
   const handleDateFilter = (startDate = chartData[0].startDate, endDate = chartData[0].endDate) => {
-    const dates = leadMeasure.leadData.map(date => new Date(date.startDate).getTime());
-    // const dates = leadMeasure !== undefined 
-    // ? leadMeasure.leadData.map(date => new Date(date.startDate).getTime())
-    // : [new Date(startDate).getTime(), new Date(endDate).getTime()];
+    //const dates = leadMeasure.leadData.map(date => new Date(date.startDate).getTime());
+    const dates = leadMeasure !== undefined 
+      ? leadMeasure.leadData.map(date => new Date(date.startDate).getTime())
+      : [new Date().getTime()];
     console.log('dates', dates)
     const start = startDate?.getTime();
     const end = endDate?.getTime();
@@ -133,7 +141,7 @@ export default function Scoreboard(){
   const dataBar = {
     labels: selectedTeamMembers.length > 0 
             ? selectedTeamMembers.map(member => member.name) 
-            : teamMembers.map(member => member.name),
+            : teamMembers?.map(member => member.name),
     datasets: [
       {
         label: '# of cold calls',
