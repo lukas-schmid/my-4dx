@@ -4,7 +4,7 @@ import { Line } from '@reactchartjs/react-chart.js'
 import PageHeader from '../components/PageHeader';
 import { dataSet1 } from '../mockData';
 import { useGlobalContext } from '../appContext';
-// import FormLoaderOverlay from './FormLoaderOverlay';
+import FormLoaderOverlay from './FormLoaderOverlay';
 import { getAllWigsByTeamId, getTeamMembers } from '../apiHelper';
 import Select from 'react-select';
 import DatePicker from "react-datepicker";
@@ -29,11 +29,13 @@ export default function Scoreboard(){
   const [dateRange, setDateRange] = useState();
 
   useEffect(() => {
+    setIsLoading(true);
     getAllWigsByTeamId(currentUserInfo.teamId)
       .then(data => {
           setWigs(data);
           let defaultWig = data[0];
           setChartData([defaultWig]);
+          if (defaultWig !== undefined && [defaultWig][0].leadMeasures[0] !== undefined) {
           setLeadMeasure([defaultWig][0].leadMeasures[0]);
           const defaultDateRange = [defaultWig][0].leadMeasures[0].leadData.map(date => date.startDate);
           setDateRange(defaultDateRange);
@@ -42,10 +44,14 @@ export default function Scoreboard(){
           setStartDate(startDate);
           setEndDate(endDate);
           handleDateFilter(startDate, endDate);
-          //setIsLoading(false);
+          }
+          setIsLoading(false);
       })
       .catch(err => {
-          //setIsLoading(false);
+          // console.log(wigs);
+          // setChartData([])
+          // console.log(chartData)
+          setIsLoading(false);
           console.error(err);
       });
 
@@ -55,10 +61,10 @@ export default function Scoreboard(){
           setTeamMembersDropdown(data.map(member => {
             return ({name: member.name, label: member.name});
           }))
-          //setIsLoading(false);
+          setIsLoading(false);
       })
       .catch(err => {
-          //setIsLoading(false);
+          setIsLoading(false);
           console.error(err);
       });
   },[])
@@ -97,6 +103,10 @@ export default function Scoreboard(){
 
   const handleDateFilter = (startDate = chartData[0].startDate, endDate = chartData[0].endDate) => {
     const dates = leadMeasure.leadData.map(date => new Date(date.startDate).getTime());
+    // const dates = leadMeasure !== undefined 
+    // ? leadMeasure.leadData.map(date => new Date(date.startDate).getTime())
+    // : [new Date(startDate).getTime(), new Date(endDate).getTime()];
+    console.log('dates', dates)
     const start = startDate?.getTime();
     const end = endDate?.getTime();
     const range = dates.filter(date => date >= start && date <= end)
@@ -196,12 +206,14 @@ export default function Scoreboard(){
 
   return (
     <>
-      <p>
-          <h1>{chartData.length > 0 ? chartData[0].wigName : ''}</h1>
-      </p>
-      <p>
-          <h2>from: {chartData.length > 0 ? chartData[0].startDate : ''} until: {chartData.length > 0 ? chartData[0].endDate : ''}</h2>
-      </p>
+      {isLoading ? <FormLoaderOverlay /> : 
+      <div>
+      <div>
+          <h1>{wigs.length > 0 ? chartData[0]?.wigName : ''}</h1>
+      </div>
+      <div>
+          <h2>from: {wigs.length > 0 ? chartData[0]?.startDate : ''} until: {wigs.length > 0 ? chartData[0]?.endDate : ''}</h2>
+      </div>
       <div className="filterOptions"> 
           <button type="button" onClick={showData}>console.log</button>
           <section className="filterOption-wig">
@@ -262,6 +274,7 @@ export default function Scoreboard(){
                         }}/>
             </section>
         </div>
+      </div>}
   </>
   )
 }

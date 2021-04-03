@@ -113,7 +113,7 @@ export function getAllWigsByTeamId(teamId) {
 // }
 
 export function createLead(wigId, body) {
-  const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads`;
+  const url = `http://localhost:8080/api/${wigId}/leads`;
   return postFetch(url, body);
 }
 
