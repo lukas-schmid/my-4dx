@@ -11,7 +11,7 @@
     Final project for the Full Stack Javascript Developer Bootcamp at Salt - School of applied technology.
     <br />
     <br />
-    <a href="https://my-4dx.herokuapp.com/" target="_blank">View Live Version</a>
+    <a href="https://my-4dx.herokuapp.com/">View Live Version</a>
   </p>
 </p>
 
