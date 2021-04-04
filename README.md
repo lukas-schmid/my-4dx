@@ -105,3 +105,19 @@ Go to [Firebase](https://firebase.google.com/) and create a project.
    AUTH_PROVIDER_X509_CERT_URL=XXXX
    CLIENT_X509_CERT_URL=XXXX
    ```
+
+### Demo Data for Database
+
+1. Start server in root directory (localhost:8080)
+   ```sh
+   npm start
+   ```
+   or with nodemon
+   ```sh
+   npm run start-dev
+   ```
+
+2. Run command in root directory
+    ```sh
+   bash initDemoData.sh
+   ```
