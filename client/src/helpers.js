@@ -4,6 +4,10 @@ export function randomItemFromArray(arr, not) {
     return item;
 }
 
+export function getRandomBetween(min, max, randomNumber = Math.random()) {
+    return Math.floor(randomNumber * (max - min) + min);
+}
+
 export function getWeek(year,month,day) {
     function serial(days) { return 86400000*days; }
     function dateserial(year,month,day) { return (new Date(year,month-1,day).valueOf()); }
