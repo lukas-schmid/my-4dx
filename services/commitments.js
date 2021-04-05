@@ -1,5 +1,21 @@
 const db = require("../config/db");
 
+exports.getAllCommitmentsByWigId = async (wigId) => {
+  const userCollection = [];
+  const docRef = db.collection("commitments").where("wigId", "==", wigId);
+  const commitments = await docRef.get();
+  if (commitments.empty) {
+    console.log("No matching documents.");
+    return;
+  } else {
+    commitments.forEach((doc) => {
+      userCollection.push(doc.data());
+    });
+
+    return userCollection;
+  }
+};
+
 exports.getAllCommitments = async (userId) => {
   const userCollection = [];
   const docRef = db.collection("commitments").where("userId", "==", userId);
