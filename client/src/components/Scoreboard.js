@@ -236,83 +236,91 @@ export default function Scoreboard(){
 
   return (
     <>
-    {allWigs.length === 0 ? <p>no Wig found</p> : 
-      <div>
-        <button type="button" onClick={showData}>console.log</button>
-        <div>
-          <h1>{currentWig?.wigName}</h1>
+      {allWigs.length === 0 ? <p>no Wig found</p> :
+      <div id="scoreboardContainer">
+        <div id="filters">
+          <div>
+            <div className="page-content add-lead-measure-page">
+              <PageHeader pageTitle={
+                <h1>{currentWig?.wigName}</h1>
+                }/> 
+            </div>
+            <div>
+              <h2>from: {currentWig?.startDate} until: {currentWig?.endDate}</h2>
+            </div>
+            <button type="button" onClick={showData}>console.log</button>
+          <div className="filterOptions">
+            <section className="filterOption-wig">
+                <label htmlFor="wigSelect" className="form-label">WIG</label>
+                <select onChange={handleSelectedWig} className="form-select" id="wigSelect" name="wigSelect">
+                {allWigs.map((wig, index) => 
+                    <option key={index} value={wig.wigId}>{wig.wigName}</option>
+                )}
+                </select>
+            </section>
+            <section className="filterOption-leadMeasure">
+                <label htmlFor="leadMeasureSelect" className="form-label">Lead Measures</label>
+                <select value={defaultLeadMeasureDropdownValue} onChange={handleSelectedLeadMeasure} className="form-select" id="leadMeasureSelect" name="leadMeasureSelect">
+                {currentWig?.leadMeasures.map((lead, index) => 
+                    <option key={index} value={lead.leadId}>{lead.leadName}</option>
+                )}
+                </select>
+            </section>
+            <section className="filterOption-date">
+              <label className="form-label" htmlFor="datePicker">Date:</label>
+              <DatePicker
+                locale="en"
+                id="datePicker" 
+                name="datePicker" 
+                selected={startDate}
+                onChange={onChangeDate}
+                startDate={startDate}
+                endDate={endDate}
+                selectsRange
+                inline
+              />
+            </section>
+            <section className="filterOption-teamMembers">
+                <label htmlFor="teamMember" className="form-label">TeamMember</label>
+                <Select
+                  isMulti
+                  id="teamMember"
+                  name="teamMembers"
+                  options={teamMembersDropdown}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  onChange={handleSelectedMembers}
+                />
+            </section>
+          </div>
         </div>
-        <div>
-          <h2>from: {currentWig?.startDate} until: {currentWig?.endDate}</h2>
         </div>
-      <div className="filterOptions">
-        <section className="filterOption-wig">
-            <label htmlFor="wigSelect" className="form-label">WIG</label>
-            <select onChange={handleSelectedWig} className="form-select" id="wigSelect" name="wigSelect">
-            {allWigs.map((wig, index) => 
-                <option key={index} value={wig.wigId}>{wig.wigName}</option>
-            )}
-            </select>
-        </section>
-        <section className="filterOption-leadMeasure">
-            <label htmlFor="leadMeasureSelect" className="form-label">Lead Measures</label>
-            <select value={defaultLeadMeasureDropdownValue} onChange={handleSelectedLeadMeasure} className="form-select" id="leadMeasureSelect" name="leadMeasureSelect">
-            {currentWig?.leadMeasures.map((lead, index) => 
-                <option key={index} value={lead.leadId}>{lead.leadName}</option>
-            )}
-            </select>
-        </section>
-        <section className="filterOption-date">
-          <label className="form-label" htmlFor="datePicker">Date:</label>
-          <DatePicker
-            locale="en"
-            id="datePicker" 
-            name="datePicker" 
-            selected={startDate}
-            onChange={onChangeDate}
-            startDate={startDate}
-            endDate={endDate}
-            selectsRange
-            inline
-          />
-        </section>
-        <section className="filterOption-teamMembers">
-            <label htmlFor="teamMember" className="form-label">TeamMember</label>
-            <Select
-              isMulti
-              id="teamMember"
-              name="teamMembers"
-              options={teamMembersDropdown}
-              className="basic-multi-select"
-              classNamePrefix="select"
-              onChange={handleSelectedMembers}
-            />
-        </section>
-      </div>
-      <div className= 'scoreBoard'>
-        <section className="page-content add-lead-measure-page" style={{width: 400, height: 300}}>
-            <PageHeader pageTitle="Individual lead measures"/> 
-                <Bar data={dataBar} options={optionsBar} style={{
-                    backgroundColor: 'white',
-                    }}/>
-        </section>
-      </div>
-      <div className= 'scoreBoard'>
-          <section className="page-content add-lead-measure-page" style={{width: 400, height: 300}}>
-              <PageHeader pageTitle="Team lead measures"/> 
-                  <Line data={dataLine} options={optionsLine} style={{
-                      backgroundColor: 'white',
-                      }}/>
-          </section>
-      </div>
-      <div className= 'scoreBoard'>
-          <section className="page-content add-lead-measure-page" style={{width: 400, height: 300}}>
-              <PageHeader pageTitle="Lag measures"/> 
-                  <Line data={dataLag} options={optionsLag} style={{
-                      backgroundColor: 'white',
-                      }}/>
-          </section>
-      </div>
+        <div id="scoreBoards">
+          <div className= 'scoreBoard'>
+            <section className="page-content add-lead-measure-page" style={{width: 400, height: 300}}>
+                <PageHeader pageTitle="Individual lead measures"/> 
+                    <Bar data={dataBar} options={optionsBar} style={{
+                        backgroundColor: 'white',
+                        }}/>
+            </section>
+          </div>
+          <div className= 'scoreBoard'>
+              <section className="page-content add-lead-measure-page" style={{width: 400, height: 300}}>
+                  <PageHeader pageTitle="Team lead measures"/> 
+                      <Line data={dataLine} options={optionsLine} style={{
+                          backgroundColor: 'white',
+                          }}/>
+              </section>
+          </div>
+          <div className= 'scoreBoard'>
+              <section className="page-content add-lead-measure-page" style={{width: 400, height: 300}}>
+                  <PageHeader pageTitle="Lag measures"/> 
+                      <Line data={dataLag} options={optionsLag} style={{
+                          backgroundColor: 'white',
+                          }}/>
+              </section>
+          </div>
+        </div>
     </div>}
   </>
   )
