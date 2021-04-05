@@ -4,6 +4,14 @@ export function randomItemFromArray(arr, not) {
     return item;
 }
 
+export function getRandomBetween(min, max, randomNumber = Math.random()) {
+    return Math.floor(randomNumber * (max - min) + min);
+}
+
+export function getRandomPercentageBetween(min, max, randomNumber = Math.random()) {
+    return (Math.random() * (1 - 0.4) + 0.4).toFixed(2);
+}
+
 export function getWeek(year,month,day) {
     function serial(days) { return 86400000*days; }
     function dateserial(year,month,day) { return (new Date(year,month-1,day).valueOf()); }
@@ -50,4 +58,39 @@ export function getFirstOfMonth(argDate) {
     const dayDate = dateCopy.getDate();
     const firstOfMonth = dateCopy.setDate(dateCopy.getDate() - (dayDate - 1));
     return new Date(firstOfMonth);
+}
+
+export function decimalToPercent(decimal) {
+    const float = parseFloat(decimal);
+    return `${float * 100}%`;
+}
+
+export function formatMonthYear(date) {
+    const monthNames = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ]
+    const month = new Date(date).getMonth();
+    const year = new Date(date).getUTCFullYear();
+    return `${monthNames[month]} ${year}`
+}
+
+export function formatWeekFromTo(date) {
+    const mon = getMondayDate(date);
+    const sun = addDays(mon, 7);
+
+    const monDDMMYY = `${mon.getDate()}/${mon.getMonth()}-${mon.getFullYear()}`;
+    const sunDDMMYY = `${sun.getDate()}/${sun.getMonth()}-${sun.getFullYear()}`;
+
+    return `(${monDDMMYY} > ${sunDDMMYY})`;
 }

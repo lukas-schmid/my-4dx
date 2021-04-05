@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function RegistrationForm() {
-    const { isLoading, createNewTeam } = useGlobalContext();
+    const { createNewTeam } = useGlobalContext();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async e => {
         e.preventDefault();
+        setIsLoading(true);
         
         const formData = {
             email: e.target.email.value,
@@ -19,7 +21,10 @@ export default function RegistrationForm() {
         }
  
         createNewTeam(formData)
-            .then(data => e.target.reset());
+            .then(data => {
+                e.target.reset();
+                setIsLoading(false);
+            });
     }
 
     return (
