@@ -33,7 +33,7 @@ body=$(jq -n --arg b "$teamId" '{
 
 echo "POST http://localhost:8080/api/members"
 echo "request body: $body"
-userIdMember=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/members | jq . -r .id)
+userId=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/members | jq . -r .id)
 
 # 3. WIG
 # 3.1 post("/api/wigs")
@@ -91,9 +91,9 @@ body=$(jq -n --arg b "$teamId" '{
     "leadInterval": "weekly"
 }')
 
-echo "POST http://localhost:8080/api/$wigId/leads/$leadId/users/$userIdMember"
+echo "POST http://localhost:8080/api/$wigId/leads/$leadId/users/$userId"
 echo "request body: $body"
-curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/"$wigId"/leads/"$leadId"/users/"$userIdMember" | jq .
+curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/"$wigId"/leads/"$leadId"/users/"$userId" | jq .
 
 # Init Commitments
 # 4.2 post("/api/commitments/:userId")
@@ -101,9 +101,9 @@ body=$(jq -n --arg b "$teamId" '{
     "leadInterval": "weekly"
 }')
 
-echo "POST http://localhost:8080/api/commitments/$userIdMember"
+echo "POST http://localhost:8080/api/commitments/$userId"
 echo "request body: $body"
-curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080//api/commitments/"$userIdMember" | jq .
+curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/commitments/"$userId" | jq .
 
 # 4.2 put("/api/:wigId/leads/:leadId")
 # body=$(jq -n --arg b "$teamId" '{
