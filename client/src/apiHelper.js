@@ -146,7 +146,7 @@ export function getAllCommitmentsByWigId(wigId) {
   return getFetch(url);
 }
 
-export function getAllCommitmentsByUserId(wigId) {
+export function getAllCommitmentsByUserId(userId) {
   const url = `https://my-4dx.herokuapp.com/api/commitments/${userId}`;
   return getFetch(url);
 }
