@@ -769,8 +769,9 @@ Status 200:
 
 Request body:
     {  
-        "leadInterval": "weekly",
-        "wigId": "9e1cfc51-15de-43da-935c-dd7b13819edb"
+        "category": "categoryName2",
+        "startDate": "2025-01-01",
+        "commitmentName": "this is another the commitmentName"
     }
 Response:
 Status 201:
@@ -819,24 +820,6 @@ Status 201:
                 "startDate": "2021-01-18",
                 "category": "",
                 "commitmentName": ""
-            },
-            {
-                "category": "",
-                "isCompleted": false,
-                "commitmentName": "",
-                "startDate": "2021-01-25"
-            },
-            {
-                "category": "",
-                "startDate": "2021-02-01",
-                "isCompleted": false,
-                "commitmentName": ""
-            },
-            {
-                "isCompleted": false,
-                "category": "",
-                "commitmentName": "",
-                "startDate": "2021-02-08"
             }
         ],
         "teamName": "Sales Team",

@@ -81,14 +81,21 @@ exports.getAllCommitments = async (req, res, next) => {
 };
 
 exports.createCommitment = async (req, res, next) => {
-  const commitmentId = uuidv4();
+  //const commitmentId = uuidv4();
   const userId = req.params.userId;
-  const wigId = req.body.wigId;
-  const commitments = await initCommitmentData(wigId, req.body.leadInterval);
+  //const wigId = req.body.wigId;
+  //const commitments = await initCommitmentData(wigId, req.body.leadInterval);
+  const body = {
+    commitmentId: uuidv4(),
+    category: req.body.category,
+    startDate: req.body.startDate,
+    isCompleted: false,
+    commitmentName: req.body.commitmentName
+  }
   try {
     const user = await userService.getUser(userId);
     const currentCommitments = user.commitments;
-    const newCommitments = currentCommitments.concat(commitments);
+    const newCommitments = currentCommitments.concat(body);
     await userService.addUserCommitments(
       user.id,
       newCommitments
