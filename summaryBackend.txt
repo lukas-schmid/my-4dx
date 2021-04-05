@@ -25,10 +25,11 @@
 5.1 put("/api/lag/:wigId")
 
 6. Commitments
-6.1 get("/api/commitments/:userId")
-6.2 post("/api/commitments/:userId")
-6.3 put("/api/commitments/:commitmentId")
-6.4 delete("/api/commitments/:commitmentId")
+6.1 get("/api/commitments/wigs/:wigId")
+6.2 get("/api/commitments/:userId")
+6.3 post("/api/commitments/:userId")
+6.4 put("/api/commitments/:commitmentId")
+6.5 delete("/api/commitments/:commitmentId")
 
 7. scoreboard
 7.1 post("/api/scoreb)
