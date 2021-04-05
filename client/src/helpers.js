@@ -8,6 +8,10 @@ export function getRandomBetween(min, max, randomNumber = Math.random()) {
     return Math.floor(randomNumber * (max - min) + min);
 }
 
+export function getRandomPercentageBetween(min, max, randomNumber = Math.random()) {
+    return (Math.random() * (1 - 0.4) + 0.4).toFixed(2);
+}
+
 export function getWeek(year,month,day) {
     function serial(days) { return 86400000*days; }
     function dateserial(year,month,day) { return (new Date(year,month-1,day).valueOf()); }

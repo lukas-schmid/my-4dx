@@ -4,8 +4,11 @@ import { useHistory } from 'react-router-dom';
 import { login, register, getAllWigsByTeamId, getTeamMembers } from './apiHelper';
 // Mock data
 import { wigDataMock, teamMembersMock } from './assets/mockData';
+import { demoUserLeadDataMock } from './assets/demoMockData';
 
 const AppContext = React.createContext();
+
+console.log(demoUserLeadDataMock)
 
 function AppProvider({ children }) {
   // ------- STATE -------

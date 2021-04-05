@@ -25,14 +25,6 @@ export const teamMembersMock = [
     }
 ];
 
-export const userLeadDataMock = [
-    
-];
-
-export const userCommitmentDataMock = [
-
-];
-
 export const wigDataMock = [
     {
         wigName: 'Increase product X safety score from 50% to 90% by submission deadline on Apr 18th',
