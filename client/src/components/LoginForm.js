@@ -18,7 +18,7 @@ export default function LoginForm() {
         }
 
         logInUser(formData.email, formData.password)
-            .then(data => {
+            .then(() => {
                 setIsLoading(false);
                 e.target.reset();
             })

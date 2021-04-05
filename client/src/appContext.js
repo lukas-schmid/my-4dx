@@ -3,12 +3,10 @@ import { useHistory } from 'react-router-dom';
 // Import helpers
 import { login, register, getAllWigsByTeamId, getTeamMembers } from './apiHelper';
 // Mock data
-import { wigDataMock, teamMembersMock } from './assets/mockData';
-import { demoUserLeadDataMock } from './assets/demoMockData';
+import { teamMembersMock } from './assets/mockData';
+import { wigDataMock, demoAdminInfoMock, demoUserInfoMock } from './assets/demoMockData';
 
 const AppContext = React.createContext();
-
-console.log(demoUserLeadDataMock)
 
 function AppProvider({ children }) {
   // ------- STATE -------
@@ -17,13 +15,13 @@ function AppProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const [fetch, setFetch] = useState(false);
-  const [error, setError] = useState({});
+  const [error, setError] = useState({isError: false, message: ''});
 
-  const [currentUserInfo, setCurrentUserInfo] = useState({});
+  const [currentUserInfo, setCurrentUserInfo] = useState({...demoUserInfoMock});
 
   const [wigData, setWigData] = useState([...wigDataMock]);
-  const [userLeadData, setUserLeadDate] = useState([]);
-  const [useCommitmentData, setUseCommitmentDate] = useState([]);
+  const [userLeadData, setUserLeadDate] = useState([...demoUserInfoMock.leadMeasures]);
+  const [userCommitmentData, setUserCommitmentDate] = useState([...demoUserInfoMock.commitments]);
   const [teamData, setTeamData] = useState([...teamMembersMock]);
   // ------- HOOKS -------
   let history = useHistory();
@@ -36,7 +34,6 @@ function AppProvider({ children }) {
   // ------- STATE MANAGEMENT FUNCTIONS -------
   const logInUser = async (email, password) => {
     console.log('logging in...', email, password)
-    setIsLoading(true);
     try {
       const data = await login({ email, password });
       if (!data.errorCode) {
@@ -46,24 +43,23 @@ function AppProvider({ children }) {
         setIsAdmin(data.isAdmin);
         history.push('/welcome');
 
-        console.log(data);
-        /* Response:
-          companyName: "CH Finance"
-          email: "goran@chfinance.org"
-          id: "BKUuVcuXO7PUrjlFV08G1bTNVvJ3"
-          isAdmin: true
-          isLoggedIn: true
-          name: "Goran Carlsson"
-          scoreboardInclude: true
-          teamId: "aceec219-e983-4bfd-979f-118c543720be"
-          teamName: "CH Finance Executive Team"
-          title: "CEO"
-        */
+        //console.log(data);
       }
+
+      console.log(data.teamId)
+
+      //getTeamMembers(currentUserInfo.teamId)
+      //getAllWigsByTeamId(currentUserInfo.teamId)
+
+      // const team = await getTeamMembers(data.teamId);
+      // console.log(team);
+
+      // const wigs = await getAllWigsByTeamId(data.teamId);
+      // console.log(wigs);
+
     } catch (error) {
         console.error(error);
     }
-    setIsLoading(false);
   }
 
   const logOutUser = () => {
@@ -73,32 +69,20 @@ function AppProvider({ children }) {
   }
 
   const createNewTeam = async reqObject => {
-    setIsLoading(true);
     try {
       const data = await register(reqObject);
       if (!data.errorCode) {
+        setCurrentUserInfo(data);
+
         setIsLoggedIn(true);
         setIsAdmin(true);
         history.push('/welcome');
 
         console.log(data);
-
-        /* Response:
-          companyName: "CH Finance"
-          email: "goran@chfinance.org"
-          id: "BKUuVcuXO7PUrjlFV08G1bTNVvJ3"
-          isAdmin: true
-          name: "Goran Carlsson"
-          scoreboardInclude: true
-          teamId: "aceec219-e983-4bfd-979f-118c543720be"
-          teamName: "CH Finance Executive Team"
-          title: "CEO"
-        */
       }
     } catch (error) {
       console.error(error);
     }
-    setIsLoading(false);
   }
 
   // ------- RETURN -------
@@ -106,14 +90,24 @@ function AppProvider({ children }) {
     <AppContext.Provider value={{
       isLoading,
       setIsLoading,
-      logInUser,
-      isLoggedIn,
-      logOutUser,
+
       isAdmin,
-      createNewTeam,
+      setIsAdmin,
+
+      isLoggedIn,
+      setIsLoggedIn,
+      logInUser,
+
       currentUserInfo,
+      setCurrentUserInfo,
+      
+      logOutUser,
+      createNewTeam,
       wigData,
-      teamData
+      teamData,
+      userLeadData,
+      userCommitmentData,
+      setFetch
     }}>
       {children}
     </AppContext.Provider>

@@ -5,7 +5,7 @@
 # 1.1 post("/api/register")
 
 body=$(jq -n --arg b "$teamId" '{
-    "email": "demo-admin@my-4dx.herokuapp.com",
+    "email": "test-admin@my-4dx.herokuapp.com",
     "password": "password123",
     "name": "John Doe",
     "companyName": "yourCompany ltd",
@@ -20,7 +20,7 @@ teamId=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://loca
 # 2. user management
 # 2.3 post("/api/members")
 body=$(jq -n --arg b "$teamId" '{
-    "email": "demo-user@my-4dx.herokuapp.com",
+    "email": "test-user@my-4dx.herokuapp.com",
     "password": "password123",
     "name": "Jane Doe",
     "companyName": "yourCompany ltd",
@@ -33,7 +33,7 @@ body=$(jq -n --arg b "$teamId" '{
 
 echo "POST http://localhost:8080/api/members"
 echo "request body: $body"
-curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/members | jq .
+userId=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/members | jq . -r .id)
 
 # 3. WIG
 # 3.1 post("/api/wigs")
@@ -83,6 +83,27 @@ body=$(jq -n --arg b "$teamId" '{
 echo "POST http://localhost:8080/api/$wigId/leads"
 echo "request body: $body"
 leadId=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/"$wigId"/leads | jq -r .leadMeasures[0].leadId)
+echo "$leadId";
+
+# Init leadMeasure
+# 4.2 post("/api/:wigId/leads/:leadId/users/:userId")
+body=$(jq -n --arg b "$teamId" '{
+    "leadInterval": "weekly"
+}')
+
+echo "POST http://localhost:8080/api/$wigId/leads/$leadId/users/$userId"
+echo "request body: $body"
+curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/"$wigId"/leads/"$leadId"/users/"$userId" | jq .
+
+# Init Commitments
+# 4.2 post("/api/commitments/:userId")
+body=$(jq -n --arg b "$teamId" '{
+    "leadInterval": "weekly"
+}')
+
+echo "POST http://localhost:8080/api/commitments/$userId"
+echo "request body: $body"
+curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/commitments/"$userId" | jq .
 
 # 4.2 put("/api/:wigId/leads/:leadId")
 # body=$(jq -n --arg b "$teamId" '{

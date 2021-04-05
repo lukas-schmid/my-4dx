@@ -3,3 +3,18 @@
 .scoreBoard {
     margin: 10px;
 }
+
+#scoreboardContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#filters {
+    background-color: white;
+    width: 50%;
+}
+
+#scoreBoards {
+    // background-color: red;
+    width: 50%;
+}

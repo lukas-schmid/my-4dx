@@ -8,7 +8,8 @@ exports.createCommitment = async (
   wigId,
   wigName,
   leadId,
-  category
+  category,
+  isCompleted
 ) => {
   const docRef = db.collection("commitments").doc(commitmentId);
   await docRef.set({
@@ -20,5 +21,6 @@ exports.createCommitment = async (
     wigName,
     leadId,
     category,
+    isCompleted
   });
 };

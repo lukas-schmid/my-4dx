@@ -19,16 +19,18 @@
 
 4. Leads
 4.1 post("/api/:wigId/leads")
+4.2 post("/api/:wigId/leads/:leadId/users/:userId")
 // 4.2 put("/api/:wigId/leads/:leadId") -- commented out -> changes needed
 
 5. Lag
-5.1 put("/api/lag/:wigId")
+// 5.1 put("/api/lag/:wigId") -- not in use
 
 6. Commitments
-6.1 get("/api/commitments/:userId")
-6.2 post("/api/commitments/:userId")
-6.3 put("/api/commitments/:commitmentId")
-6.4 delete("/api/commitments/:commitmentId")
+// 6.1 get("/api/commitments/wigs/:wigId") -- not in use
+// 6.2 get("/api/commitments/:userId") -- not in use
+6.3 post("/api/commitments/:userId")
+// 6.4 put("/api/commitments/:commitmentId") -- not in use -> needs to be changed
+// 6.5 delete("/api/commitments/:commitmentId") -- not in use -> needs to be changed
 
 7. scoreboard
 7.1 post("/api/scoreb)
@@ -700,7 +702,38 @@ Status 200:
 
 
 6. Commitments
-6.1 get("/api/commitments/:userId")
+
+6.1 get("/api/commitments/wigs/:wigId")
+Request body:
+    {}
+Response:
+Status 200:
+    [
+        {
+            "category": "category name",
+            "wigName": "increase sale by 40%",
+            "userId": "03f1EqRO36UiU1a28ppV1CYHUmW2",
+            "wigId": "0ed521b7-8c05-4ea3-8035-249bb09e5e02",
+            "commitmentName": "make 200 calls",
+            "commitmentId": "c9638eef-5eac-45ef-9193-61a198777edd",
+            "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
+            "startDate": "2021-01-15",
+            isCompleted: true/false
+        },
+        {
+            "category": "what ever this was",
+            "wigName": "increase sale by 40%",
+            "commitmentName": "make 200 calls",
+            "wigId": "0ed521b7-8c05-4ea3-8035-249bb09e5e02",
+            "commitmentId": "dba7fdcc-5e33-42ca-8907-079b21e40733",
+            "userId": "03f1EqRO36UiU1a28ppV1CYHUmW2",
+            "startDate": "2021-01-15",
+            "leadId": "a3217c85-791f-49a0-8b80-0f7da5ad63d7",
+            isCompleted: true/false
+        }
+    ]
+
+6.2 get("/api/commitments/:userId")
 
 Request body:
     {}
@@ -715,7 +748,8 @@ Status 200:
             "commitmentName": "make 200 calls",
             "category": "category name",
             "commitmentId": "c9638eef-5eac-45ef-9193-61a198777edd",
-            "startDate": "2021-01-15"
+            "startDate": "2021-01-15",
+            isCompleted: true/false
         },
         {
             "startDate": "2021-01-15",
@@ -725,37 +759,94 @@ Status 200:
             "commitmentName": "make 200 calls",
             "wigName": "increase sale by 40%",
             "category": "category name",
-            "wigId": "0ed521b7-8c05-4ea3-8035-249bb09e5e02"
+            "wigId": "0ed521b7-8c05-4ea3-8035-249bb09e5e02",
+            isCompleted: true/false
         }
     ]
 
 
-6.2 post("/api/commitments/:userId")
+6.3 post("/api/commitments/:userId")
 
 Request body:
-    {
-      "commitmentName": "make 200 calls",
-      "startDate": "2021-01-15",
-      "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
-      "wigName":"increase sales by 40%",
-      "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-      "category":"category name"
+    {  
+        "leadInterval": "weekly",
+        "wigId": "9e1cfc51-15de-43da-935c-dd7b13819edb"
     }
 Response:
 Status 201:
     {
-      "commitmentId": "c9638eef-XXXX-XXXX-XXXX-61a198777edd",
-      "commitmentName": "make 200 calls",
-      "startDate": "2021-01-15",
-      "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
-      "wigName":"increase sales by 40%",
-      "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-      "category":"category name",
-      "userId": "03f1EqRXXXXXXXXppV1CYHUmW2"
+        "leadMeasures": [
+            {
+                "leadId": "78c4b327-735a-47e2-bd74-b7378084261c",
+                "leadData": [
+                    {
+                        "startDate": "2021-01-11",
+                        "data": 0
+                    },
+                    {
+                        "startDate": "2021-01-18",
+                        "data": 0
+                    },
+                    {
+                        "startDate": "2021-01-25",
+                        "data": 0
+                    },
+                    {
+                        "startDate": "2021-02-01",
+                        "data": 0
+                    },
+                    {
+                        "data": 0,
+                        "startDate": "2021-02-08"
+                    }
+                ]
+            }
+        ],
+        "id": "x7HBR5faLeYKXG2Bo907r3GKfRf2",
+        "isAdmin": true,
+        "scoreboardInclude": true,
+        "name": "John Doe",
+        "companyName": "yourCompany ltd",
+        "commitments": [
+            {
+                "isCompleted": false,
+                "category": "",
+                "commitmentName": "",
+                "startDate": "2021-01-11"
+            },
+            {
+                "isCompleted": false,
+                "startDate": "2021-01-18",
+                "category": "",
+                "commitmentName": ""
+            },
+            {
+                "category": "",
+                "isCompleted": false,
+                "commitmentName": "",
+                "startDate": "2021-01-25"
+            },
+            {
+                "category": "",
+                "startDate": "2021-02-01",
+                "isCompleted": false,
+                "commitmentName": ""
+            },
+            {
+                "isCompleted": false,
+                "category": "",
+                "commitmentName": "",
+                "startDate": "2021-02-08"
+            }
+        ],
+        "teamName": "Sales Team",
+        "teamId": "094ecfa9-852b-4ec7-9cab-a6ff2562e94e",
+        "email": "demo-admin@my-4dx.herokuapp.com",
+        "title": "Team Lead Sales"
     }
 
 
-6.3 put("/api/commitments/:commitmentId")
+6.4 put("/api/commitments/:commitmentId")
 
 Request body:
     {
@@ -765,7 +856,8 @@ Request body:
         "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
         "wigName":"increase sale by 40%",
         "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-        "category":"category name"
+        "category":"category name",
+        "isCompleted": true
     }
 Response:
 Status 201:
@@ -777,11 +869,12 @@ Status 201:
         "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
         "startDate": "2021-01-15",
         "category": "category name",
-        "commitmentId": "c9638eef-XXXX-XXXX-XXXX-61a198777edd"
+        "commitmentId": "c9638eef-XXXX-XXXX-XXXX-61a198777edd",
+        "isCompleted": true
     }
 
 
-6.4 delete("/api/commitments/:commitmentId")
+6.5 delete("/api/commitments/:commitmentId")
 
 Request body:
     {}
