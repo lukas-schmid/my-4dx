@@ -9,7 +9,8 @@ exports.addUser = async (
   teamName,
   title,
   isAdmin,
-  scoreboardInclude
+  scoreboardInclude,
+  leadMeasures
 ) => {
   const docRef = db.collection("users").doc(id);
   await docRef.set({
@@ -22,5 +23,6 @@ exports.addUser = async (
     title,
     isAdmin,
     scoreboardInclude,
+    leadMeasures
   });
 };

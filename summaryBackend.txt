@@ -19,6 +19,7 @@
 
 4. Leads
 4.1 post("/api/:wigId/leads")
+4.2 post("/api/:wigId/leads/:leadId/users/:userId")
 // 4.2 put("/api/:wigId/leads/:leadId") -- commented out -> changes needed
 
 5. Lag
