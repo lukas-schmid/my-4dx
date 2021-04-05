@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const leadService = require("../services/leads");
 const wigService = require("../services/wigs");
+const userService = require("../services/users");
 const {
   getMondayDate,
   addDays,
@@ -47,7 +48,7 @@ const initLeadData = async (wigId, leadInterval) => {
 exports.createLead = async (req, res, next) => {
   const wigId = req.params.wigId;
   const leadId = uuidv4();
-  const leadData = await initLeadData(wigId, req.body.leadInterval);
+  //const leadData = await initLeadData(wigId, req.body.leadInterval);
   const leadMeasures = [
     {
       leadId,
@@ -56,7 +57,7 @@ exports.createLead = async (req, res, next) => {
       leadDataType: req.body.leadDataType,
       benchmarkExists: req.body.benchmarkExists,
       benchmark: req.body.benchmark,
-      leadData: leadData,
+   //   leadData: leadData,
     },
   ];
   try {
@@ -66,6 +67,34 @@ exports.createLead = async (req, res, next) => {
     await leadService.addLeadToWig(wigId, newLeadMeasures);
     const response = await wigService.getWig(wigId);
     res.status(201).json(response);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+exports.addUserLeadMeasure = async (req, res, next) => {
+  const wigId = req.params.wigId;
+  const leadId = req.params.leadId;
+  const userId = req.params.userId;
+  const leadData = await initLeadData(wigId, req.body.leadInterval);
+  const leadMeasures = [
+    {
+      leadId: leadId,
+      leadData
+    },
+  ]
+  try {
+    const user = await userService.getUser(userId);
+    const currentLeadMeasures = user.leadMeasures;
+    const newLeadMeasures = currentLeadMeasures.concat(leadMeasures);
+    await userService.addUserLeadMeasure(
+      user.id,
+      newLeadMeasures
+    );
+    const updatedUser = await userService.getUser(userId);
+    res.status(201).json(updatedUser);
   } catch (error) {
     next(error);
   }

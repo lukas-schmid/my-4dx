@@ -51,6 +51,28 @@ exports.updateUser = async (
   });
 };
 
+exports.addUserLeadMeasure = async (
+  id,
+  leadMeasures
+) => {
+  const docRef = db.collection("users").doc(id);
+  await docRef.update({
+    id,
+    leadMeasures
+  });
+};
+
+exports.addUserCommitments = async (
+  id,
+  commitments
+) => {
+  const docRef = db.collection("users").doc(id);
+  await docRef.update({
+    id,
+    commitments
+  });
+};
+
 exports.deleteUser = async (userId) => {
   return await db.collection("users").doc(userId).delete();
 };
