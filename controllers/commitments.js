@@ -1,7 +1,4 @@
-//const { createCommitment } = require("../models/commitments");
 const { v4: uuidv4 } = require("uuid");
-//const service = require("../services/commitments");
-//const wigService = require("../services/wigs");
 const userService = require("../services/users")
 // const {
 //   getMondayDate,
@@ -86,7 +83,6 @@ exports.createCommitment = async (req, res, next) => {
   const userId = req.params.userId;
   const body = {
     commitmentId: uuidv4(),
-    category: req.body.category,
     startDate: req.body.startDate,
     isCompleted: false,
     commitmentName: req.body.commitmentName
@@ -112,7 +108,6 @@ exports.updateCommitment = async (req, res, next) => {
   const userId = req.params.userId;
   const body = [{
     commitmentId,
-    category: req.body.category,
     startDate: req.body.startDate,
     isCompleted: req.body.isCompleted,
     commitmentName: req.body.commitmentName

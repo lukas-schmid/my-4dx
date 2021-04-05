@@ -98,7 +98,6 @@ curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:808
 # Init Commitments
 # 4.2 post("/api/commitments/:userId")
 body=$(jq -n --arg b "$wigId" '{
-    "category": "categoryName",
     "startDate": "2021-04-25",
     "commitmentName": "this is the commitmentName"
 }')
