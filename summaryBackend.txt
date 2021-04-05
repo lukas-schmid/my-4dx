@@ -23,14 +23,14 @@
 // 4.2 put("/api/:wigId/leads/:leadId") -- commented out -> changes needed
 
 5. Lag
-5.1 put("/api/lag/:wigId")
+// 5.1 put("/api/lag/:wigId") -- not in use
 
 6. Commitments
-6.1 get("/api/commitments/wigs/:wigId")
-6.2 get("/api/commitments/:userId")
+// 6.1 get("/api/commitments/wigs/:wigId") -- not in use
+// 6.2 get("/api/commitments/:userId") -- not in use
 6.3 post("/api/commitments/:userId")
-6.4 put("/api/commitments/:commitmentId")
-6.5 delete("/api/commitments/:commitmentId")
+// 6.4 put("/api/commitments/:commitmentId") -- not in use -> needs to be changed
+// 6.5 delete("/api/commitments/:commitmentId") -- not in use -> needs to be changed
 
 7. scoreboard
 7.1 post("/api/scoreb)
@@ -768,27 +768,81 @@ Status 200:
 6.3 post("/api/commitments/:userId")
 
 Request body:
-    {
-      "commitmentName": "make 200 calls",
-      "startDate": "2021-01-15",
-      "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
-      "wigName":"increase sales by 40%",
-      "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-      "category":"category name",
-      "isCompleted": false
+    {  
+        "leadInterval": "weekly",
+        "wigId": "9e1cfc51-15de-43da-935c-dd7b13819edb"
     }
 Response:
 Status 201:
     {
-      "commitmentId": "c9638eef-XXXX-XXXX-XXXX-61a198777edd",
-      "commitmentName": "make 200 calls",
-      "startDate": "2021-01-15",
-      "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
-      "wigName":"increase sales by 40%",
-      "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-      "category":"category name",
-      "userId": "03f1EqRXXXXXXXXppV1CYHUmW2",
-      "isCompleted": false
+        "leadMeasures": [
+            {
+                "leadId": "78c4b327-735a-47e2-bd74-b7378084261c",
+                "leadData": [
+                    {
+                        "startDate": "2021-01-11",
+                        "data": 0
+                    },
+                    {
+                        "startDate": "2021-01-18",
+                        "data": 0
+                    },
+                    {
+                        "startDate": "2021-01-25",
+                        "data": 0
+                    },
+                    {
+                        "startDate": "2021-02-01",
+                        "data": 0
+                    },
+                    {
+                        "data": 0,
+                        "startDate": "2021-02-08"
+                    }
+                ]
+            }
+        ],
+        "id": "x7HBR5faLeYKXG2Bo907r3GKfRf2",
+        "isAdmin": true,
+        "scoreboardInclude": true,
+        "name": "John Doe",
+        "companyName": "yourCompany ltd",
+        "commitments": [
+            {
+                "isCompleted": false,
+                "category": "",
+                "commitmentName": "",
+                "startDate": "2021-01-11"
+            },
+            {
+                "isCompleted": false,
+                "startDate": "2021-01-18",
+                "category": "",
+                "commitmentName": ""
+            },
+            {
+                "category": "",
+                "isCompleted": false,
+                "commitmentName": "",
+                "startDate": "2021-01-25"
+            },
+            {
+                "category": "",
+                "startDate": "2021-02-01",
+                "isCompleted": false,
+                "commitmentName": ""
+            },
+            {
+                "isCompleted": false,
+                "category": "",
+                "commitmentName": "",
+                "startDate": "2021-02-08"
+            }
+        ],
+        "teamName": "Sales Team",
+        "teamId": "094ecfa9-852b-4ec7-9cab-a6ff2562e94e",
+        "email": "demo-admin@my-4dx.herokuapp.com",
+        "title": "Team Lead Sales"
     }
 
 

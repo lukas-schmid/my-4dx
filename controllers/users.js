@@ -31,7 +31,8 @@ exports.registerTeam = async (req, res, next) => {
       title: req.body.title,
       isAdmin: true,
       scoreboardInclude: true,
-      leadMeasures: []
+      leadMeasures: [],
+      commitments: []
     };
 
     return await firebase
@@ -49,7 +50,8 @@ exports.registerTeam = async (req, res, next) => {
           body.title,
           body.isAdmin,
           body.scoreboardInclude,
-          body.leadMeasures
+          body.leadMeasures,
+          body.commitments
         );
         const response = await service.getUser(user.uid);
         res.status(201).json(response);
@@ -148,7 +150,8 @@ exports.addMember = async (req, res, next) => {
       title: req.body.title,
       isAdmin: req.body.isAdmin,
       scoreboardInclude: req.body.scoreboardInclude,
-      leadMeasures: []
+      leadMeasures: [],
+      commitments: []
     };
 
     return await firebase
@@ -166,7 +169,8 @@ exports.addMember = async (req, res, next) => {
           body.title,
           body.isAdmin,
           body.scoreboardInclude,
-          body.leadMeasures
+          body.leadMeasures,
+          body.commitments
         );
         sendPasswordReset(body.email);
         const response = await service.getUser(user.uid);
