@@ -39,6 +39,7 @@ exports.createCommitment = async (req, res, next) => {
   const wigName = req.body.wigName;
   const leadId = req.body.leadId;
   const category = req.body.category;
+  const isCompleted = false;
   try {
     await createCommitment(
       commitmentId,
@@ -48,7 +49,8 @@ exports.createCommitment = async (req, res, next) => {
       wigId,
       wigName,
       leadId,
-      category
+      category,
+      isCompleted
     );
     const response = await service.getCommitment(commitmentId);
     res.status(201).json(response);
@@ -66,6 +68,7 @@ exports.updateCommitment = async (req, res, next) => {
   const wigName = req.body.wigName;
   const leadId = req.body.leadId;
   const category = req.body.category;
+  const isCompleted = req.body.isCompleted;
   try {
     await service.updateCommitment(
       commitmentId,
@@ -75,7 +78,8 @@ exports.updateCommitment = async (req, res, next) => {
       wigId,
       wigName,
       leadId,
-      category
+      category,
+      isCompleted
     );
     const response = await service.getCommitment(commitmentId);
     res.status(201).json(response);

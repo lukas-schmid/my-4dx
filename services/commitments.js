@@ -49,7 +49,8 @@ exports.updateCommitment = async (
   wigId,
   wigName,
   leadId,
-  category
+  category,
+  isCompleted
 ) => {
   const docRef = db.collection("commitments").doc(commitmentId);
   await docRef.set({
@@ -61,6 +62,7 @@ exports.updateCommitment = async (
     wigName,
     leadId,
     category,
+    isCompleted
   });
 };
 

@@ -716,7 +716,8 @@ Status 200:
             "commitmentName": "make 200 calls",
             "commitmentId": "c9638eef-5eac-45ef-9193-61a198777edd",
             "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-            "startDate": "2021-01-15"
+            "startDate": "2021-01-15",
+            isCompleted: true/false
         },
         {
             "category": "what ever this was",
@@ -726,7 +727,8 @@ Status 200:
             "commitmentId": "dba7fdcc-5e33-42ca-8907-079b21e40733",
             "userId": "03f1EqRO36UiU1a28ppV1CYHUmW2",
             "startDate": "2021-01-15",
-            "leadId": "a3217c85-791f-49a0-8b80-0f7da5ad63d7"
+            "leadId": "a3217c85-791f-49a0-8b80-0f7da5ad63d7",
+            isCompleted: true/false
         }
     ]
 
@@ -745,7 +747,8 @@ Status 200:
             "commitmentName": "make 200 calls",
             "category": "category name",
             "commitmentId": "c9638eef-5eac-45ef-9193-61a198777edd",
-            "startDate": "2021-01-15"
+            "startDate": "2021-01-15",
+            isCompleted: true/false
         },
         {
             "startDate": "2021-01-15",
@@ -755,7 +758,8 @@ Status 200:
             "commitmentName": "make 200 calls",
             "wigName": "increase sale by 40%",
             "category": "category name",
-            "wigId": "0ed521b7-8c05-4ea3-8035-249bb09e5e02"
+            "wigId": "0ed521b7-8c05-4ea3-8035-249bb09e5e02",
+            isCompleted: true/false
         }
     ]
 
@@ -769,7 +773,8 @@ Request body:
       "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
       "wigName":"increase sales by 40%",
       "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-      "category":"category name"
+      "category":"category name",
+      "isCompleted": false
     }
 Response:
 Status 201:
@@ -781,7 +786,8 @@ Status 201:
       "wigName":"increase sales by 40%",
       "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
       "category":"category name",
-      "userId": "03f1EqRXXXXXXXXppV1CYHUmW2"
+      "userId": "03f1EqRXXXXXXXXppV1CYHUmW2",
+      "isCompleted": false
     }
 
 
@@ -795,7 +801,8 @@ Request body:
         "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
         "wigName":"increase sale by 40%",
         "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-        "category":"category name"
+        "category":"category name",
+        "isCompleted": true
     }
 Response:
 Status 201:
@@ -807,7 +814,8 @@ Status 201:
         "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
         "startDate": "2021-01-15",
         "category": "category name",
-        "commitmentId": "c9638eef-XXXX-XXXX-XXXX-61a198777edd"
+        "commitmentId": "c9638eef-XXXX-XXXX-XXXX-61a198777edd",
+        "isCompleted": true
     }
 
 
