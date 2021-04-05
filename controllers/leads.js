@@ -47,7 +47,7 @@ const initLeadData = async (wigId, leadInterval) => {
 exports.createLead = async (req, res, next) => {
   const wigId = req.params.wigId;
   const leadId = uuidv4();
-  const leadData = await initLeadData(wigId, req.body.leadInterval);
+  //const leadData = await initLeadData(wigId, req.body.leadInterval);
   const leadMeasures = [
     {
       leadId,
@@ -56,7 +56,7 @@ exports.createLead = async (req, res, next) => {
       leadDataType: req.body.leadDataType,
       benchmarkExists: req.body.benchmarkExists,
       benchmark: req.body.benchmark,
-      leadData: leadData,
+   //   leadData: leadData,
     },
   ];
   try {
