@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import components
-import { BsChevronDoubleRight, BsChevronDoubleLeft } from "react-icons/bs";
+import { BsFillCaretRightFill, BsFillCaretLeftFill } from "react-icons/bs";
 import PageHeader from '../components/PageHeader';
 import PageFooter from '../components/PageFooter';
 import LeadTrackerForm from '../components/LeadTrackerForm';
+import CommitmentItem from '../components/CommitmentItem';
+import AddCommitmentForm from '../components/AddCommitmentForm';
 // Import helpers
 import { addDays, getMondayDate, getWeek, subtractDays } from '../helpers';
 
@@ -37,8 +39,7 @@ export default function WigSession() {
             const date = new Date(item.startDate);
             return getWeek(date) === currentWeek && date.getUTCFullYear() === currentYear;
         });
-
-        setCommitmentsToShow(current);
+        return current;
     }
 
     const getCurrentLeadData = () => {
@@ -49,7 +50,7 @@ export default function WigSession() {
                 return getWeek(date) === currentWeek && date.getUTCFullYear() === currentYear;
             });
 
-           const leadInfo = wigData.find(wig => wig.wigId === leadMeasure.wigId).leadMeasures.find(lead => lead.leadId === leadMeasure.leadId);
+            const leadInfo = wigData.find(wig => wig.wigId === leadMeasure.wigId).leadMeasures.find(lead => lead.leadId === leadMeasure.leadId);
 
             current.push({
                 leadData: currentData,
@@ -58,46 +59,45 @@ export default function WigSession() {
                 // wigName: wigData.find(wig => wig.wigId === leadMeasure.wigId).wigName,
             });
         });
-
-        setLeadDataToShow(current);
+        return current;
     }
 
     useEffect(() => {
-        getCurrentUserCommitments();
-        getCurrentLeadData();      
+        setCommitmentsToShow(getCurrentUserCommitments());
+        setLeadDataToShow(getCurrentLeadData());
     }, [currentMonday]);
 
     const commitmentCategories = [...new Set(leadDataToShow.map(lm => lm.leadName)), 'Clear the Path', 'Other'];
 
     return (
         <main className="page-container">
-            <section className="page-content">
+            <section className="page-content wig-session-page">
                 <PageHeader pageTitle="Wig Session Page"/>
-                    <div>
-                        <button onClick={prevWeek}><BsChevronDoubleLeft /></button>
-                        <span>Week {currentWeek} - {currentYear}</span>
-                        <span>(Mon {currentMonday.toLocaleDateString()} to Sun {addDays(currentMonday,7).toLocaleDateString()})</span>
-                        <button onClick={nextWeek}><BsChevronDoubleRight /></button>
+                    <div className="date-slider">
+                        <button onClick={prevWeek} className="date-slider__arrow"><BsFillCaretLeftFill /></button>
+                        <div className="date-slider__dates">
+                            <p className="date-slider__dates--week">Week {currentWeek} - {currentYear}</p>
+                            <p className="date-slider__dates--weekdays">(Mon {currentMonday.toLocaleDateString()} to Sun {addDays(currentMonday,7).toLocaleDateString()})</p>
+                        </div>
+                        <button onClick={nextWeek} className="date-slider__arrow"><BsFillCaretRightFill /></button>
+                        <hr className="date-slider__underline"></hr>
                     </div>
-                    <article className="form-container">
-
-                        <button onClick={() => {
-                            console.log(leadDataToShow)
-                        }}>LOG Lead</button>
-
-                        <LeadTrackerForm leadMeasures={leadDataToShow}/>
+                    <article className="form-container wig-session-page__col-1">
+                        <LeadTrackerForm leadMeasures={leadDataToShow} currentMonday={currentMonday}/>
                     </article>
-                    <article className="form-container">
-
-                        <button onClick={() => {
-                            console.log(commitmentsToShow)
-                        }}>LOG Commitments</button>
-                        
-                        <p>1) Loop through and show current commitments</p>
-                        <p>2) Show a form for adding new commitments</p>
-
+                    <article className="form-container wig-session-page__col-2">
+                        <h2 className="form-title">Weekly Commitments</h2>
+                        <AddCommitmentForm />
+                        <ul className="commitment-list">
+                            {commitmentsToShow.map((commitment, index) => {
+                                return <CommitmentItem key={index} commitment={commitment} index={index}/>
+                            })}
+                        </ul>
                     </article>
-                <PageFooter excludeQuote={true}/>
+                <PageFooter nonRandomQuote={{
+                    quote: "What are the one or two most important things I can do this week to impact the team's performance on the scoreboard?",
+                    by: null,
+                }}/>
             </section>
         </main>
     )

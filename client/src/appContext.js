@@ -14,7 +14,6 @@ function AppProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const [fetch, setFetch] = useState(false);
   const [error, setError] = useState({isError: false, message: ''});
 
   const [currentUserInfo, setCurrentUserInfo] = useState({...demoUserInfoMock});
@@ -107,7 +106,6 @@ function AppProvider({ children }) {
       teamData,
       userLeadData,
       userCommitmentData,
-      setFetch
     }}>
       {children}
     </AppContext.Provider>
