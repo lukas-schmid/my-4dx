@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import helpers
 import { updateMember, sendPasswordReset, deleteMember } from '../apiHelper';
@@ -6,7 +6,8 @@ import { updateMember, sendPasswordReset, deleteMember } from '../apiHelper';
 import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function UserAccountForm() {
-    const { currentUserInfo, isLoading, setIsLoading } = useGlobalContext();
+    const { currentUserInfo } = useGlobalContext();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -66,7 +67,7 @@ export default function UserAccountForm() {
 
     return (
         <form className="form" onSubmit={handleSubmit}>
-            {isLoading && <FormLoaderOverlay />}
+            {isLoading && <FormLoaderOverlay size="medium"/>}
             <div className="form-section mt-0">
                 <label className="form-label form-title" htmlFor="name">Name:</label>
                 <input type="text" className="form-control" id="name" name="name" defaultValue={currentUserInfo && currentUserInfo.name}/>

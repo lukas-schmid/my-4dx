@@ -4,10 +4,21 @@ import LeadMeasureSummaryCard from '../components/LeadMeasureSummaryCard';
 
 export default function WigLagLeadEditDisplay({wig}) {
     const [currentWig, setCurrentWig] = useState({...wig});
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setCurrentWig({...wig});
     }, [wig]);
+
+    const deleteWig = (id) => {
+        setIsLoading(true);
+
+        console.log(id);
+
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+    }
 
     return (
         <div className="lagTracker-page__infoColumn">
@@ -15,15 +26,15 @@ export default function WigLagLeadEditDisplay({wig}) {
             <div className="form-section">
                 <textarea 
                     cols="10"
-                    rows="5"
+                    rows="4"
                     className="form-control" 
                     value={currentWig.wigName}
                     readOnly
                 ></textarea>
             </div>
             <button type="button" className="btn btn-danger" onClick={e => {
-                console.log(currentWig.wigId);
-            }}>Delete WIG</button>
+                deleteWig(currentWig.wigId);
+            }} disabled={isLoading}>{isLoading ? 'Loading...' : 'Delete WIG'}</button>
 
             <h3 className="form-title mt-30">Lag Measure</h3>
             <div className="form-section">
@@ -57,7 +68,7 @@ export default function WigLagLeadEditDisplay({wig}) {
             </div>
             
             <h3 className="form-title mt-30">Lead Measures</h3>
-            {wig.leadMeasures.map((lead, index) => {
+            {wig.leadMeasures.length > 0 && wig.leadMeasures.map((lead, index) => {
                 return <LeadMeasureSummaryCard leadMeasure={lead} key={index} index={index}/>
             })}
         </div>

@@ -1,25 +1,35 @@
 import React, { useEffect, useState } from 'react';
+import { useGlobalContext } from '../appContext';
+// Import helpers
 import { deleteMember, updateMember } from '../apiHelper';
 
 export default function CurrentMemberCard({teamMember, index}) {
+    // const { isLoading, setIsLoading } = useGlobalContext();
+
+    const [isLoading, setIsLoading] = useState(false);
+
     const [adminChecked, setAdminChecked] = useState(teamMember.isAdmin);
     const [scoreBoardIncludeChecked, setScoreBoardIncludeChecked] = useState(teamMember.scoreboardInclude);
 
     const removeUser = (id) => {
-        console.log(id);
-        console.log(teamMember)
+        setIsLoading(true);
         deleteMember(teamMember.id)
         .then(data => {
             console.log(data);
-           // setIsLoading(false);
+            setIsLoading(false);
         })
         .catch(err => {
-           // setIsLoading(false);
+            setIsLoading(false);
             console.error(err);
         });
     }
 
-    useEffect(() => {
+    const inputChange = e => {
+        e.target.name.replace(/-.*/i, '') === 'isAdmin' 
+            ? setAdminChecked(!adminChecked)
+            : setScoreBoardIncludeChecked(!scoreBoardIncludeChecked);
+        
+        setIsLoading(true);
         const formData = {
             email: teamMember.email,
             name: teamMember.name,
@@ -30,25 +40,16 @@ export default function CurrentMemberCard({teamMember, index}) {
             isAdmin: adminChecked,
             scoreboardInclude: scoreBoardIncludeChecked,
         };
-        console.log(formData)
 
         updateMember(teamMember.id, formData)
             .then(data => {
                 console.log(data);
-                //setIsLoading(false);
+                setIsLoading(false);
             })
             .catch(err => {
-                //setIsLoading(false);
+                setIsLoading(false);
                 console.error(err);
             });
-    }, [adminChecked, scoreBoardIncludeChecked])
-
-    const updateIsAdmin = () => {
-        adminChecked ? setAdminChecked(false) : setAdminChecked(true)
-    }
-
-    const updateScoreboardInclude = () => {
-        scoreBoardIncludeChecked ? setScoreBoardIncludeChecked(false) : setScoreBoardIncludeChecked(true)
     }
 
     return (
@@ -65,12 +66,13 @@ export default function CurrentMemberCard({teamMember, index}) {
                         <input
                             type="checkbox"
                             className="form-check-input"
-                            name={`admin-${index}`}
-                            id={`admin-${index}`}
+                            name={`isAdmin-${index}`}
+                            id={`isAdmin-${index}`}
                             defaultChecked={teamMember.isAdmin}
-                            onChange={updateIsAdmin}
+                            onChange={inputChange}
+                            disabled={isLoading}
                         />
-                        <label className="form-check-label" htmlFor={`admin-${index}`}>
+                        <label className="form-check-label" htmlFor={`isAdmin-${index}`}>
                             Admin
                         </label>
                     </li>
@@ -81,7 +83,8 @@ export default function CurrentMemberCard({teamMember, index}) {
                             name={`scoreboardInclude-${index}`}
                             id={`scoreboardInclude-${index}`}
                             defaultChecked={teamMember.scoreboardInclude}
-                            onChange={updateScoreboardInclude}
+                            onChange={inputChange}
+                            disabled={isLoading}
                         />
                         <label className="form-check-label" htmlFor={`scoreboardInclude-${index}`}>
                             Include in scoreboard
@@ -89,10 +92,11 @@ export default function CurrentMemberCard({teamMember, index}) {
                     </li>
                     <li className="member-card__listItem">
                         <button
-                            className="btn btn-danger member-card__btn" 
+                            className="btn btn-danger member-card__btn sending" 
                             onClick={() => removeUser(teamMember.id)}
+                            disabled={isLoading}
                         >
-                            Remove Member
+                            {isLoading ? 'Loading...' : 'Remove member'}
                         </button>
                     </li>
                 </ul>

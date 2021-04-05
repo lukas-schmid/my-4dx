@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import helpers
 import { getAllWigsByTeamId, createLead } from '../apiHelper';
@@ -6,65 +6,36 @@ import { getAllWigsByTeamId, createLead } from '../apiHelper';
 import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function AddLeadMeasureForm() {
-    const { currentUserInfo, isLoading, setIsLoading } = useGlobalContext();
-    const [wigs, setWigs] = useState([]);
-    const [selectedTrackingType, setSelectedTrackingType] = useState("")
-    const [selectedTrackingTime, setSelectedTrackingTime] = useState("")
-
-    useEffect(() => {
-        console.log(currentUserInfo.teamId)
-        getAllWigsByTeamId(currentUserInfo.teamId)
-                .then(data => {
-                    setWigs(data);
-                    //setIsLoading(false);
-                })
-                .catch(err => {
-                    //setIsLoading(false);
-                    console.error(err);
-                });
-        console.log(wigs)
-    }, [])
-
-    const handleTrackingTimeValue = (e) => {
-        setSelectedTrackingTime(e.target.value);
-        console.log(selectedTrackingTime)
-    }
-
-    const handleTrackingTypeValue = (e) => {
-        setSelectedTrackingType(e.target.value);
-        console.log(selectedTrackingTime)
-    }
-
-
+    const { wigData } = useGlobalContext();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();
         setIsLoading(true);
-        console.log(currentUserInfo)
+        const wigId = e.target.wigSelect.value;
         const formData = {
             leadName: e.target.leadName.value,
-            leadInterval: selectedTrackingTime,
-            leadDataType: selectedTrackingType,
+            leadInterval: e.target.trackingTime.value,
+            leadDataType: e.target.trackingType.value,
             benchmarkExists: e.target.isBenchmark.checked,
             benchmark: e.target.benchmarkValue.value,
-            leadData: [
-                {
-                    startDate: "",
-                    data: 0
-                }
-            ]
         };
 
-        createLead(e.target.wigSelect.value, formData)
-            .then(data => {
-                console.log(data);
-                setIsLoading(false);
-                e.target.reset();
-            })
-            .catch(err => {
-                setIsLoading(false);
-                console.error(err);
-            });
+        console.log(formData, wigId);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+        
+        // createLead(e.target.wigSelect.value, formData)
+        //     .then(data => {
+        //         console.log(data);
+        //         setIsLoading(false);
+        //         e.target.reset();
+        //     })
+        //     .catch(err => {
+        //         setIsLoading(false);
+        //         console.error(err);
+        //     });
     }
 
     return (
@@ -73,7 +44,7 @@ export default function AddLeadMeasureForm() {
             <div className="form-section">
                 <label htmlFor="wigSelect" className="form-label">Which WIG is this lag measure for?</label>
                 <select className="form-select" id="wigSelect" name="wigSelect">
-                {wigs.length > 0 && wigs.map((wig, index) => 
+                {wigData.length > 0 && wigData.map((wig, index) => 
                     <option key={index} value={wig.wigId}>{wig.wigName}</option>
                 )}
                 </select>
@@ -87,27 +58,23 @@ export default function AddLeadMeasureForm() {
             <p className="form-section-title">Tracking Type:</p>
             <div className="form-check-inline form-check-inline">
                 <div className="form-check">
-                    <input onChange={handleTrackingTypeValue} type="radio" className="form-check-input" name="trackingType" id="typeNumber" value="number" required/>
+                    <input type="radio" className="form-check-input" name="trackingType" id="typeNumber" value="number" required/>
                     <label className="form-check-label" htmlFor="typeNumber">Number</label>
                 </div>
                 <div className="form-check">
-                    <input onChange={handleTrackingTypeValue} type="radio" className="form-check-input" name="trackingType" id="typePercent" value="percent" required/>
+                    <input type="radio" className="form-check-input" name="trackingType" id="typePercent" value="percent" required/>
                     <label className="form-check-label" htmlFor="typePercent">Percent</label>
                 </div>
-                {/* <div className="form-check">
-                    <input type="radio" className="form-check-input" name="trackingType" id="typeBoolean" value="boolean" required/>
-                    <label className="form-check-label" htmlFor="typeBoolean">True / False</label>
-                </div> */}
             </div>
 
             <p className="form-section-title">Tracking Time:</p>
             <div className="form-check-inline">
                 <div className="form-check" >
-                    <input onChange={handleTrackingTimeValue} type="radio" className="form-check-input" name="trackingTime" id="trackDaily" value="daily" required/>
+                    <input type="radio" className="form-check-input" name="trackingTime" id="trackDaily" value="daily" required/>
                     <label className="form-check-label" htmlFor="trackDaily">Daily</label>
                 </div>
                 <div className="form-check">
-                    <input onChange={handleTrackingTimeValue} type="radio" className="form-check-input" name="trackingTime" id="trackWeekly" value="weekly" required/>
+                    <input type="radio" className="form-check-input" name="trackingTime" id="trackWeekly" value="weekly" required/>
                     <label className="form-check-label" htmlFor="trackWeekly">Weekly</label>
                 </div>
             </div>

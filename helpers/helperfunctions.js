@@ -33,6 +33,10 @@ exports.addMonth = (argDate) => {
   return new Date(argDate.setMonth(argDate.getMonth() + 1));
 };
 
+exports.addDay = (argDate) => {
+  return new Date(argDate.setDate(argDate.getDate() + 1));
+};
+
 exports.formatDate = (argDate) => {
   return argDate.toISOString().split("T")[0];
 };
