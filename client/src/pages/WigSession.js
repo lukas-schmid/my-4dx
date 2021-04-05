@@ -22,6 +22,9 @@ export default function WigSession() {
 
     const prevWeek = () => {
         const prevMonday = subtractDays(currentMonday, 7);
+        
+        if (prevMonday < new Date(wigData.startDate)) return;
+
         setCurrentMonday(prevMonday);
         setCurrentWeek(getWeek(prevMonday));
         setCurrentYear(prevMonday.getUTCFullYear());
@@ -29,6 +32,9 @@ export default function WigSession() {
 
     const nextWeek = () => {
         const nextMonday = addDays(currentMonday, 7);
+
+        if (nextMonday > new Date(wigData.endDate)) return;
+
         setCurrentMonday(nextMonday);
         setCurrentWeek(getWeek(nextMonday));
         setCurrentYear(nextMonday.getUTCFullYear());
@@ -73,27 +79,29 @@ export default function WigSession() {
         <main className="page-container">
             <section className="page-content wig-session-page">
                 <PageHeader pageTitle="Wig Session Page"/>
-                    <div className="date-slider">
-                        <button onClick={prevWeek} className="date-slider__arrow"><BsFillCaretLeftFill /></button>
-                        <div className="date-slider__dates">
-                            <p className="date-slider__dates--week">Week {currentWeek} - {currentYear}</p>
-                            <p className="date-slider__dates--weekdays">(Mon {currentMonday.toLocaleDateString()} to Sun {addDays(currentMonday,7).toLocaleDateString()})</p>
-                        </div>
-                        <button onClick={nextWeek} className="date-slider__arrow"><BsFillCaretRightFill /></button>
-                        <hr className="date-slider__underline"></hr>
+
+                <div className="date-slider">
+                    <button onClick={prevWeek} className="date-slider__arrow"><BsFillCaretLeftFill /></button>
+                    <div className="date-slider__dates">
+                        <p className="date-slider__dates--week">Week {currentWeek} - {currentYear}</p>
+                        <p className="date-slider__dates--weekdays">(Mon {currentMonday.toLocaleDateString()} to Sun {addDays(currentMonday,7).toLocaleDateString()})</p>
                     </div>
-                    <article className="form-container wig-session-page__col-1">
-                        <LeadTrackerForm leadMeasures={leadDataToShow} currentMonday={currentMonday}/>
-                    </article>
-                    <article className="form-container wig-session-page__col-2">
-                        <h2 className="form-title">Weekly Commitments</h2>
-                        <AddCommitmentForm />
-                        <ul className="commitment-list">
-                            {commitmentsToShow.map((commitment, index) => {
-                                return <CommitmentItem key={index} commitment={commitment} index={index}/>
-                            })}
-                        </ul>
-                    </article>
+                    <button onClick={nextWeek} className="date-slider__arrow"><BsFillCaretRightFill /></button>
+                    <hr className="date-slider__underline"></hr>
+                </div>
+
+                <article className="form-container wig-session-page__col-1">
+                    <LeadTrackerForm leadMeasures={leadDataToShow} currentMonday={currentMonday}/>
+                </article>
+                <article className="form-container wig-session-page__col-2">
+                    <h2 className="form-title">Weekly Commitments</h2>
+                    <AddCommitmentForm />
+                    <ul className="commitment-list">
+                        {commitmentsToShow.length > 0 && commitmentsToShow.map((commitment, index) => {
+                            return <CommitmentItem key={index} commitment={commitment} index={index}/>
+                        })}
+                    </ul>
+                </article>
                 <PageFooter nonRandomQuote={{
                     quote: "What are the one or two most important things I can do this week to impact the team's performance on the scoreboard?",
                     by: null,
