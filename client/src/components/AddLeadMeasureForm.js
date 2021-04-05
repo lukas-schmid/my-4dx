@@ -66,10 +66,10 @@ export default function AddLeadMeasureForm() {
 
             <p className="form-section-title">Tracking Time:</p>
             <div className="form-check-inline">
-                <div className="form-check" >
+                {/* <div className="form-check" >
                     <input type="radio" className="form-check-input" name="trackingTime" id="trackDaily" value="daily" required/>
                     <label className="form-check-label" htmlFor="trackDaily">Daily</label>
-                </div>
+                </div> */}
                 <div className="form-check">
                     <input type="radio" className="form-check-input" name="trackingTime" id="trackWeekly" value="weekly" required/>
                     <label className="form-check-label" htmlFor="trackWeekly">Weekly</label>
