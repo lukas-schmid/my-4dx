@@ -1,26 +1,5 @@
 import { getRandomBetween, addDays, getRandomPercentageBetween } from '../helpers';
 
-
-const demoAdminInfo = {
-    email: "susan.doe@mobstershotel.org",
-    id: "1",
-    isAdmin: true,
-    name: "Susan Doe",
-    scoreboardInclude: false,
-    title: 'Head of Event Management',
-    company: 'Mobsters Five Star Hotels'
-}
-
-const demoUserInfo = {
-    email: "richard.doe@mobstershotel.org",
-    id: "2",
-    isAdmin: false,
-    name: "Richard Doe",
-    scoreboardInclude: true,
-    title: 'Event Manager',
-    company: 'Mobsters Five Star Hotels'
-}
-
 export const demoUserLeadDataMock = [
     {
         wigId: '1',
@@ -41,6 +20,8 @@ export const demoUserLeadDataMock = [
             {startDate: addDays('2021-01-04', 84), data: getRandomBetween(0, 5)},
             {startDate: addDays('2021-01-04', 91), data: getRandomBetween(0, 5)},
             {startDate: addDays('2021-01-04', 98), data: getRandomBetween(0, 5)},
+            {startDate: addDays('2021-01-04', 105), data: ''},
+            {startDate: addDays('2021-01-04', 112), data: ''},
         ]
     },
     {
@@ -62,12 +43,51 @@ export const demoUserLeadDataMock = [
             {startDate: addDays('2021-01-04', 84), data: getRandomPercentageBetween(0.7, 0.9)},
             {startDate: addDays('2021-01-04', 91), data: getRandomPercentageBetween(0.7, 0.9)},
             {startDate: addDays('2021-01-04', 98), data: getRandomPercentageBetween(0.7, 0.9)},
+            {startDate: addDays('2021-01-04', 105), data: ''},
+            {startDate: addDays('2021-01-04', 112), data: ''},
         ]
     },
 ];
 
-export const demoUserCommitmentDataMock = [
+export const demoAdminCommitmentDataMock = [
+    {startDate: '2021-01-04', commitmentName: 'Work with Kim and Karen for 20 minutes each on improving their upselling scripts for our bar package, as well as practicing their delivery.', category: 'Clear the Path', isCompleted: true},
+    {startDate: addDays('2021-01-04', 7), commitmentName: 'Attend the Chamber of Commerce meeting and capture at least three new corporate contacts that are not currently holding events at our hotel.', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 14), commitmentName: 'Complete the final review of our new marketing materials for our premium bar package.', category: 'Upsell our premium bar package to 90% of all events', isCompleted: true},
+    {startDate: addDays('2021-01-04', 21), commitmentName: 'Interview three candidates for the open position on our team and make an offer to the one that best meets our requirements.', category: 'Other', isCompleted: true},
+    {startDate: addDays('2021-01-04', 28), commitmentName: 'Work with Kim and Karen for 20 minutes each on improving their upselling scripts for our bar package, as well as practicing their delivery.', category: 'Clear the Path', isCompleted: true},
+    {startDate: addDays('2021-01-04', 35), commitmentName: 'Attend the Chamber of Commerce meeting and capture at least three new corporate contacts that are not currently holding events at our hotel.', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 42), commitmentName: 'Complete the final review of our new marketing materials for our premium bar package.', category: 'Upsell our premium bar package to 90% of all events', isCompleted: true},
+    {startDate: addDays('2021-01-04', 49), commitmentName: 'Interview three candidates for the open position on our team and make an offer to the one that best meets our requirements.', category: 'Other', isCompleted: true},
+    {startDate: addDays('2021-01-04', 56), commitmentName: 'Work with Kim and Karen for 20 minutes each on improving their upselling scripts for our bar package, as well as practicing their delivery.', category: 'Clear the Path', isCompleted: true},
+    {startDate: addDays('2021-01-04', 63), commitmentName: 'Attend the Chamber of Commerce meeting and capture at least three new corporate contacts that are not currently holding events at our hotel.', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 70), commitmentName: 'Complete the final review of our new marketing materials for our premium bar package.', category: 'Upsell our premium bar package to 90% of all events', isCompleted: false},
+    {startDate: addDays('2021-01-04', 77), commitmentName: 'Interview three candidates for the open position on our team and make an offer to the one that best meets our requirements.', category: 'Other', isCompleted: false},
+    {startDate: addDays('2021-01-04', 84), commitmentName: 'Work with Kim and Karen for 20 minutes each on improving their upselling scripts for our bar package, as well as practicing their delivery.', category: 'Clear the Path', isCompleted: false},
+    {startDate: addDays('2021-01-04', 91), commitmentName: 'Attend the Chamber of Commerce meeting and capture at least three new corporate contacts that are not currently holding events at our hotel.', category: 'Complete two quality site visits per associate per week', isCompleted: false},
+    {startDate: addDays('2021-01-04', 91), commitmentName: 'Complete the final review of our new marketing materials for our premium bar package.', category: 'Upsell our premium bar package to 90% of all events', isCompleted: false},
+    {startDate: addDays('2021-01-04', 98), commitmentName: 'Interview three candidates for the open position on our team and make an offer to the one that best meets our requirements.', category: 'Other', isCompleted: false},
+    // {startDate: addDays('2021-01-04', 105), commitmentName: ''},
+    // {startDate: addDays('2021-01-04', 112), commitmentName: ''},
+]
 
+export const demoUserCommitmentDataMock = [
+    {startDate: '2021-01-04',commitmentName: 'Complete face-to-face meetings with two companies that have just opened new offices downtown', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 7),commitmentName: 'Create a special upsell experience for our premium bar package with the three clients that were scheduled for site visits', category: 'Upsell our premium bar package to 90% of all events', isCompleted: true},
+    {startDate: addDays('2021-01-04', 14),commitmentName: 'Send a memories packet to two of my clients who held events with us last year, along with a handwritten note.', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 21),commitmentName: 'Have a conversation, by phone or in person, with two of my clients who held their annual meeting with us last year but haven\'t commited for this year', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 28),commitmentName: 'Contact at least five new prospective clients by the end of the day Monday and have at least one of them commit to making a site visit before the end of the week', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 35),commitmentName: 'Create memory packages for five more clients from last year and send them out.', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 42),commitmentName: 'Complete face-to-face meetings with two companies that have just opened new offices downtown', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 49),commitmentName: 'Create a special upsell experience for our premium bar package with the three clients that were scheduled for site visits', category: 'Upsell our premium bar package to 90% of all events', isCompleted: true},
+    {startDate: addDays('2021-01-04', 56),commitmentName: 'Send a memories packet to two of my clients who held events with us last year, along with a handwritten note.', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 63),commitmentName: 'Have a conversation, by phone or in person, with two of my clients who held their annual meeting with us last year but haven\'t commited for this year', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 70),commitmentName: 'Contact at least five new prospective clients by the end of the day Monday and have at least one of them commit to making a site visit before the end of the week', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 77),commitmentName: 'Create memory packages for five more clients from last year and send them out.', category: 'Complete two quality site visits per associate per week', isCompleted: true},
+    {startDate: addDays('2021-01-04', 84),commitmentName: 'Complete face-to-face meetings with two companies that have just opened new offices downtown', category: 'Complete two quality site visits per associate per week', isCompleted: false},
+    {startDate: addDays('2021-01-04', 84),commitmentName: 'Create a special upsell experience for our premium bar package with the three clients that were scheduled for site visits', category: 'Upsell our premium bar package to 90% of all events', isCompleted: false},
+    {startDate: addDays('2021-01-04', 91),commitmentName: 'Send a memories packet to two of my clients who held events with us last year, along with a handwritten note.', category: 'Complete two quality site visits per associate per week', isCompleted: false},
+    {startDate: addDays('2021-01-04', 91),commitmentName: 'Have a conversation, by phone or in person, with two of my clients who held their annual meeting with us last year but haven\'t commited for this year', category: 'Complete two quality site visits per associate per week', isCompleted: false},
+    {startDate: addDays('2021-01-04', 98),commitmentName: 'Contact at least five new prospective clients by the end of the day Monday and have at least one of them commit to making a site visit before the end of the week', category: 'Complete two quality site visits per associate per week', isCompleted: false},
 ];
 
 
@@ -81,10 +101,10 @@ const commitments = [
     'Send a memories packet to two of my clients who held events with us last year, along with a handwritten note.',
     'Have a conversation, by phone or in person, with two of my clients who held their annual meeting with us last year but haven\'t commited for this year',
     'Contact at least five new prospective clients by the end of the day Monday and have at least one of them commit to making a site visit before the end of the week',
-    'Create memory packages for five more clients from last year and send them out.'
+    'Create memory packages for five more clients from last year and send them out.',
 ]
 
-const wigDataMock = [{
+export const wigDataMock = [{
     wigName: 'Increase revenue from corporate events from $22 to $31 million per year by December 31st',
     wigId: '1',
     startDate: '2021-01-01',
@@ -175,4 +195,30 @@ const wigDataMock = [{
             leadBenchmark: 0.9,
         }
     ],
-}]
+}];
+
+export const demoAdminInfoMock = {
+    email: "susan.doe@mobstershotel.org",
+    id: "1",
+    isAdmin: true,
+    name: "Susan Doe",
+    scoreboardInclude: false,
+    title: 'Head of Event Management',
+    company: 'Mobsters Five Star Hotels',
+    teamName: 'Corporate Event Management',
+    commitments: [...demoAdminCommitmentDataMock],
+    leadMeasures:[]
+}
+
+export const demoUserInfoMock = {
+    email: "richard.doe@mobstershotel.org",
+    id: "2",
+    isAdmin: false,
+    name: "Richard Doe",
+    scoreboardInclude: true,
+    title: 'Event Manager',
+    company: 'Mobsters Five Star Hotels',
+    teamName: 'Corporate Event Management',
+    commitments: [...demoUserCommitmentDataMock],
+    leadMeasures: [...demoUserLeadDataMock]
+}
