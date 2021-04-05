@@ -4,8 +4,6 @@ import { useGlobalContext } from '../appContext';
 import { deleteMember, updateMember } from '../apiHelper';
 
 export default function CurrentMemberCard({teamMember, index}) {
-    // const { isLoading, setIsLoading } = useGlobalContext();
-
     const [isLoading, setIsLoading] = useState(false);
 
     const [adminChecked, setAdminChecked] = useState(teamMember.isAdmin);
