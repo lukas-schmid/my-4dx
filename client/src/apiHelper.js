@@ -31,7 +31,6 @@ export function getTeamMembers(teamId) {
   return getFetch(url);
 }
 
-
 // body = {
 //     email: "demo-admin@my-4dx.herokuapp.com",
 //   };
@@ -40,7 +39,6 @@ export function sendPasswordReset(body) {
   const url = "https://my-4dx.herokuapp.com/api/members/passwordreset";
   return postFetch(url, body);
 }
-
 
 // body = {
 //     "email": "demo-user@my-4dx.herokuapp.com",
@@ -59,14 +57,14 @@ export async function addMember(body) {
 }
 
 // body = {
-    // "email": "firstname.lastname@example.com",
-    // "name": "Tom Johnson",
-    // "companyName": "XYZ ltd",
-    // "teamId": "0af5baa1-XXXX-XXXX-XXXX-55830fa3009b",
-    // "teamName": "Sales Team",
-    // "title": "Marketing"
-    // "isAdmin": true,
-    // "scoreboardInclude": true
+// "email": "firstname.lastname@example.com",
+// "name": "Tom Johnson",
+// "companyName": "XYZ ltd",
+// "teamId": "0af5baa1-XXXX-XXXX-XXXX-55830fa3009b",
+// "teamName": "Sales Team",
+// "title": "Marketing"
+// "isAdmin": true,
+// "scoreboardInclude": true
 //   };
 
 export function updateMember(userId, body) {
@@ -106,19 +104,12 @@ export function getAllWigsByTeamId(teamId) {
   return getFetch(url);
 }
 
-
 // body = {
 //   "leadName": "999 phone calls per day",
 //   "leadInterval": "daily",
 //   "leadDataType": "money",
 //   "benchmarkExists": false,
-//   "benchmark": "some calls",
-//   "leadData": [
-//       {
-//           "startDate": "2020-07-01",
-//           "data": 20
-//       }
-//   ]
+//   "benchmark": "some calls"
 // }
 
 export function createLead(wigId, body) {
@@ -140,12 +131,10 @@ export function createLead(wigId, body) {
 //   ]
 // }
 
-export function updateLead(wigId, leadId, body) {
-  const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}`;
-  return putFetch(url, body);
-}
-
-
+// export function updateLead(wigId, leadId, body) {
+//   const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}`;
+//   return putFetch(url, body);
+// }
 
 export function deleteLead(wigId, leadId) {
   const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}`;

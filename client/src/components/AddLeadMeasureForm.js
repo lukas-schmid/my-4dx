@@ -47,12 +47,6 @@ export default function AddLeadMeasureForm() {
             leadDataType: selectedTrackingType,
             benchmarkExists: e.target.isBenchmark.checked,
             benchmark: e.target.benchmarkValue.value,
-            leadData: [
-                {
-                    startDate: "",
-                    data: 0
-                }
-            ]
         };
 
         createLead(e.target.wigSelect.value, formData)
