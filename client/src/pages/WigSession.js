@@ -23,7 +23,7 @@ export default function WigSession() {
     const prevWeek = () => {
         const prevMonday = subtractDays(currentMonday, 7);
         
-        if (prevMonday < new Date(wigData.startDate)) return;
+        if (prevMonday < new Date(wigData[0].startDate)) return;
 
         setCurrentMonday(prevMonday);
         setCurrentWeek(getWeek(prevMonday));
@@ -33,7 +33,7 @@ export default function WigSession() {
     const nextWeek = () => {
         const nextMonday = addDays(currentMonday, 7);
 
-        if (nextMonday > new Date(wigData.endDate)) return;
+        if (nextMonday > new Date(wigData[0].endDate)) return;
 
         setCurrentMonday(nextMonday);
         setCurrentWeek(getWeek(nextMonday));
