@@ -7,10 +7,10 @@ const cors = require("cors");
 
 const users = require("./routes/users");
 const wigs = require("./routes/wigs");
-const lags = require("./routes/lags");
+//const lags = require("./routes/lags"); delete!
 const leads = require("./routes/leads");
 const commitments = require("./routes/commitments");
-const scoreboards = require("./routes/scoreboards");
+// const scoreboards = require("./routes/scoreboards"); delete!
 
 const app = express();
 
@@ -23,10 +23,10 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 
 app.use("/", users);
 app.use("/", wigs);
-app.use("/", lags);
+//app.use("/", lags); delete!
 app.use("/", leads);
 app.use("/", commitments);
-app.use("/", scoreboards);
+// app.use("/", scoreboards); delete!
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));

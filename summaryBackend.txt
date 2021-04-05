@@ -19,8 +19,10 @@
 
 4. Leads
 4.1 post("/api/:wigId/leads")
+// add user leads
 4.2 post("/api/:wigId/leads/:leadId/users/:userId")
-// 4.2 put("/api/:wigId/leads/:leadId") -- commented out -> changes needed
+4.3 put("/api/:wigId/leads/:leadId")
+4.4 delete("/api/:wigId/leads/:leadId")
 
 5. Lag
 // 5.1 put("/api/lag/:wigId") -- not in use
@@ -32,8 +34,6 @@
 // 6.4 put("/api/commitments/:commitmentId") -- not in use -> needs to be changed
 // 6.5 delete("/api/commitments/:commitmentId") -- not in use -> needs to be changed
 
-7. scoreboard
-7.1 post("/api/scoreb)
 
 
 
@@ -551,8 +551,72 @@ Status 200:
         ]
     }
 
+4.2 post("/api/:wigId/leads/:leadId/users/:userId")
+Request body:
 
-4.2 put("/api/:wigId/leads/:leadId")
+{  
+    "leadInterval": "weekly"
+}
+
+Response:
+Status 200:
+    {
+    "title": "Team Lead Sales",
+    "teamName": "Sales Team",
+    "scoreboardInclude": true,
+    "email": "demo-admin@my-4dx.herokuapp.com",
+    "companyName": "yourCompany ltd",
+    "commitments": [
+        {
+            "commitmentId": "35981eea-6dc5-45f4-9249-4f0b7f98c554",
+            "startDate": "2023-01-01",
+            "commitmentName": "this is the commitmentName",
+            "isCompleted": false,
+            "category": "categoryName"
+        },
+        {
+            "isCompleted": false,
+            "commitmentName": "this is another the commitmentName",
+            "category": "categoryName2",
+            "commitmentId": "5f477f0a-bfe6-4e81-823c-619a80dd97c4",
+            "startDate": "2025-01-01"
+        }
+    ],
+    "teamId": "094ecfa9-852b-4ec7-9cab-a6ff2562e94e",
+    "id": "x7HBR5faLeYKXG2Bo907r3GKfRf2",
+    "name": "John Doe",
+    "isAdmin": true,
+    "leadMeasures": [
+        {
+            "leadId": "78c4b327-735a-47e2-bd74-b7378084261c",
+            "leadData": [
+                {
+                    "data": 0,
+                    "startDate": "2021-01-11"
+                },
+                {
+                    "data": 0,
+                    "startDate": "2021-01-18"
+                },
+                {
+                    "startDate": "2021-01-25",
+                    "data": 0
+                },
+                {
+                    "startDate": "2021-02-01",
+                    "data": 0
+                },
+                {
+                    "startDate": "2021-02-08",
+                    "data": 0
+                }
+            ]
+        }
+    ]
+}
+
+
+4.3 put("/api/:wigId/leads/:leadId")
 
 Request body:
 
@@ -562,12 +626,6 @@ Request body:
     "leadDataType": "number",
     "benchmarkExists": false,
     "benchmark": "100 calls per day",
-    "leadData": [
-        {
-            "startDate": "2020-07-20",
-            "data": 20
-        }
-    ]
 }
 Response:
 Status 200:
@@ -645,12 +703,7 @@ Status 200:
         "startDate": "2021-01-11",
         "leadMeasures": [
             {
-                "leadData": [
-                    {
-                        "date": 20,
-                        "startDate": "2020-07-01"
-                    }
-                ],
+                "leadId": "84b86d84-XXXX-XXXX-XXXX-5c1e428991e8
                 "benchmarkExists": false,
                 "leadName": "999 phone calls per day",
                 "leadInterval": "daily",
@@ -661,7 +714,7 @@ Status 200:
     }
 
 
-4.2 delete("/api/:wigId/leads/:leadId")
+4.4 delete("/api/:wigId/leads/:leadId")
 
 Request body:
     {}
@@ -776,57 +829,59 @@ Request body:
 Response:
 Status 201:
     {
-        "leadMeasures": [
-            {
-                "leadId": "78c4b327-735a-47e2-bd74-b7378084261c",
-                "leadData": [
-                    {
-                        "startDate": "2021-01-11",
-                        "data": 0
-                    },
-                    {
-                        "startDate": "2021-01-18",
-                        "data": 0
-                    },
-                    {
-                        "startDate": "2021-01-25",
-                        "data": 0
-                    },
-                    {
-                        "startDate": "2021-02-01",
-                        "data": 0
-                    },
-                    {
-                        "data": 0,
-                        "startDate": "2021-02-08"
-                    }
-                ]
-            }
-        ],
-        "id": "x7HBR5faLeYKXG2Bo907r3GKfRf2",
-        "isAdmin": true,
-        "scoreboardInclude": true,
-        "name": "John Doe",
-        "companyName": "yourCompany ltd",
-        "commitments": [
-            {
-                "isCompleted": false,
-                "category": "",
-                "commitmentName": "",
-                "startDate": "2021-01-11"
-            },
-            {
-                "isCompleted": false,
-                "startDate": "2021-01-18",
-                "category": "",
-                "commitmentName": ""
-            }
-        ],
-        "teamName": "Sales Team",
-        "teamId": "094ecfa9-852b-4ec7-9cab-a6ff2562e94e",
-        "email": "demo-admin@my-4dx.herokuapp.com",
-        "title": "Team Lead Sales"
-    }
+    "title": "Team Lead Sales",
+    "teamName": "Sales Team",
+    "scoreboardInclude": true,
+    "email": "demo-admin@my-4dx.herokuapp.com",
+    "companyName": "yourCompany ltd",
+    "commitments": [
+        {
+            "commitmentId": "35981eea-6dc5-45f4-9249-4f0b7f98c554",
+            "startDate": "2023-01-01",
+            "commitmentName": "this is the commitmentName",
+            "isCompleted": false,
+            "category": "categoryName"
+        },
+        {
+            "isCompleted": false,
+            "commitmentName": "this is another the commitmentName",
+            "category": "categoryName2",
+            "commitmentId": "5f477f0a-bfe6-4e81-823c-619a80dd97c4",
+            "startDate": "2025-01-01"
+        }
+    ],
+    "teamId": "094ecfa9-852b-4ec7-9cab-a6ff2562e94e",
+    "id": "x7HBR5faLeYKXG2Bo907r3GKfRf2",
+    "name": "John Doe",
+    "isAdmin": true,
+    "leadMeasures": [
+        {
+            "leadId": "78c4b327-735a-47e2-bd74-b7378084261c",
+            "leadData": [
+                {
+                    "data": 0,
+                    "startDate": "2021-01-11"
+                },
+                {
+                    "data": 0,
+                    "startDate": "2021-01-18"
+                },
+                {
+                    "startDate": "2021-01-25",
+                    "data": 0
+                },
+                {
+                    "startDate": "2021-02-01",
+                    "data": 0
+                },
+                {
+                    "startDate": "2021-02-08",
+                    "data": 0
+                }
+            ]
+        }
+    ]
+}
 
 
 6.4 put("/api/commitments/:commitmentId")
