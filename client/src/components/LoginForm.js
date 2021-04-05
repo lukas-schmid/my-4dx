@@ -17,12 +17,12 @@ export default function LoginForm() {
             password: e.target.password.value,
         }
 
-        // logInUser(formData.email, formData.password)
-        //     .then(data => {
-        //         setIsLoading(false);
-        //         e.target.reset();
-        //     })
-        //     .catch(error => console.error(error));
+        logInUser(formData.email, formData.password)
+            .then(data => {
+                setIsLoading(false);
+                e.target.reset();
+            })
+            .catch(error => console.error(error));
     }
 
     return (

@@ -22,20 +22,17 @@ export default function AddLeadMeasureForm() {
         };
 
         console.log(formData, wigId);
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
         
-        // createLead(e.target.wigSelect.value, formData)
-        //     .then(data => {
-        //         console.log(data);
-        //         setIsLoading(false);
-        //         e.target.reset();
-        //     })
-        //     .catch(err => {
-        //         setIsLoading(false);
-        //         console.error(err);
-        //     });
+        createLead(e.target.wigSelect.value, formData)
+            .then(data => {
+                console.log(data);
+                setIsLoading(false);
+                e.target.reset();
+            })
+            .catch(err => {
+                setIsLoading(false);
+                console.error(err);
+            });
     }
 
     return (
