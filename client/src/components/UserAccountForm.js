@@ -81,8 +81,8 @@ export default function UserAccountForm() {
                 <input readOnly type="text" className="form-control" id="email" name="email" defaultValue={currentUserInfo && currentUserInfo.email} disabled/>
             </div>
             <h3 className="form-title mt-30 mb-10">Change Password:</h3>
-            <div class="span9 btn-block">
-                <button onClick={handlePasswordReset} class="btn btn-large btn-block btn-primary" type="button">Send Reset Link</button>
+            <div className="span9 btn-block">
+                <button onClick={handlePasswordReset} className="btn btn-large btn-block btn-primary" type="button">Send Reset Link</button>
             </div>
             <button type="submit" className="btn btn-outline-primary mt-30">Update</button>
             <button onClick={handleDeleteUser} type="button" className="btn btn-danger mt-30">Delete Account</button>
