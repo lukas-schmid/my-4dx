@@ -249,6 +249,20 @@ textarea.form-control {
     background-color: #e9ecef;
     border: 1px solid #ced4da;
     border-radius: .25rem;
+
+    &--left {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: .25rem !important;
+        border-bottom-left-radius: .25rem !important;
+    }
+
+    &--right {
+        border-top-right-radius: .25rem !important;
+        border-bottom-right-radius: .25rem !important;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
 }
 
 .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu) {
