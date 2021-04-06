@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
+// Import helpers
+import { formatDate } from '../helpers';
 
 export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
     const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +16,7 @@ export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
         e.target.querySelectorAll('.lead-data-input').forEach(dataInput => {
             formDataArray.push({
                 leadData: {
-                    startDate: dataInput.dataset.startdate,
+                    startDate: formatDate(dataInput.dataset.startdate),
                     data: dataInput.value,
                 },
                 leadId: dataInput.dataset.lmid,
