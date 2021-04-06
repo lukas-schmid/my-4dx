@@ -25,7 +25,9 @@ export default function WigSession() {
 
         const prevMonday = subtractDays(currentMonday, 7);
         
-        if (prevMonday < new Date(wigData[0].startDate)) return;
+        const wigStartDates = wigData.map(wig => new Date(wig.startDate));
+        const earliestStartDate = new Date(Math.min.apply(null, wigStartDates));
+        if ( prevMonday < earliestStartDate && getWeek(prevMonday) !== getWeek(earliestStartDate)) return;
 
         setCurrentMonday(prevMonday);
         setCurrentWeek(getWeek(prevMonday));
@@ -37,7 +39,9 @@ export default function WigSession() {
 
         const nextMonday = addDays(currentMonday, 7);
 
-        if (nextMonday > new Date(wigData[0].endDate)) return;
+        const wigEndDates = wigData.map(wig => new Date(wig.endDate));
+        const latestEndDate = new Date(Math.max.apply(null, wigEndDates));
+        if (nextMonday > latestEndDate) return;
 
         setCurrentMonday(nextMonday);
         setCurrentWeek(getWeek(nextMonday));
@@ -69,12 +73,14 @@ export default function WigSession() {
 
                 const leadInfo = wigData.find(wig => wig.wigId === leadMeasure.wigId).leadMeasures.find(lead => lead.leadId === leadMeasure.leadId);
 
-                current.push({
-                    leadData: currentData,
-                    wigId: leadMeasure.wigId,
-                    ...leadInfo,
-                    // wigName: wigData.find(wig => wig.wigId === leadMeasure.wigId).wigName,
-                });
+                if ( currentData.length > 0 ) {
+                    current.push({
+                        leadData: currentData,
+                        wigId: leadMeasure.wigId,
+                        ...leadInfo,
+                        // wigName: wigData.find(wig => wig.wigId === leadMeasure.wigId).wigName,
+                    });
+                }
             });
         }
         return current;
@@ -101,10 +107,10 @@ export default function WigSession() {
                 </div>
 
                 <article className="form-container wig-session-page__col-1">
-                    <LeadTrackerForm 
+                    {leadDataToShow.length > 0 ? <LeadTrackerForm 
                         leadMeasures={leadDataToShow} 
                         currentMonday={currentMonday}
-                    />
+                    /> : 'No WIGs or Leads found for this week...'}
                 </article>
                 <article className="form-container wig-session-page__col-2">
                     <h2 className="form-title">Weekly Commitments</h2>
