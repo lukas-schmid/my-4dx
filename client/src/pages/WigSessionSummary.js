@@ -29,11 +29,9 @@ export default function WigSessionSummary() {
                     setCurrentYear={setCurrentYear}
                 />
                 <article>
-                    DateSlider
-                    <br></br>
                     Wig Session Summary page
                 </article>
-                <PageFooter />
+                <PageFooter excludeQuote={true} />
             </section>
         </main>
     )
