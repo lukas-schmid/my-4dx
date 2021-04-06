@@ -98,6 +98,28 @@ export function getAllWigsByTeamId(teamId) {
 }
 
 // body = {
+//   "lagData": [
+//       {
+//           "actual": "1000",
+//           "goal": "1500",
+//           "startDate": "2021-01-01"
+//       },
+//       {
+//           "actual": "1000",
+//           "goal": "1500",
+//           "startDate": "2021-02-01"
+//       }
+//     ]
+// }
+
+export function updateLag(wigId, body) {
+  const url = `https://my-4dx.herokuapp.com/api/lags/${wigId}`;
+  return putFetch(url, body);
+}
+
+
+
+// body = {
 //   "leadName": "999 phone calls per day",
 //   "leadInterval": "daily",
 //   "leadDataType": "money",

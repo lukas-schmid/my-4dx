@@ -19,6 +19,7 @@ export default function Scoreboard(){
   const { currentUserInfo ,isLoading, setIsLoading } = useGlobalContext();
   const [teamMembers, setTeamMembers] = useState([]);
   const [teamMembersDropdown, setTeamMembersDropdown] = useState();
+  const [matchingTeamMembers, setMatchingTeamMembers] = useState();
   const [allWigs, setAllWigs] = useState([]);
   const [currentWig, setCurrentWig] = useState();
   const [currentLeadMeasure, setCurrentLeadMeasure] = useState();
@@ -26,7 +27,7 @@ export default function Scoreboard(){
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
   const [dateRange, setDateRange] = useState();
-  const [lagDateRange, setLagDateRange] = useState();
+  //const [lagDateRange, setLagDateRange] = useState();
   const [selectedTeamMembers, setSeletedTeamMembers] = useState([]);
   const [filteredLagData, setfilteredLagData] = useState();
 
@@ -34,13 +35,14 @@ export default function Scoreboard(){
     getTeamMembers(currentUserInfo.teamId)
       .then(data => {
           setTeamMembers(data);
+          //setTeamMembersDropdown(filterMembersByLeadId(data, currentLeadMeasure));
           setTeamMembersDropdown(data.map(member => {
-            return ({name: member.name, label: member.name});
+            return ({name: member.name, label: member.name, id: member.id});
           }))
       })
       .catch(err => {
-          setTeamMembers([]);
-          setTeamMembersDropdown([{name: currentUserInfo.name, label: currentUserInfo.name}]);
+          //setTeamMembers([]);
+          setTeamMembersDropdown([{name: currentUserInfo.name, label: currentUserInfo.name, id: currentUserInfo.id}]);
           console.error(err);
       });
   }, [])
@@ -53,16 +55,26 @@ export default function Scoreboard(){
           setCurrentLeadMeasure(data[0].leadMeasures[0]);
           setStartDate(new Date(data[0].startDate));
           setEndDate(new Date(data[0].endDate));
-          setDateRange(handleDateFilter(data[0].leadMeasures[0], new Date(data[0].startDate), new Date(data[0].endDate)));
-          setLagDateRange(handleLagDateFilter(data[0], new Date(data[0].startDate), new Date(data[0].endDate)));
+          setDateRange(handleDateFilter(data[0], new Date(data[0].startDate), new Date(data[0].endDate)));
+          //setLagDateRange(handleLagDateFilter(data[0], new Date(data[0].startDate), new Date(data[0].endDate)));
           setfilteredLagData(handleLagData(handleLagDateFilter(data[0], new Date(data[0].startDate), new Date(data[0].endDate)), data[0].lagData));
       })
       .catch(err => {
-          setAllWigs([]);
-          setCurrentWig([]);
+          //setAllWigs([]);
+          //setCurrentWig([]);
           console.error(err);
       });
   }, [])
+
+  // useEffect (() => {
+  //   if (teamMembers && currentLeadMeasure) {
+  //     const matchingTeamMembers = filterMembersByLeadId(teamMembers, currentLeadMeasure.leadId);
+  //     setMatchingTeamMembers(matchingTeamMembers);
+  //     setTeamMembersDropdown(matchingTeamMembers.map(member => {
+  //       return ({name: member.name, label: member.name, id: member.id});
+  //     }))
+  //   }
+  // },[teamMembers, currentLeadMeasure]);
 
   const handleSelectedWig = (e) => {
     const wig = allWigs.filter(wig => wig.wigId === e.target.value)
@@ -70,8 +82,8 @@ export default function Scoreboard(){
     setCurrentLeadMeasure(wig[0].leadMeasures[0]);
     setStartDate(new Date(wig[0].startDate));
     setEndDate(new Date(wig[0].endDate));
-    setDateRange(handleDateFilter(wig[0].leadMeasures[0], new Date(wig[0].startDate), new Date(wig[0].endDate)));
-    setLagDateRange(handleLagDateFilter(wig[0], new Date(wig[0].startDate), new Date(wig[0].endDate)));
+    setDateRange(handleDateFilter(wig[0], new Date(wig[0].startDate), new Date(wig[0].endDate)));
+    //setLagDateRange(handleLagDateFilter(wig[0], new Date(wig[0].startDate), new Date(wig[0].endDate)));
     setfilteredLagData(handleLagData(handleLagDateFilter(wig[0], new Date(wig[0].startDate), new Date(wig[0].endDate)), wig[0].lagData))   
   }
 
@@ -79,23 +91,23 @@ export default function Scoreboard(){
     const lead = currentWig.leadMeasures.filter(lead => lead.leadId === e.target.value);
     setCurrentLeadMeasure(lead[0]);
     setDefaultLeadMeasureDropdownValue(e.target.value);
-    setDateRange(handleDateFilter(lead[0], new Date(currentWig.startDate), new Date(currentWig.endDate)));
+    setDateRange(handleDateFilter(currentWig, new Date(currentWig.startDate), new Date(currentWig.endDate)));
   }
 
   const onChangeDate = dates => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
-    setDateRange(handleDateFilter(currentLeadMeasure, start, end));
-    setLagDateRange(handleLagDateFilter(currentWig, start, end));
+    setDateRange(handleDateFilter(currentWig, start, end));
+    //setLagDateRange(handleLagDateFilter(currentWig, start, end));
     setfilteredLagData(handleLagData(handleLagDateFilter(currentWig, start, end), currentWig.lagData));
   };
 
-  const handleDateFilter = (currentLead, from, to) => {
+  const handleDateFilter = (currentWig, from, to) => {
     const startDate = from?.getTime();
     const endDate = to?.getTime();
-    const leadDates = currentLead.leadData.map(date => new Date(date.startDate).getTime());
-    const range = leadDates.filter(date => date >= startDate && date <= endDate);
+    const lagDates = currentWig.lagData.map(date => new Date(date.startDate).getTime());
+    const range = lagDates.filter(date => date >= startDate && date <= endDate);
     return range.map(date => new Date(date).toISOString().split("T")[0]);
   }
 
@@ -115,10 +127,19 @@ export default function Scoreboard(){
     return lagData.filter(data => dateRange.includes(data.startDate));
   }
 
+  // const filterMembersByLeadId = (teamMembers, leadId) => {
+  //   return teamMembers.filter(member => {
+  //     const matchingMember = member.leadMeasures.filter(obj => obj.leadId === leadId);
+  //     if (matchingMember !== undefined){
+  //       return matchingMember[0];
+  //     }
+  //   });
+  // }
+
 
   const showData = () => {
-    console.log(currentWig);
-    console.log(filteredLagData);
+    console.log(teamMembers);
+    console.log(matchingTeamMembers);
   }
   
   const recentLead = dataSet1.recentLead;
@@ -162,14 +183,14 @@ export default function Scoreboard(){
       datasets: [
         {
           label: '# of cold calls / team',
-          data: leadDatas,
+          data: filteredLagData?.length > 0 ? filteredLagData.map(data => data.actual) : 0,
           fill: false,
           backgroundColor: 'rgb(47, 72, 88)',
           borderColor: 'rgba(47, 72, 88, 0.2)',
         },
         {
           label: 'goal',
-          data: leadBaseline,
+          data: filteredLagData?.length > 0 ? filteredLagData.map(data => data.goal) : 0,
           fill: false,
           backgroundColor: 'rgb(21, 115, 71)',
           borderColor: 'rgba(21, 115, 71, 0.2)',
@@ -177,25 +198,7 @@ export default function Scoreboard(){
       ],
     }
 
-    const dataLag = {
-        labels: lagDateRange,
-        datasets: [
-          {
-            label: '# of cold calls / team',
-            data: filteredLagData?.length > 0 ? filteredLagData.map(data => data.actual) : 0,
-            fill: false,
-            backgroundColor: 'rgb(47, 72, 88)',
-            borderColor: 'rgba(47, 72, 88, 0.2)',
-          },
-          {
-            label: 'goal',
-            data: filteredLagData?.length > 0 ? filteredLagData.map(data => data.goal) : 0,
-            fill: false,
-            backgroundColor: 'rgb(21, 115, 71)',
-            borderColor: 'rgba(21, 115, 71, 0.2)',
-          },
-        ],
-      }
+  
   
   const optionsBar = {
     scales: {
@@ -214,46 +217,33 @@ export default function Scoreboard(){
         yAxes: [
           {
             ticks: {
-              beginAtZero: false,
+              beginAtZero: true,
             },
           },
         ],
       },
     }
 
-    const optionsLag = {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: false,
-              },
-            },
-          ],
-        },
-      }
 
 
   return (
     <>
+      <button type="button" onClick={showData}>console.log</button>
       {allWigs.length === 0 ? <p>no Wig found</p> :
       <div id="scoreboardContainer">
         <div id="filters">
           <div>
             <div className="page-content add-lead-measure-page">
-              <PageHeader pageTitle={
-                <h1>{currentWig?.wigName}</h1>
-                }/> 
+              <PageHeader pageTitle={currentWig?.wigName} /> 
             </div>
             <div>
               <h2>from: {currentWig?.startDate} until: {currentWig?.endDate}</h2>
             </div>
-            <button type="button" onClick={showData}>console.log</button>
           <div className="filterOptions">
             <section className="filterOption-wig">
                 <label htmlFor="wigSelect" className="form-label">WIG</label>
                 <select onChange={handleSelectedWig} className="form-select" id="wigSelect" name="wigSelect">
-                {allWigs.map((wig, index) => 
+                {allWigs.length > 0 && allWigs.map((wig, index) => 
                     <option key={index} value={wig.wigId}>{wig.wigName}</option>
                 )}
                 </select>
@@ -306,16 +296,8 @@ export default function Scoreboard(){
           </div>
           <div className= 'scoreBoard'>
               <section className="page-content add-lead-measure-page" style={{width: 400, height: 300}}>
-                  <PageHeader pageTitle="Team lead measures"/> 
+                  <PageHeader pageTitle="Team lag data"/> 
                       <Line data={dataLine} options={optionsLine} style={{
-                          backgroundColor: 'white',
-                          }}/>
-              </section>
-          </div>
-          <div className= 'scoreBoard'>
-              <section className="page-content add-lead-measure-page" style={{width: 400, height: 300}}>
-                  <PageHeader pageTitle="Lag measures"/> 
-                      <Line data={dataLag} options={optionsLag} style={{
                           backgroundColor: 'white',
                           }}/>
               </section>

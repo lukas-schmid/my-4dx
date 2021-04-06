@@ -11,22 +11,25 @@
 2.6 post("/api/members/passwordreset")
 
 3. WIG
-3.1 post("/api/wigs")
+3.1 post("/api/wigs") -- OK
 3.2 put("/api/wigs/:wigId)
 3.3 delete("/api/wigs/:wigId)
 3.4 get("/api/wigs/:teamId)
 
 4. Leads
-4.1 post("/api/:wigId/leads")
+4.1 post("/api/:wigId/leads") -- OK
 // add user leads
 4.2 post("/api/:wigId/leads/:leadId/users/:userId")
 4.3 put("/api/:wigId/leads/:leadId")
 4.4 delete("/api/:wigId/leads/:leadId")
 
 5. Commitments
-5.1 post("/api/commitments/:userId")
+5.1 post("/api/commitments/:userId") -- OK
 5.2 put("/api/commitments/:commitmentId/users/:userId")
 5.3 delete("/api/commitments/:commitmentId/users/:userId")
+
+6. Lags
+6.1 put("/api/lags/:wigId")
 
 
 
@@ -562,7 +565,6 @@ Status 204:
 
 Request body:
     {  
-        "category": "categoryName2",
         "startDate": "2025-01-01",
         "commitmentName": "this is another the commitmentName"
     }
@@ -647,4 +649,38 @@ Response:
 Status 200:
     {
         user
+    }
+
+
+6.1 put("/api/lags/:wigId")
+
+Request body:
+{
+    "lagData": [
+        {
+            "actual": "1000",
+            "goal": "1500",
+            "startDate": "2021-01-01"
+        },
+        {
+            "actual": "1000",
+            "goal": "1500",
+            "startDate": "2021-02-01"
+        },
+        {
+            "actual": "800",
+            "goal": "1500",
+            "startDate": "2021-02-01"
+        },
+        {
+            "actual": "1200",
+            "goal": "1500",
+            "startDate": "2021-03-01"
+        }
+    ]
+}
+Response:
+Status 200:
+    {
+        wig
     }
