@@ -22,6 +22,8 @@
 4.2 post("/api/:wigId/leads/:leadId/users/:userId")
 4.3 put("/api/:wigId/leads/:leadId")
 4.4 delete("/api/:wigId/leads/:leadId")
+// update single leadMeasures in user
+4.5 put("/api/:wigId/leads/:leadId/users/:userId")
 
 5. Commitments
 5.1 post("/api/commitments/:userId") -- OK
@@ -558,6 +560,23 @@ Status 204:
     {}
 
 
+4.5 put("/api/:wigId/leads/:leadId/users/:userId")
+
+Request body:
+{
+    "leadData": {
+        "startDate": "2021-04-19",
+        "data": "120"
+    },
+    "leadId": "4a1fc5ee-0113-40cf-a058-687238c7b7bf",
+    "wigId": "be0dd4bf-50c9-4dd9-a549-e72315977eb2"
+}
+Status 200:
+    {
+        userinfo
+    }
+
+
 
 5. Commitments
 
@@ -624,6 +643,7 @@ Status 201:
         }
     ]
 }
+
 
 
 5.2 put("/api/commitments/:commitmentId/users/:userId")

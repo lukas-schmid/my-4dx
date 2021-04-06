@@ -95,14 +95,35 @@ exports.createLead = async (req, res, next) => {
   }
 };
 
-//updateUserLead
-// exports.updateUserLead = async (req, res, next) => {
-       
-  //   res.status(201).json(updatedUser);
-//   } catch (error) {
-//     next(error);
-//   }
+exports.updateUserLead = async (req, res, next) => {
+    const wigId = req.params.wigId;
+    const leadId = req.params.leadId;
+    const userId = req.params.userId;
+  try{ 
+    const user = await userService.getUser(userId);
+    const matchingLeadMeasure = user.leadMeasures.filter(obj => obj.wigId === wigId && obj.leadId === leadId);
+    const leadData = matchingLeadMeasure[0].leadData;
+    const index = leadData.findIndex(obj => obj.startDate === req.body.leadData.startDate);
+    leadData.splice(index, 1, req.body.leadData);
+    matchingLeadMeasure[0].leadData = leadData;
+    
+    const filteredLeadMeasures = user.leadMeasures.filter(obj => obj.wigId !== wigId || obj.leadId !== leadId);
+    let newLeadMeasures = [];
+    if (filteredLeadMeasures.length > 0){
+      newLeadMeasures = filteredLeadMeasures.concat(matchingLeadMeasure);
+    } 
 
+    await userService.addUserLeadMeasure(
+      user.id,
+      newLeadMeasures
+    );
+
+    const response = await userService.getUser(userId);
+    res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+}
 // exports.addUserLeadMeasure = async (req, res, next) => {
 //   const wigId = req.params.wigId;
 //   const leadId = req.params.leadId;
