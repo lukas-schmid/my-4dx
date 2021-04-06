@@ -5,18 +5,31 @@ export default function CommitmentItem({commitment, index}) {
     const [checked, setChecked] = useState(commitment.isCompleted)
 
     const updateCommitment = e => {
+        setIsLoading(true);
         setChecked(!checked);
         const commitmentData = {
-
+            isCompleted: !checked,
+            commitmentName: commitment.commitmentName,
         }
+        console.log(commitmentData)
+
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2000)
     }
 
     const deleteCommitment = e => {
+        setIsLoading(true);
+        
         console.log('delete')
+
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2000)
     }
 
     useEffect(() => {
-        setChecked(commitment.isCompleted);
+        setChecked(commitment.isCompleted || false);
     }, [commitment])
 
     return (
@@ -27,16 +40,18 @@ export default function CommitmentItem({commitment, index}) {
                 checked={checked}
                 onChange={updateCommitment}
                 className="form-check-input commitment-item__checkbox"
+                disabled={isLoading}
             />
             <button
                 // data-commitmentid={commitment.commitmentId}
                 className="commitment-item__delete-btn"
                 onClick={deleteCommitment}
-            >X</button>
+                disabled={isLoading}
+            >{isLoading ? '...' : 'X'}</button>
             <label
                 className="commitment-item__text"
                 htmlFor={`commitment-${index}`}
-            >{commitment.commitmentName}</label>
+            >{commitment.commitmentName || ''}</label>
         </li>
     )
 }

@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+// Import components
+import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function AddCommitmentForm() {
     const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +17,7 @@ export default function AddCommitmentForm() {
     return (
         <form className="form mb-30" onSubmit={handleSubmit}>
             {/* <h3 className="form-title">Add New Commitment</h3> */}
+            {isLoading && <FormLoaderOverlay hide={true}/>}
             <div className="form-section mt-0">
                 <label className="form-label" htmlFor='commitmentName'>Add new commitment here:</label>
                 <input 
@@ -25,7 +28,7 @@ export default function AddCommitmentForm() {
                         placeholder="For next week, I will..."
                 />
             </div>
-            <button type="submit" className="btn btn-success">
+            <button type="submit" className="btn btn-success" disabled={isLoading}>
                 {isLoading ? 'Loading...' : 'Add Commitment'}
             </button>
         </form>

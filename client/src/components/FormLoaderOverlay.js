@@ -2,10 +2,10 @@ import React from 'react';
 // Import components
 import Loader from './Loader';
 
-export default function FormLoaderOverlay({size}) {
+export default function FormLoaderOverlay({size, hide}) {
     return (
         <div className="loader-overlay">
-            <Loader size={size}/>
+            {!hide && <Loader size={size}/>}
         </div>
     )
 }
