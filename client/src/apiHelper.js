@@ -31,6 +31,11 @@ export function getTeamMembers(teamId) {
   return getFetch(url);
 }
 
+export function getUser(userId) {
+  const url = `https://my-4dx.herokuapp.com/api/user/${userId}`;
+  return getFetch(url);
+}
+
 // body = {
 //     email: "demo-admin@my-4dx.herokuapp.com",
 //   };

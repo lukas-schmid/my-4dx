@@ -16,7 +16,8 @@ registerLocale('en', en)
 
 
 export default function Scoreboard(){
-  const { currentUserInfo ,isLoading, setIsLoading } = useGlobalContext();
+  const { currentUserInfo , wigData, setWigData, teamData, setTeamData } = useGlobalContext();
+
   const [teamMembers, setTeamMembers] = useState([]);
   const [teamMembersDropdown, setTeamMembersDropdown] = useState();
   const [matchingTeamMembers, setMatchingTeamMembers] = useState();
@@ -34,11 +35,12 @@ export default function Scoreboard(){
   useEffect(() => {
     getTeamMembers(currentUserInfo.teamId)
       .then(data => {
+          setTeamData(data);  // global state
           setTeamMembers(data);
           //setTeamMembersDropdown(filterMembersByLeadId(data, currentLeadMeasure));
           setTeamMembersDropdown(data.map(member => {
             return ({name: member.name, label: member.name, id: member.id});
-          }))
+          }));
       })
       .catch(err => {
           //setTeamMembers([]);
@@ -50,6 +52,7 @@ export default function Scoreboard(){
   useEffect(() => {
     getAllWigsByTeamId(currentUserInfo.teamId)
       .then(data => {
+          setWigData(data); // global state
           setAllWigs(data);
           setCurrentWig(data[0]);
           setCurrentLeadMeasure(data[0].leadMeasures[0]);

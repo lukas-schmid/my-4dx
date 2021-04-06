@@ -16,12 +16,12 @@ function AppProvider({ children }) {
 
   const [error, setError] = useState({isError: false, message: ''});
 
-  const [currentUserInfo, setCurrentUserInfo] = useState({...demoUserInfoMock});
+  const [currentUserInfo, setCurrentUserInfo] = useState({});
 
-  const [wigData, setWigData] = useState([...wigDataMock]);
-  const [userLeadData, setUserLeadDate] = useState([...demoUserInfoMock.leadMeasures]);
-  const [userCommitmentData, setUserCommitmentDate] = useState([...demoUserInfoMock.commitments]);
-  const [teamData, setTeamData] = useState([...teamMembersMock]);
+  const [wigData, setWigData] = useState([]);
+  // const [userLeadData, setUserLeadDate] = useState([]);
+  // const [userCommitmentData, setUserCommitmentDate] = useState([]);
+  const [teamData, setTeamData] = useState([]);
   // ------- HOOKS -------
   let history = useHistory();
 
@@ -46,15 +46,6 @@ function AppProvider({ children }) {
       }
 
       console.log(data.teamId)
-
-      //getTeamMembers(currentUserInfo.teamId)
-      //getAllWigsByTeamId(currentUserInfo.teamId)
-
-      // const team = await getTeamMembers(data.teamId);
-      // console.log(team);
-
-      // const wigs = await getAllWigsByTeamId(data.teamId);
-      // console.log(wigs);
 
     } catch (error) {
         console.error(error);
@@ -102,10 +93,12 @@ function AppProvider({ children }) {
       
       logOutUser,
       createNewTeam,
+
       wigData,
+      setWigData,
+
       teamData,
-      userLeadData,
-      userCommitmentData,
+      setTeamData
     }}>
       {children}
     </AppContext.Provider>
