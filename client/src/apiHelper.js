@@ -56,7 +56,7 @@ export function sendPasswordReset(body) {
 // }
 
 export async function addMember(body) {
-  const url = "http://localhost:8080/api/members";
+  const url = "https://my-4dx.herokuapp.com/api/members";
   const response = await postFetch(url, body);
   return response;
 }
