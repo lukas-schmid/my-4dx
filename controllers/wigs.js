@@ -120,7 +120,6 @@ exports.deleteWIG = async (req, res, next) => {
     const wig = await service.getWig(wigId);
     const teamId = wig.teamId;
     const users = await userService.getAllUsers(teamId);
-    console.log(users);
     users.forEach(async user => {
       const newLeadMeasures = user.leadMeasures.filter(obj => obj.wigId !== wigId);
       await userService.addUserLeadMeasure(

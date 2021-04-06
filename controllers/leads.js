@@ -188,6 +188,18 @@ exports.deleteLead = async (req, res, next) => {
       (obj) => obj.leadId !== leadId
     );
     await leadService.addLeadToWig(wigId, newLeadMeasures);
+
+    // delete leads from users
+    const teamId = wig.teamId;
+    const users = await userService.getAllUsers(teamId);
+    users.forEach(async user => {
+      const newLeadMeasures = user.leadMeasures.filter(obj => obj.leadId !== leadId);
+      await userService.addUserLeadMeasure(
+        user.id,
+        newLeadMeasures
+      )
+    })
+
     res
       .status(204)
       .json({ message: `Lead with id ${leadId} has been deleted` });
