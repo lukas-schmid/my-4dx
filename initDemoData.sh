@@ -5,7 +5,7 @@
 # 1.1 post("/api/register")
 
 body=$(jq -n --arg b "$teamId" '{
-    "email": "test-admin@my-4dx.herokuapp.com",
+    "email": "demo-admin@my-4dx.herokuapp.com",
     "password": "password123",
     "name": "John Doe",
     "companyName": "yourCompany ltd",
@@ -20,7 +20,7 @@ teamId=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://loca
 # 2. user management
 # 2.3 post("/api/members")
 body=$(jq -n --arg b "$teamId" '{
-    "email": "test-user@my-4dx.herokuapp.com",
+    "email": "demo-user@my-4dx.herokuapp.com",
     "password": "password123",
     "name": "Jane Doe",
     "companyName": "yourCompany ltd",
