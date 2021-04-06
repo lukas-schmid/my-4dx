@@ -77,13 +77,6 @@ export function deleteMember(userId, body) {
   return deleteFetch(url, body);
 }
 
-// maybe not necessary?! maybe for proper logout on google firebase
-
-export function logout() {
-  const url = "https://my-4dx.herokuapp.com/api/logout";
-  return postFetch(url);
-}
-
 // body = {
 //   wigName: "increase sale by 70%",
 //   lagName:"increase sale calls",
@@ -105,6 +98,28 @@ export function getAllWigsByTeamId(teamId) {
 }
 
 // body = {
+//   "lagData": [
+//       {
+//           "actual": "1000",
+//           "goal": "1500",
+//           "startDate": "2021-01-01"
+//       },
+//       {
+//           "actual": "1000",
+//           "goal": "1500",
+//           "startDate": "2021-02-01"
+//       }
+//     ]
+// }
+
+export function updateLag(wigId, body) {
+  const url = `https://my-4dx.herokuapp.com/api/lags/${wigId}`;
+  return putFetch(url, body);
+}
+
+
+
+// body = {
 //   "leadName": "999 phone calls per day",
 //   "leadInterval": "daily",
 //   "leadDataType": "money",
@@ -117,47 +132,37 @@ export function createLead(wigId, body) {
   return postFetch(url, body);
 }
 
-// body = {
-//   "leadName": "999 phone calls per day",
-//   "leadInterval": "daily",
-//   "leadDataType": "money",
-//   "benchmarkExists": false,
-//   "benchmark": "some calls",
-//   "leadData": [
-//       {
-//           "startDate": "2020-07-01",
-//           "data": 20
-//       }
-//   ]
+// body = {   
+//   "leadInterval": "weekly"
 // }
 
-// export function updateLead(wigId, leadId, body) {
-//   const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}`;
-//   return putFetch(url, body);
+export function addUserLeadMeasure(wigId, leadId, userId, body) {
+  const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}/users/${userId}`;
+  return postFetch(url, body);
+}
+
+// body = {
+//     "leadName": "200 phone calls per day",
+//     "leadInterval": "weekly",
+//     "leadDataType": "number",
+//     "benchmarkExists": false,
+//     "benchmark": "100 calls per day",
 // }
+
+export function updateLead(wigId, leadId, body) {
+  const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}`;
+  return putFetch(url, body);
+}
 
 export function deleteLead(wigId, leadId) {
   const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}`;
   return deleteFetch(url);
 }
 
-export function getAllCommitmentsByWigId(wigId) {
-  const url = `https://my-4dx.herokuapp.com/api/commitments/wigs/${wigId}`;
-  return getFetch(url);
-}
-
-export function getAllCommitmentsByUserId(userId) {
-  const url = `https://my-4dx.herokuapp.com/api/commitments/${userId}`;
-  return getFetch(url);
-}
-
 // body = {
-//    "commitmentName": "make 200 calls",
-//    "startDate": "2021-01-15",
-//    "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
-//    "wigName":"increase sales by 40%",
-//    "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-//    "category":"category name"
+  // "category": "categoryName2",
+  // "startDate": "2025-01-01",
+  // "commitmentName": "this is another the commitmentName"
 // }
 
 export function createCommitment(userId, body) {
@@ -167,17 +172,13 @@ export function createCommitment(userId, body) {
 
 
 // body = {
-//    "userId": "dba7fdcc-XXXX-XXXX-XXXX-079b21e40733",
-//    "commitmentName": "make 200 calls",
-//    "startDate": "2021-01-15",
-//    "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
-//    "wigName":"increase sale by 40%",
-//    "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-//    "category":"category name"
+  // "startDate": "2025-01-01",
+  // "commitmentName": "this is another the commitmentName2.2",
+  // "isCompleted": true
 // }
 
-export function updateCommitment(commitmentId, body) {
-  const url = `https://my-4dx.herokuapp.com/api/commitments/${commitmentId}`;
+export function updateCommitment(commitmentId, userId, body) {
+  const url = `https://my-4dx.herokuapp.com/api/commitments/${commitmentId}/users/${userId}`;
   return putFetch(url, body);
 }
 

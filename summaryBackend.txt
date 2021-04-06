@@ -1,7 +1,6 @@
 1. register and login
 1.1 post("/api/register")
 1.2 post("/api/login")
-1.3 post("/api/logout")
 
 2. user management
 2.1 get("/api/user/:userId")
@@ -12,28 +11,26 @@
 2.6 post("/api/members/passwordreset")
 
 3. WIG
-3.1 post("/api/wigs")
+3.1 post("/api/wigs") -- OK
 3.2 put("/api/wigs/:wigId)
 3.3 delete("/api/wigs/:wigId)
 3.4 get("/api/wigs/:teamId)
 
 4. Leads
-4.1 post("/api/:wigId/leads")
+4.1 post("/api/:wigId/leads") -- OK
+// add user leads
 4.2 post("/api/:wigId/leads/:leadId/users/:userId")
-// 4.2 put("/api/:wigId/leads/:leadId") -- commented out -> changes needed
+4.3 put("/api/:wigId/leads/:leadId")
+4.4 delete("/api/:wigId/leads/:leadId")
 
-5. Lag
-// 5.1 put("/api/lag/:wigId") -- not in use
+5. Commitments
+5.1 post("/api/commitments/:userId") -- OK
+5.2 put("/api/commitments/:commitmentId/users/:userId")
+5.3 delete("/api/commitments/:commitmentId/users/:userId")
 
-6. Commitments
-// 6.1 get("/api/commitments/wigs/:wigId") -- not in use
-// 6.2 get("/api/commitments/:userId") -- not in use
-6.3 post("/api/commitments/:userId")
-// 6.4 put("/api/commitments/:commitmentId") -- not in use -> needs to be changed
-// 6.5 delete("/api/commitments/:commitmentId") -- not in use -> needs to be changed
+6. Lags
+6.1 put("/api/lags/:wigId")
 
-7. scoreboard
-7.1 post("/api/scoreb)
 
 
 
@@ -372,56 +369,6 @@ Status 200:
                 "startDate": "2021-01-18",
                 "actual": ""
             },
-            {
-                "startDate": "2021-01-25",
-                "goal": "",
-                "actual": ""
-            },
-            {
-                "actual": "",
-                "goal": "",
-                "startDate": "2021-02-01"
-            },
-            {
-                "actual": "",
-                "goal": "",
-                "startDate": "2021-02-08"
-            },
-            {
-                "startDate": "2021-02-15",
-                "goal": "",
-                "actual": ""
-            },
-            {
-                "actual": "",
-                "startDate": "2021-02-22",
-                "goal": ""
-            },
-            {
-                "goal": "",
-                "actual": "",
-                "startDate": "2021-03-01"
-            },
-            {
-                "startDate": "2021-03-08",
-                "goal": "",
-                "actual": ""
-            },
-            {
-                "startDate": "2021-03-15",
-                "goal": "",
-                "actual": ""
-            },
-            {
-                "actual": "",
-                "goal": "",
-                "startDate": "2021-03-22"
-            },
-            {
-                "actual": "",
-                "startDate": "2021-03-28",
-                "goal": ""
-            }
         ],
         "lagInterval": "weekly",
         "wigName": "increase sale by 70%",
@@ -435,12 +382,6 @@ Status 200:
                 "leadDataType": "money",
                 "leadName": "999 phone calls per day",
                 "benchmark": "555",
-                "leadData": [
-                    {
-                        "startDate": "2020-07-01",
-                        "date": 20
-                    }
-                ],
                 "leadId": "742299cb-bc42-4918-8221-52c099280524",
                 "benchmarkExists": false
             }
@@ -470,60 +411,10 @@ Status 200:
                 "goal": ""
             },
             {
-                "startDate": "2021-01-18",
-                "goal": "",
-                "actual": ""
-            },
-            {
-                "goal": "",
-                "startDate": "2021-01-25",
-                "actual": ""
-            },
-            {
-                "actual": "",
-                "startDate": "2021-02-01",
-                "goal": ""
-            },
-            {
-                "startDate": "2021-02-08",
-                "goal": "",
-                "actual": ""
-            },
-            {
-                "goal": "",
-                "startDate": "2021-02-15",
-                "actual": ""
-            },
-            {
-                "goal": "",
-                "startDate": "2021-02-22",
-                "actual": ""
-            },
-            {
-                "startDate": "2021-03-01",
-                "goal": "",
-                "actual": ""
-            },
-            {
-                "goal": "",
-                "startDate": "2021-03-08",
-                "actual": ""
-            },
-            {
                 "actual": "",
                 "goal": "",
                 "startDate": "2021-03-15"
             },
-            {
-                "goal": "",
-                "startDate": "2021-03-22",
-                "actual": ""
-            },
-            {
-                "goal": "",
-                "actual": "",
-                "startDate": "2021-03-28"
-            }
         ],
         "lagCurrency": "SEK",
         "wigId": "84b86d84-31f0-4772-915b-5c1e428991e8",
@@ -536,12 +427,6 @@ Status 200:
         "startDate": "2021-01-11",
         "leadMeasures": [
             {
-                "leadData": [
-                    {
-                        "date": 20,
-                        "startDate": "2020-07-01"
-                    }
-                ],
                 "benchmarkExists": false,
                 "leadName": "999 phone calls per day",
                 "leadInterval": "daily",
@@ -551,8 +436,72 @@ Status 200:
         ]
     }
 
+4.2 post("/api/:wigId/leads/:leadId/users/:userId")
+Request body:
 
-4.2 put("/api/:wigId/leads/:leadId")
+{  
+    "leadInterval": "weekly"
+}
+
+Response:
+Status 200:
+    {
+    "title": "Team Lead Sales",
+    "teamName": "Sales Team",
+    "scoreboardInclude": true,
+    "email": "demo-admin@my-4dx.herokuapp.com",
+    "companyName": "yourCompany ltd",
+    "commitments": [
+        {
+            "commitmentId": "35981eea-6dc5-45f4-9249-4f0b7f98c554",
+            "startDate": "2023-01-01",
+            "commitmentName": "this is the commitmentName",
+            "isCompleted": false,
+            "category": "categoryName"
+        },
+        {
+            "isCompleted": false,
+            "commitmentName": "this is another the commitmentName",
+            "category": "categoryName2",
+            "commitmentId": "5f477f0a-bfe6-4e81-823c-619a80dd97c4",
+            "startDate": "2025-01-01"
+        }
+    ],
+    "teamId": "094ecfa9-852b-4ec7-9cab-a6ff2562e94e",
+    "id": "x7HBR5faLeYKXG2Bo907r3GKfRf2",
+    "name": "John Doe",
+    "isAdmin": true,
+    "leadMeasures": [
+        {
+            "leadId": "78c4b327-735a-47e2-bd74-b7378084261c",
+            "leadData": [
+                {
+                    "data": 0,
+                    "startDate": "2021-01-11"
+                },
+                {
+                    "data": 0,
+                    "startDate": "2021-01-18"
+                },
+                {
+                    "startDate": "2021-01-25",
+                    "data": 0
+                },
+                {
+                    "startDate": "2021-02-01",
+                    "data": 0
+                },
+                {
+                    "startDate": "2021-02-08",
+                    "data": 0
+                }
+            ]
+        }
+    ]
+}
+
+
+4.3 put("/api/:wigId/leads/:leadId")
 
 Request body:
 
@@ -562,12 +511,6 @@ Request body:
     "leadDataType": "number",
     "benchmarkExists": false,
     "benchmark": "100 calls per day",
-    "leadData": [
-        {
-            "startDate": "2020-07-20",
-            "data": 20
-        }
-    ]
 }
 Response:
 Status 200:
@@ -579,59 +522,9 @@ Status 200:
                 "goal": ""
             },
             {
-                "startDate": "2021-01-18",
-                "goal": "",
-                "actual": ""
-            },
-            {
-                "goal": "",
-                "startDate": "2021-01-25",
-                "actual": ""
-            },
-            {
-                "actual": "",
-                "startDate": "2021-02-01",
-                "goal": ""
-            },
-            {
-                "startDate": "2021-02-08",
-                "goal": "",
-                "actual": ""
-            },
-            {
-                "goal": "",
-                "startDate": "2021-02-15",
-                "actual": ""
-            },
-            {
-                "goal": "",
-                "startDate": "2021-02-22",
-                "actual": ""
-            },
-            {
-                "startDate": "2021-03-01",
-                "goal": "",
-                "actual": ""
-            },
-            {
-                "goal": "",
-                "startDate": "2021-03-08",
-                "actual": ""
-            },
-            {
                 "actual": "",
                 "goal": "",
                 "startDate": "2021-03-15"
-            },
-            {
-                "goal": "",
-                "startDate": "2021-03-22",
-                "actual": ""
-            },
-            {
-                "goal": "",
-                "actual": "",
-                "startDate": "2021-03-28"
             }
         ],
         "lagCurrency": "SEK",
@@ -645,12 +538,7 @@ Status 200:
         "startDate": "2021-01-11",
         "leadMeasures": [
             {
-                "leadData": [
-                    {
-                        "date": 20,
-                        "startDate": "2020-07-01"
-                    }
-                ],
+                "leadId": "84b86d84-XXXX-XXXX-XXXX-5c1e428991e8
                 "benchmarkExists": false,
                 "leadName": "999 phone calls per day",
                 "leadInterval": "daily",
@@ -661,7 +549,7 @@ Status 200:
     }
 
 
-4.2 delete("/api/:wigId/leads/:leadId")
+4.4 delete("/api/:wigId/leads/:leadId")
 
 Request body:
     {}
@@ -670,214 +558,129 @@ Status 204:
     {}
 
 
-5. Lag
-5.1 put("/api/lag/:wigId")
 
-Request body:
-    {
-        "startDate": "2021-12-10",
-        "actual": 3000,
-        "goal": 27000
-    }
-Response:
-Status 200:
-    {
-        "lagDataType": "money",
-        "endDate": "2021-02-20",
-        "wigName": "increase sale by 80%",
-        "lagName": "increase calls",
-        "startDate": "2021-01-11",
-        "lagData": [
-            {
-                "startDate": "2021-12-10",
-                "actual": 3000,
-                "goal": 27000
-            }
-        ],
-        "lagInterval": "weekly",
-        "wigId": "e5888048-a7a9-4ab6-876f-7f8e44fb4762"
-    }
+5. Commitments
 
-
-
-
-6. Commitments
-
-6.1 get("/api/commitments/wigs/:wigId")
-Request body:
-    {}
-Response:
-Status 200:
-    [
-        {
-            "category": "category name",
-            "wigName": "increase sale by 40%",
-            "userId": "03f1EqRO36UiU1a28ppV1CYHUmW2",
-            "wigId": "0ed521b7-8c05-4ea3-8035-249bb09e5e02",
-            "commitmentName": "make 200 calls",
-            "commitmentId": "c9638eef-5eac-45ef-9193-61a198777edd",
-            "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-            "startDate": "2021-01-15",
-            isCompleted: true/false
-        },
-        {
-            "category": "what ever this was",
-            "wigName": "increase sale by 40%",
-            "commitmentName": "make 200 calls",
-            "wigId": "0ed521b7-8c05-4ea3-8035-249bb09e5e02",
-            "commitmentId": "dba7fdcc-5e33-42ca-8907-079b21e40733",
-            "userId": "03f1EqRO36UiU1a28ppV1CYHUmW2",
-            "startDate": "2021-01-15",
-            "leadId": "a3217c85-791f-49a0-8b80-0f7da5ad63d7",
-            isCompleted: true/false
-        }
-    ]
-
-6.2 get("/api/commitments/:userId")
-
-Request body:
-    {}
-Response:
-Status 200:
-    [
-        {
-            "userId": "03f1EqRXXXXXXXppV1CYHUmW2",
-            "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-            "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
-            "wigName": "increase sale by 40%",
-            "commitmentName": "make 200 calls",
-            "category": "category name",
-            "commitmentId": "c9638eef-5eac-45ef-9193-61a198777edd",
-            "startDate": "2021-01-15",
-            isCompleted: true/false
-        },
-        {
-            "startDate": "2021-01-15",
-            "commitmentId": "dba7fdcc-5e33-42ca-8907-079b21e40733",
-            "leadId": "a3217c85-791f-49a0-8b80-0f7da5ad63d7",
-            "userId": "03f1EqROXXXXXXV1CYHUmW2",
-            "commitmentName": "make 200 calls",
-            "wigName": "increase sale by 40%",
-            "category": "category name",
-            "wigId": "0ed521b7-8c05-4ea3-8035-249bb09e5e02",
-            isCompleted: true/false
-        }
-    ]
-
-
-6.3 post("/api/commitments/:userId")
+5.1 post("/api/commitments/:userId")
 
 Request body:
     {  
-        "leadInterval": "weekly",
-        "wigId": "9e1cfc51-15de-43da-935c-dd7b13819edb"
+        "startDate": "2025-01-01",
+        "commitmentName": "this is another the commitmentName"
     }
 Response:
 Status 201:
     {
-        "leadMeasures": [
-            {
-                "leadId": "78c4b327-735a-47e2-bd74-b7378084261c",
-                "leadData": [
-                    {
-                        "startDate": "2021-01-11",
-                        "data": 0
-                    },
-                    {
-                        "startDate": "2021-01-18",
-                        "data": 0
-                    },
-                    {
-                        "startDate": "2021-01-25",
-                        "data": 0
-                    },
-                    {
-                        "startDate": "2021-02-01",
-                        "data": 0
-                    },
-                    {
-                        "data": 0,
-                        "startDate": "2021-02-08"
-                    }
-                ]
-            }
-        ],
-        "id": "x7HBR5faLeYKXG2Bo907r3GKfRf2",
-        "isAdmin": true,
-        "scoreboardInclude": true,
-        "name": "John Doe",
-        "companyName": "yourCompany ltd",
-        "commitments": [
-            {
-                "isCompleted": false,
-                "category": "",
-                "commitmentName": "",
-                "startDate": "2021-01-11"
-            },
-            {
-                "isCompleted": false,
-                "startDate": "2021-01-18",
-                "category": "",
-                "commitmentName": ""
-            },
-            {
-                "category": "",
-                "isCompleted": false,
-                "commitmentName": "",
-                "startDate": "2021-01-25"
-            },
-            {
-                "category": "",
-                "startDate": "2021-02-01",
-                "isCompleted": false,
-                "commitmentName": ""
-            },
-            {
-                "isCompleted": false,
-                "category": "",
-                "commitmentName": "",
-                "startDate": "2021-02-08"
-            }
-        ],
-        "teamName": "Sales Team",
-        "teamId": "094ecfa9-852b-4ec7-9cab-a6ff2562e94e",
-        "email": "demo-admin@my-4dx.herokuapp.com",
-        "title": "Team Lead Sales"
-    }
+    "title": "Team Lead Sales",
+    "teamName": "Sales Team",
+    "scoreboardInclude": true,
+    "email": "demo-admin@my-4dx.herokuapp.com",
+    "companyName": "yourCompany ltd",
+    "commitments": [
+        {
+            "commitmentId": "35981eea-6dc5-45f4-9249-4f0b7f98c554",
+            "startDate": "2023-01-01",
+            "commitmentName": "this is the commitmentName",
+            "isCompleted": false,
+            "category": "categoryName"
+        },
+        {
+            "isCompleted": false,
+            "commitmentName": "this is another the commitmentName",
+            "category": "categoryName2",
+            "commitmentId": "5f477f0a-bfe6-4e81-823c-619a80dd97c4",
+            "startDate": "2025-01-01"
+        }
+    ],
+    "teamId": "094ecfa9-852b-4ec7-9cab-a6ff2562e94e",
+    "id": "x7HBR5faLeYKXG2Bo907r3GKfRf2",
+    "name": "John Doe",
+    "isAdmin": true,
+    "leadMeasures": [
+        {
+            "leadId": "78c4b327-735a-47e2-bd74-b7378084261c",
+            "leadData": [
+                {
+                    "data": 0,
+                    "startDate": "2021-01-11"
+                },
+                {
+                    "data": 0,
+                    "startDate": "2021-01-18"
+                },
+                {
+                    "startDate": "2021-01-25",
+                    "data": 0
+                },
+                {
+                    "startDate": "2021-02-01",
+                    "data": 0
+                },
+                {
+                    "startDate": "2021-02-08",
+                    "data": 0
+                }
+            ]
+        }
+    ]
+}
 
 
-6.4 put("/api/commitments/:commitmentId")
+5.2 put("/api/commitments/:commitmentId/users/:userId")
 
 Request body:
     {
-        "userId": "dba7fdcc-XXXX-XXXX-XXXX-079b21e40733",
-        "commitmentName": "make 200 calls",
-        "startDate": "2021-01-15",
-        "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
-        "wigName":"increase sale by 40%",
-        "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-        "category":"category name",
+        "startDate": "2025-01-01",
+        "commitmentName": "this is another the commitmentName2.2",
         "isCompleted": true
     }
 Response:
-Status 201:
+Status 200:
     {
-        "wigName": "increase sale by 40%",
-        "leadId": "a3217c85-XXXX-XXXX-XXXX-0f7da5ad63d7",
-        "commitmentName": "make 200 calls",
-        "userId": "dba7fdcc-XXXX-XXXX-XXXX-079b21e40733",
-        "wigId": "0ed521b7-XXXX-XXXX-XXXX-249bb09e5e02",
-        "startDate": "2021-01-15",
-        "category": "category name",
-        "commitmentId": "c9638eef-XXXX-XXXX-XXXX-61a198777edd",
-        "isCompleted": true
+         user
     }
 
 
-6.5 delete("/api/commitments/:commitmentId")
+5.3 delete("/api/commitments/:commitmentId/users/:userId")
 
 Request body:
     {}
 Response:
-Status 204:
-    {}
+Status 200:
+    {
+        user
+    }
+
+
+6.1 put("/api/lags/:wigId")
+
+Request body:
+{
+    "lagData": [
+        {
+            "actual": "1000",
+            "goal": "1500",
+            "startDate": "2021-01-01"
+        },
+        {
+            "actual": "1000",
+            "goal": "1500",
+            "startDate": "2021-02-01"
+        },
+        {
+            "actual": "800",
+            "goal": "1500",
+            "startDate": "2021-02-01"
+        },
+        {
+            "actual": "1200",
+            "goal": "1500",
+            "startDate": "2021-03-01"
+        }
+    ]
+}
+Response:
+Status 200:
+    {
+        wig
+    }

@@ -33,7 +33,7 @@ body=$(jq -n --arg b "$teamId" '{
 
 echo "POST http://localhost:8080/api/members"
 echo "request body: $body"
-userId=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/members | jq . -r .id)
+userId=$(curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:8080/api/members | jq -r .id)
 
 # 3. WIG
 # 3.1 post("/api/wigs")
@@ -97,8 +97,9 @@ curl -w "\n" -d "$body" -H 'Content-Type: application/json' http://localhost:808
 
 # Init Commitments
 # 4.2 post("/api/commitments/:userId")
-body=$(jq -n --arg b "$teamId" '{
-    "leadInterval": "weekly"
+body=$(jq -n --arg b "$wigId" '{
+    "startDate": "2021-04-25",
+    "commitmentName": "this is the commitmentName"
 }')
 
 echo "POST http://localhost:8080/api/commitments/$userId"

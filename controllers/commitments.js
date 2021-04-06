@@ -1,94 +1,18 @@
-const { createCommitment } = require("../models/commitments");
 const { v4: uuidv4 } = require("uuid");
-const service = require("../services/commitments");
-const wigService = require("../services/wigs");
 const userService = require("../services/users")
-const {
-  getMondayDate,
-  addDays,
-  addDay,
-  formatDate,
-} = require("../helpers/helperfunctions");
-
-const initCommitmentData = async (wigId, leadInterval) => {
-  const wig = await wigService.getWig(wigId);
-  const endDate = new Date(wig.endDate);
-  let startDate = new Date(wig.startDate);
-  let commitments = [];
-
-  if (leadInterval === "weekly") startDate = getMondayDate(startDate);
-
-  if (leadInterval === "daily") {
-    let whileArray = [];
-    let date = new Date(startDate);
-    while (date < new Date(endDate)) {
-      whileArray.push({
-        commitmentName: "",
-        isCompleted: false,
-        category: "",
-        startDate: formatDate(new Date(date))
-      });
-      date = addDay(date);
-    }
-    commitments = whileArray;
-  }
-
-  if (leadInterval === "weekly") {
-    let whileArray = [];
-    let date = new Date(startDate);
-    while (date < new Date(endDate)) {
-      whileArray.push({
-        commitmentName: "",
-        isCompleted: false,
-        category: "",
-        startDate: formatDate(new Date(date))
-      });
-      date = addDays(date, 7);
-    }
-    commitments = whileArray;
-  }
-  return commitments;
-};
-
-
-
-exports.getAllCommitmentsByWigId = async (req, res, next) => {
-  const wigId = req.params.wigId;
-  try {
-    const commitments = await service.getAllCommitmentsByWigId(wigId);
-    if (!commitments) {
-      res.status(404).json({ message: "not found" });
-    } else {
-      res.status(200).json(commitments);
-    }
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.getAllCommitments = async (req, res, next) => {
-  const userId = req.params.userId;
-  try {
-    const commitments = await service.getAllCommitments(userId);
-    if (!commitments) {
-      res.status(404).json({ message: "not found" });
-    } else {
-      res.status(200).json(commitments);
-    }
-  } catch (error) {
-    next(error);
-  }
-};
 
 exports.createCommitment = async (req, res, next) => {
-  const commitmentId = uuidv4();
   const userId = req.params.userId;
-  const wigId = req.body.wigId;
-  const commitments = await initCommitmentData(wigId, req.body.leadInterval);
+  const body = {
+    commitmentId: uuidv4(),
+    startDate: req.body.startDate,
+    isCompleted: false,
+    commitmentName: req.body.commitmentName
+  }
   try {
     const user = await userService.getUser(userId);
     const currentCommitments = user.commitments;
-    const newCommitments = currentCommitments.concat(commitments);
+    const newCommitments = currentCommitments.concat(body);
     await userService.addUserCommitments(
       user.id,
       newCommitments
@@ -101,71 +25,45 @@ exports.createCommitment = async (req, res, next) => {
 }
 
 
-
-//   const commitmentId = uuidv4();
-//   const userId = req.params.userId;
-//   const commitmentName = req.body.commitmentName;
-//   const startDate = req.body.startDate;
-//   const wigId = req.body.wigId;
-//   const wigName = req.body.wigName;
-//   const leadId = req.body.leadId;
-//   const category = req.body.category;
-//   const isCompleted = false;
-//   try {
-//     await createCommitment(
-//       commitmentId,
-//       userId,
-//       commitmentName,
-//       startDate,
-//       wigId,
-//       wigName,
-//       leadId,
-//       category,
-//       isCompleted
-//     );
-//     const response = await service.getCommitment(commitmentId);
-//     res.status(201).json(response);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
 exports.updateCommitment = async (req, res, next) => {
   const commitmentId = req.params.commitmentId;
-  const userId = req.body.userId;
-  const commitmentName = req.body.commitmentName;
-  const startDate = req.body.startDate;
-  const wigId = req.body.wigId;
-  const wigName = req.body.wigName;
-  const leadId = req.body.leadId;
-  const category = req.body.category;
-  const isCompleted = req.body.isCompleted;
+  const userId = req.params.userId;
+  const body = [{
+    commitmentId,
+    startDate: req.body.startDate,
+    isCompleted: req.body.isCompleted,
+    commitmentName: req.body.commitmentName
+  }];
   try {
-    await service.updateCommitment(
-      commitmentId,
+    const user = await userService.getUser(userId);
+    const commitments = user.commitments;
+    const filteredCommitments = commitments.filter(commitment => commitment.commitmentId !== commitmentId);
+    const newCommitments = filteredCommitments.concat(body);
+    await userService.updateCommitment(
       userId,
-      commitmentName,
-      startDate,
-      wigId,
-      wigName,
-      leadId,
-      category,
-      isCompleted
+      newCommitments
     );
-    const response = await service.getCommitment(commitmentId);
-    res.status(201).json(response);
+    const response = await userService.getUser(userId);
+    res.status(200).json(response);
   } catch (error) {
     next(error);
   }
 };
 
+
 exports.deleteCommitment = async (req, res, next) => {
   const commitmentId = req.params.commitmentId;
+  const userId = req.params.userId;
   try {
-    await service.deleteCommitment(commitmentId);
-    res
-      .status(204)
-      .json({ message: `Commitment with id ${commitmentId} has been deleted` });
+    const user = await userService.getUser(userId);
+    const commitments = user.commitments;
+    const newCommitments = commitments.filter(commitment => commitment.commitmentId !== commitmentId);
+    await userService.deleteCommitment(
+      userId,
+      newCommitments
+    );
+    const response = await userService.getUser(userId);
+    res.status(200).json(response);
   } catch (error) {
     next(error);
   }
