@@ -24,6 +24,7 @@ export default function AddCommitmentForm({ currentMonday }) {
         setCurrentUserInfo(response);
 
         setIsLoading(false);
+        e.target.reset();
     }
 
     return (

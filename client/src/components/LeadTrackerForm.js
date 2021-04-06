@@ -60,7 +60,7 @@ export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
                         data-lmid={leadMeasure.leadId}
                         data-wigid={leadMeasure.wigId}
                         onChange={onInputChange}
-                        value={leadMeasure.leadData[0].data}
+                        value={leadMeasure.leadData[0] && (leadMeasure.leadData[0].data || '')}
                         placeholder={leadMeasure.leadDataType === 'percent' ? 'E.g. 0.67' : ''}
                         step={leadMeasure.leadDataType === 'percent' ? '0.01' : '1'}
                     />
