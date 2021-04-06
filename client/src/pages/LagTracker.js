@@ -21,14 +21,14 @@ export default function LagTracker() {
                             return <option key={index} value={index}>{wig.wigName}</option>
                         })}
                         </select>}
-                        <LagTrackerForm wig={wigData[index]} />
+                        {wigData.length > 0 && <LagTrackerForm wig={wigData[index]} />}
                     </article>
                 <PageFooter excludeQuote={true}/>
             </section>
             <section className="page-content">
                 <PageHeader pageTitle="WIG Summary"/>
                     <article className="form-container">
-                        <WigLagLeadEditDisplay wig={wigData[index]} />
+                        {wigData.length > 0 && <WigLagLeadEditDisplay wig={wigData[index]} />} 
                     </article>
                 <PageFooter excludeQuote={true}/>
             </section>
