@@ -111,6 +111,7 @@ body {
       height: 100%;
 
       display: flex;
+      min-width: 0;
     }
 
     .page-header {
@@ -244,6 +245,10 @@ hr {
   margin-top: 0 !important;
 }
 
+.mb-30 {
+  margin-bottom: 30px !important;
+}
+
 .mb-20 {
   margin-bottom: 20px !important;
 }
@@ -285,6 +290,157 @@ hr {
   & > section {
     @include min-width (700px) {
       margin: 0 30px;
+    }
+  }
+}
+
+.wig-session-page {
+  max-width: 350px;
+
+  .page-header {
+    text-align: center;
+  }
+
+  @include min-width (850px) {
+    max-width: 800px;
+    min-width: 800px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr );
+    align-items: flex-start;
+    justify-content: center;
+
+    .page-header,
+    .page-footer,
+    .date-slider {
+      grid-column: span 2;
+    }
+
+    &__col-1 {
+      max-width: 350px;
+      justify-self: center;
+    }
+
+    &__col-2 {
+      max-width: 400px;
+      justify-self: left;
+    }
+
+    &__col-1, &__col-2 {
+      //max-height: 400px;
+      min-height: 400px;
+
+      padding-top: 20px;
+      overflow: scroll;
+      align-content: flex-start;
+    }
+  }
+}
+
+.date-slider {
+  padding: 10px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+
+  &__arrow {
+    font-size: 3rem;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: $primary-blue;
+    outline: none;
+    border: 1px solid transparent;
+    margin-top: 10px;
+
+    &:hover {
+      border: 1px solid white;
+      color: $dark-blue;
+    }
+
+    &:active {
+      border: 1px solid transparent;
+      color: $primary-gold;
+      outline: none;
+      background: none;
+    }
+  }
+
+  &__dates {
+    padding: 10px;
+    text-align: center;
+
+    &--week,
+    &--weekdays {
+      margin: 0;
+    }
+
+    &--week {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: $dark-blue;
+      margin-bottom: 10px;
+    }
+
+    &--weekdays {
+      font-size: 0.85rem;
+      font-style: italic;
+      color: $dark-blue;
+    }
+  }
+
+  &__underline {
+    border: 1px solid $primary-blue;
+    width: 80%;
+    grid-column: span 3;
+  }
+}
+
+.commitment-list {
+  margin-bottom: 20px;
+}
+
+.commitment-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  margin-bottom: 20px;
+
+  &__text {
+    grid-row: span 2;
+    padding-left: 10px;
+  }
+
+  &__checkbox {
+    margin: 0.35rem auto;
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+
+  &__delete-btn {
+    grid-row: 2;
+
+    color: red;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 4px 6px;
+    margin: 0 2px;
+    border: 1px solid transparent;
+    font-size: 1.1rem;
+
+    &:active {
+        background-color: red;
+        color: white;
+        outline: none;
+    }
+
+    &:hover {
+      border: 1px solid red;
     }
   }
 }

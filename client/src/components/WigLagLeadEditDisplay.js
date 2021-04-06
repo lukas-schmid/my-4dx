@@ -34,7 +34,7 @@ export default function WigLagLeadEditDisplay({wig}) {
             </div>
             <button type="button" className="btn btn-danger" onClick={e => {
                 deleteWig(currentWig.wigId);
-            }} disabled={isLoading}>{isLoading ? 'Loading...' : 'Delete WIG'}</button>
+            }} disabled={isLoading}>{isLoading ? 'Deleting...' : 'Delete WIG'}</button>
 
             <h3 className="form-title mt-30">Lag Measure</h3>
             <div className="form-section">

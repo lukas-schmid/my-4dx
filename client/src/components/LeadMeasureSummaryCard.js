@@ -35,7 +35,7 @@ export default function LeadMeasureSummaryCard({leadMeasure}) {
                             onClick={() => deleteLeadMeasure(leadMeasure.leadId)}
                             disabled={isLoading}
                         >
-                                {isLoading ? 'Loading...' : 'Delete Lead Measure'}
+                                {isLoading ? 'Deleting...' : 'Delete Lead Measure'}
                         </button>
                     </li>
                 </ul>
