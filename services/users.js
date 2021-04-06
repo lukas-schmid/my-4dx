@@ -95,3 +95,7 @@ exports.deleteCommitment = async (
     commitments
   });
 };
+
+exports.deleteUser = async (userId) => {
+  return await db.collection("users").doc(userId).delete();
+};

@@ -94,3 +94,7 @@ export function formatWeekFromTo(date) {
 
     return `(${monDDMMYY} > ${sunDDMMYY})`;
 }
+
+export function formatDate(date) {
+    return date.toISOString().split("T")[0];
+  };

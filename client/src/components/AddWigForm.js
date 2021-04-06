@@ -30,8 +30,6 @@ export default function AddWigForm() {
 
         createWig(formData)
             .then(data => {
-                console.log(data);
-
                 const newWigData = [...wigData, data];
                 setWigData(newWigData);
 

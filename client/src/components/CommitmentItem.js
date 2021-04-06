@@ -1,36 +1,43 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useGlobalContext } from '../appContext';
+// Import helpers
+import { deleteCommitment, updateCommitment } from '../apiHelper';
 
 export default function CommitmentItem({commitment, index}) {
+    const { currentUserInfo, getAndUpdateCurrentUserInfo } = useGlobalContext();
+
     const [isLoading, setIsLoading] = useState(false);
     const [checked, setChecked] = useState(commitment.isCompleted)
 
-    const updateCommitment = e => {
+    const updateCurrentCommitment = async e => {
         setIsLoading(true);
         setChecked(!checked);
         const commitmentData = {
             isCompleted: !checked,
             commitmentName: commitment.commitmentName,
+            startDate: commitment.startDate
         }
-        console.log(commitmentData)
 
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 2000)
+        const response = await updateCommitment( commitment.commitmentId, currentUserInfo.id, commitmentData );
+        getAndUpdateCurrentUserInfo();
+
+        setIsLoading(false);
     }
 
-    const deleteCommitment = e => {
+    const deleteCurrentCommitment = async e => {
         setIsLoading(true);
         
-        console.log('delete')
-
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 2000)
+        const response = await deleteCommitment(commitment.commitmentId, currentUserInfo.id);
+        getAndUpdateCurrentUserInfo()
     }
 
     useEffect(() => {
         setChecked(commitment.isCompleted || false);
     }, [commitment])
+
+    useEffect(() => {
+        return () => setIsLoading(false);
+    }); 
 
     return (
         <li className="commitment-item">
@@ -38,14 +45,14 @@ export default function CommitmentItem({commitment, index}) {
                 type="checkbox" 
                 id={`commitment-${index}`}
                 checked={checked}
-                onChange={updateCommitment}
+                onChange={updateCurrentCommitment}
                 className="form-check-input commitment-item__checkbox"
                 disabled={isLoading}
             />
             <button
                 // data-commitmentid={commitment.commitmentId}
                 className="commitment-item__delete-btn"
-                onClick={deleteCommitment}
+                onClick={deleteCurrentCommitment}
                 disabled={isLoading}
             >{isLoading ? '...' : 'X'}</button>
             <label

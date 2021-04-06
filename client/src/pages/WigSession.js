@@ -45,37 +45,45 @@ export default function WigSession() {
     }
 
     const getCurrentUserCommitments = () => {
-        const current =  currentUserInfo.commitments.filter(item => {
-            const date = new Date(item.startDate);
-            return getWeek(date) === currentWeek && date.getUTCFullYear() === currentYear;
-        });
-        return current;
+        if (currentUserInfo.commitments.length > 0) {
+            const current =  currentUserInfo.commitments.filter(item => {
+                const date = new Date(item.startDate);
+                return getWeek(date) === currentWeek && date.getUTCFullYear() === currentYear;
+            });
+            return current;
+        } else {
+            return [];
+        }
     }
 
     const getCurrentLeadData = () => {
         const current = [];
-        currentUserInfo.leadMeasures.forEach(leadMeasure => {
-            const currentData = leadMeasure.leadData.filter(item => {
-                const date = new Date(item.startDate);
-                return getWeek(date) === currentWeek && date.getUTCFullYear() === currentYear;
-            });
 
-            const leadInfo = wigData.find(wig => wig.wigId === leadMeasure.wigId).leadMeasures.find(lead => lead.leadId === leadMeasure.leadId);
+        if (currentUserInfo.leadMeasures.length > 0) {
 
-            current.push({
-                leadData: currentData,
-                wigId: leadMeasure.wigId,
-                ...leadInfo,
-                // wigName: wigData.find(wig => wig.wigId === leadMeasure.wigId).wigName,
+            currentUserInfo.leadMeasures.forEach(leadMeasure => {
+                const currentData = leadMeasure.leadData.filter(item => {
+                    const date = new Date(item.startDate);
+                    return getWeek(date) === currentWeek && date.getUTCFullYear() === currentYear;
+                });
+
+                const leadInfo = wigData.find(wig => wig.wigId === leadMeasure.wigId).leadMeasures.find(lead => lead.leadId === leadMeasure.leadId);
+
+                current.push({
+                    leadData: currentData,
+                    wigId: leadMeasure.wigId,
+                    ...leadInfo,
+                    // wigName: wigData.find(wig => wig.wigId === leadMeasure.wigId).wigName,
+                });
             });
-        });
+        }
         return current;
     }
 
     useEffect(() => {
         setCommitmentsToShow(getCurrentUserCommitments());
         setLeadDataToShow(getCurrentLeadData());
-    }, [currentMonday]);
+    }, [currentMonday, currentUserInfo]);
 
     return (
         <main className="page-container">
@@ -93,11 +101,16 @@ export default function WigSession() {
                 </div>
 
                 <article className="form-container wig-session-page__col-1">
-                    <LeadTrackerForm leadMeasures={leadDataToShow} currentMonday={currentMonday}/>
+                    <LeadTrackerForm 
+                        leadMeasures={leadDataToShow} 
+                        currentMonday={currentMonday}
+                    />
                 </article>
                 <article className="form-container wig-session-page__col-2">
                     <h2 className="form-title">Weekly Commitments</h2>
-                    <AddCommitmentForm />
+                    <AddCommitmentForm 
+                        currentMonday={currentMonday}
+                    />
                     <h3 className="form-title"> My commitments:</h3>
                     <ul className="commitment-list">
                         {commitmentsToShow.length > 0 && commitmentsToShow.map((commitment, index) => {
