@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useGlobalContext } from '../appContext';
+// Import helpers
+import { deleteLead } from '../apiHelper';
 
-export default function LeadMeasureSummaryCard({leadMeasure}) {
+export default function LeadMeasureSummaryCard({leadMeasure, wigId}) {
+    const { getAndUpdateCurrentUserInfo, getAndUpdateTeamData, getAndUpdateWigs } = useGlobalContext();
+
     const [isLoading, setIsLoading] = useState(false);
 
-    const deleteLeadMeasure = (id) => {
+    const deleteLeadMeasure = async id => {
         setIsLoading(true);
 
-        console.log(id);
-
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
+        const response = await deleteLead(wigId, id);
+        getAndUpdateCurrentUserInfo();
+        getAndUpdateTeamData();
+        getAndUpdateWigs();
     }
+
+    useEffect(() => {
+        return () => setIsLoading(false);
+    });
 
     return (
         <div className="card member-card">

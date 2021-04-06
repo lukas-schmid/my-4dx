@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useGlobalContext } from '../appContext';
 // Import components
 import LagTrackerInputGroup from './LagTrackerInputGroup';
 import FormLoaderOverlay from './FormLoaderOverlay';
+// Import helpers
+import { updateLag } from '../apiHelper';
 
-export default function LagTrackerForm({wig}) {
+export default function LagTrackerForm({ wig }) {
+    const { getAndUpdateWigs } = useGlobalContext();
+
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = e => {
+    // console.log(wig);
+
+    const handleSubmit = async e => {
+
         e.preventDefault();
         setIsLoading(true);
         const newLagData = [...wig.lagData];
@@ -17,21 +25,20 @@ export default function LagTrackerForm({wig}) {
             newLagData[index][key] = value;
         });
         
-        const formData = {
+        const newWig = {
             ...wig,
             lagData: newLagData
         } // formData === entire WIG object
 
-        console.log(formData);
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
+        const response = await updateLag(wig.wigId, { lagData: newLagData });
+        getAndUpdateWigs();
+        setIsLoading(false);
     }
 
     return (
         <form className="form" onSubmit={handleSubmit}>
             {isLoading && <FormLoaderOverlay />}
-            {wig.lagData.length > 0 && wig.lagData.map((data, index) => {
+            {wig && wig.lagData.length > 0 && wig.lagData.map((data, index) => {
                 return <LagTrackerInputGroup 
                     key={index} 
                     lagDataObj={data} 

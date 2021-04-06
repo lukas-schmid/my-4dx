@@ -26,11 +26,11 @@ export default function LagTrackerInputGroup({lagDataObj, index, lagInterval, la
                 <input 
                     type="text" 
                     className="form-control" 
-                    name="target"
+                    name="goal"
                     data-index={index}
                     data-startdate={inputState.startDate}
                     onChange={onInputchange}
-                    value={inputState.target}
+                    value={inputState.goal || ''}
                 />
             </div>
             <div className="input-group mb-20">

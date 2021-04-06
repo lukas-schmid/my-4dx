@@ -6,7 +6,7 @@ import { updateMember, sendPasswordReset, deleteMember } from '../apiHelper';
 import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function UserAccountForm() {
-    const { currentUserInfo } = useGlobalContext();
+    const { currentUserInfo, logOutUser } = useGlobalContext();
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = e => {
@@ -58,6 +58,7 @@ export default function UserAccountForm() {
             .then(data => {
                 console.log(data);
                 setIsLoading(false);
+                logOutUser();
             })
             .catch(err => {
                 setIsLoading(false);

@@ -1,22 +1,33 @@
 import React, { useState } from 'react';
+import { useGlobalContext } from '../appContext';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
+// Import helpers
+import { createCommitment } from '../apiHelper';
+import { formatDate } from '../helpers';
 
-export default function AddCommitmentForm() {
+export default function AddCommitmentForm({ currentMonday }) {
+    const { currentUserInfo, setCurrentUserInfo } = useGlobalContext();
+
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
         setIsLoading(true);
 
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
+        const formData = {
+            commitmentName: e.target.commitmentName.value,
+            startDate: formatDate(currentMonday),
+        };
+
+        const response = await createCommitment(currentUserInfo.id, formData);
+        setCurrentUserInfo(response);
+
+        setIsLoading(false);
     }
 
     return (
         <form className="form mb-30" onSubmit={handleSubmit}>
-            {/* <h3 className="form-title">Add New Commitment</h3> */}
             {isLoading && <FormLoaderOverlay hide={true}/>}
             <div className="form-section mt-0">
                 <label className="form-label" htmlFor='commitmentName'>Add new commitment here:</label>

@@ -63,7 +63,8 @@ exports.createLead = async (req, res, next) => {
   const leadUserMeasures = [
       {
         leadId: leadId,
-        leadData
+        leadData,
+        wigId
       },
     ]
 
@@ -73,7 +74,7 @@ exports.createLead = async (req, res, next) => {
     const newLeadMeasures = currentLeadMeasures.concat(leadMeasures);
     await leadService.addLeadToWig(wigId, newLeadMeasures);
     
-    //add leadMeasures to users
+    //add leadMeasures to all teamMembers
     
     const teamId = wig.teamId;
     const users = await userService.getAllUsers(teamId);
@@ -94,33 +95,39 @@ exports.createLead = async (req, res, next) => {
   }
 };
 
+//updateUserLead
+// exports.updateUserLead = async (req, res, next) => {
+       
+  //   res.status(201).json(updatedUser);
+//   } catch (error) {
+//     next(error);
+//   }
 
-
-exports.addUserLeadMeasure = async (req, res, next) => {
-  const wigId = req.params.wigId;
-  const leadId = req.params.leadId;
-  const userId = req.params.userId;
-  const leadData = await initLeadData(wigId, req.body.leadInterval);
-  const leadMeasures = [
-    {
-      leadId: leadId,
-      leadData
-    },
-  ]
-  try {
-    const user = await userService.getUser(userId);
-    const currentLeadMeasures = user.leadMeasures;
-    const newLeadMeasures = currentLeadMeasures.concat(leadMeasures);
-    await userService.addUserLeadMeasure(
-      user.id,
-      newLeadMeasures
-    );
-    const updatedUser = await userService.getUser(userId);
-    res.status(201).json(updatedUser);
-  } catch (error) {
-    next(error);
-  }
-};
+// exports.addUserLeadMeasure = async (req, res, next) => {
+//   const wigId = req.params.wigId;
+//   const leadId = req.params.leadId;
+//   const userId = req.params.userId;
+//   const leadData = await initLeadData(wigId, req.body.leadInterval);
+//   const leadMeasures = [
+//     {
+//       leadId: leadId,
+//       leadData
+//     },
+//   ]
+//   try {
+//     const user = await userService.getUser(userId);
+//     const currentLeadMeasures = user.leadMeasures;
+//     const newLeadMeasures = currentLeadMeasures.concat(leadMeasures);
+//     await userService.addUserLeadMeasure(
+//       user.id,
+//       newLeadMeasures
+//     );
+//     const updatedUser = await userService.getUser(userId);
+//     res.status(201).json(updatedUser);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 exports.updateLead = async (req, res, next) => {
   const wigId = req.params.wigId;
