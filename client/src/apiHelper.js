@@ -97,6 +97,11 @@ export function createWig(body) {
   return postFetch(url, body);
 }
 
+export function deleteWig(wigId) {
+  const url = `https://my-4dx.herokuapp.com/api/wigs/${wigId}`;
+  return deleteFetch(url);
+}
+
 export function getAllWigsByTeamId(teamId) {
   const url = `https://my-4dx.herokuapp.com/api/wigs/${teamId}`;
   return getFetch(url);
@@ -187,7 +192,7 @@ export function updateCommitment(commitmentId, userId, body) {
   return putFetch(url, body);
 }
 
-export function deleteCommitment(commitmentId) {
-  const url = `https://my-4dx.herokuapp.com/api/commitments/${commitmentId}`;
+export function deleteCommitment(commitmentId, userId) {
+  const url = `https://my-4dx.herokuapp.com/api/commitments/${commitmentId}/users/${userId}`;
   return deleteFetch(url);
 }

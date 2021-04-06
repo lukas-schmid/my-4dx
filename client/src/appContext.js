@@ -16,16 +16,12 @@ function AppProvider({ children }) {
   const [currentUserInfo, setCurrentUserInfo] = useState({});
 
   const [wigData, setWigData] = useState([]);
-  // const [userLeadData, setUserLeadDate] = useState([]);
-  // const [userCommitmentData, setUserCommitmentDate] = useState([]);
   const [teamData, setTeamData] = useState([]);
   // ------- HOOKS -------
   let history = useHistory();
 
   // ------- LIFECYCLE METHODS -------
 
-  // getAllWigsByTeamId(currentUserInfo.teamId)
-  // getTeamMembers(currentUserInfo.teamId)
 
   // ------- STATE MANAGEMENT FUNCTIONS -------
   const logInUser = async (email, password) => {
@@ -51,6 +47,9 @@ function AppProvider({ children }) {
 
   const logOutUser = () => {
     setCurrentUserInfo({});
+    setTeamData([]);
+    setWigData([]);
+    setIsAdmin(false);
     setIsLoggedIn(false);
     history.push('/login');
   }
@@ -92,6 +91,16 @@ function AppProvider({ children }) {
     }
   }
 
+  const getAndUpdateWigs = async () => {
+    try {
+      const response = await getAllWigsByTeamId(currentUserInfo.teamId);
+      setWigData(response);
+      return response;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // ------- RETURN -------
   return (
     <AppContext.Provider value={{
@@ -114,6 +123,7 @@ function AppProvider({ children }) {
 
       wigData,
       setWigData,
+      getAndUpdateWigs,
 
       teamData,
       setTeamData,

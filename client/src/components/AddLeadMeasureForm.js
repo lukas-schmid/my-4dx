@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import helpers
-import { createLead, getUser, getTeamMembers } from '../apiHelper';
+import { createLead } from '../apiHelper';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function AddLeadMeasureForm() {
-    const { wigData, setWigData, currentUserInfo, getAndUpdateCurrentUserInfo, getAndUpdateTeamData } = useGlobalContext();
+    const { wigData, setWigData, getAndUpdateCurrentUserInfo, getAndUpdateTeamData } = useGlobalContext();
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async e => {

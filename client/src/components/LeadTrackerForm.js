@@ -4,7 +4,7 @@ import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
     const [isLoading, setIsLoading] = useState(false);
-    const [leadCopy, setLeadCopy] = useState([]);
+    const [leadCopy, setLeadCopy] = useState([...leadMeasures]);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -13,13 +13,16 @@ export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
         const formDataArray = [];
         e.target.querySelectorAll('.lead-data-input').forEach(dataInput => {
             formDataArray.push({
-                startDate: dataInput.dataset.startdate,
-                data: dataInput.value,
+                leadData: {
+                    startDate: dataInput.dataset.startdate,
+                    data: dataInput.value,
+                },
                 leadId: dataInput.dataset.lmid,
+                wigId: dataInput.dataset.wigid
             });
         });
 
-        console.log(formDataArray)
+        console.log(formDataArray[0])
 
         setTimeout(() => {
             setIsLoading(false);
@@ -43,9 +46,10 @@ export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
             {isLoading && <FormLoaderOverlay size="small"/>}
             <h2 className="form-title">Update Lead Measures</h2>
 
-            {leadCopy.length > 0 && leadCopy.map((leadMeasure, index) => {
+            {leadMeasures.length > 0 && leadMeasures.map((leadMeasure, index) => {
                 return <div className={leadMeasure.leadDataType === 'percent' ? 'form-section input-group' : 'form-section'} key={index}>
                     <label className="form-label" htmlFor={`data-${index}`}>{leadMeasure.leadName}</label>
+                    <br />
                     <input 
                         type="number" 
                         className={leadMeasure.leadDataType === 'percent' ? 'form-control lead-data-input input-group-text--left' : 'form-control lead-data-input'}
@@ -54,6 +58,7 @@ export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
                         data-lmindex={index}
                         data-startdate={currentMonday}
                         data-lmid={leadMeasure.leadId}
+                        data-wigid={leadMeasure.wigId}
                         onChange={onInputChange}
                         value={leadMeasure.leadData[0].data}
                         placeholder={leadMeasure.leadDataType === 'percent' ? 'E.g. 0.67' : ''}

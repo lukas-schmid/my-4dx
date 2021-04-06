@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useGlobalContext } from '../appContext';
 // Import components
 import LeadMeasureSummaryCard from '../components/LeadMeasureSummaryCard';
+// Import helpers
+import { deleteWig } from '../apiHelper';
 
-export default function WigLagLeadEditDisplay({wig}) {
+export default function WigLagLeadEditDisplay({ wig, setIndex }) {
+    const { getAndUpdateWigs } = useGlobalContext();
+
     const [currentWig, setCurrentWig] = useState({...wig});
     const [isLoading, setIsLoading] = useState(false);
 
@@ -10,15 +15,18 @@ export default function WigLagLeadEditDisplay({wig}) {
         setCurrentWig({...wig});
     }, [wig]);
 
-    const deleteWig = (id) => {
+    const deleteCurrentWig = async id => {
         setIsLoading(true);
-
-        console.log(id);
-
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
+        const response = await deleteWig(id);
+        setIndex(0);
+        getAndUpdateWigs();
     }
+
+    useEffect(() => {
+        return () => {
+            setIsLoading(false);
+        };
+    });
 
     return (
         <div className="lagTracker-page__infoColumn">
@@ -33,7 +41,7 @@ export default function WigLagLeadEditDisplay({wig}) {
                 ></textarea>
             </div>
             <button type="button" className="btn btn-danger" onClick={e => {
-                deleteWig(currentWig.wigId);
+                deleteCurrentWig(currentWig.wigId);
             }} disabled={isLoading}>{isLoading ? 'Deleting...' : 'Delete WIG'}</button>
 
             <h3 className="form-title mt-30">Lag Measure</h3>
@@ -50,7 +58,7 @@ export default function WigLagLeadEditDisplay({wig}) {
             <div className="form-check">
                 <input type="radio" className="form-check-input" id="trackingType" value="number" defaultChecked readOnly/>
                     <label className="form-check-label" htmlFor="trackingType">
-                    {wig.lagDataType === 'money' ? `${wig.lagDataType} (${wig.lagCurrency})` : wig.lagDataType}
+                    {currentWig.lagDataType === 'money' ? `${currentWig.lagDataType} (${currentWig.lagCurrency})` : currentWig.lagDataType}
                 </label>
             </div>
 
@@ -63,13 +71,13 @@ export default function WigLagLeadEditDisplay({wig}) {
             <div className="form-check">
                 <input type="radio" className="form-check-input" id="trackingTime" value="weekly" defaultChecked readOnly/>
                 <label className="form-check-label" htmlFor="trackingTime">
-                    {wig.lagInterval}
+                    {currentWig.lagInterval}
                 </label>
             </div>
             
             <h3 className="form-title mt-30">Lead Measures</h3>
-            {wig.leadMeasures.length > 0 && wig.leadMeasures.map((lead, index) => {
-                return <LeadMeasureSummaryCard leadMeasure={lead} key={index} index={index}/>
+            {currentWig.leadMeasures.length > 0 && currentWig.leadMeasures.map((lead, index) => {
+                return <LeadMeasureSummaryCard leadMeasure={lead} key={index} index={index} wigId={currentWig.wigId}/>
             })}
         </div>
     )
