@@ -16,7 +16,6 @@ export default function AddWigForm() {
     const handleSubmit = e => {
         e.preventDefault();
         setIsLoading(true);
-        console.log(currentUserInfo)
         const formData = {
             wigName: e.target.wigName.value,
             lagName: e.target.lagName.value,
@@ -91,7 +90,7 @@ export default function AddWigForm() {
                     <option value="USD" />
                     <option value="EUR" />
                     <option value="GBP" />
-                    {currencyCodes.map((code, index) => {
+                    {currencyCodes.sort().map((code, index) => {
                         if (code === 'USD' || code === 'EUR' || code === 'GBP') return <option key={index} value="" />;
                         return <option key={index} value={code} />;
                     })}
