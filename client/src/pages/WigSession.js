@@ -7,6 +7,7 @@ import PageFooter from '../components/PageFooter';
 import LeadTrackerForm from '../components/LeadTrackerForm';
 import CommitmentItem from '../components/CommitmentItem';
 import AddCommitmentForm from '../components/AddCommitmentForm';
+import DateSlider from '../components/DateSlider';
 // Import helpers
 import { addDays, getMondayDate, getWeek, subtractDays } from '../helpers';
 
@@ -20,33 +21,33 @@ export default function WigSession() {
     const [leadDataToShow, setLeadDataToShow] = useState([]);
     const [commitmentsToShow, setCommitmentsToShow] = useState([]);
 
-    const prevWeek = () => {
-        if ( wigData.length === 0 ) return;
+    // const prevWeek = () => {
+    //     if ( wigData.length === 0 ) return;
 
-        const prevMonday = subtractDays(currentMonday, 7);
+    //     const prevMonday = subtractDays(currentMonday, 7);
         
-        const wigStartDates = wigData.map(wig => new Date(wig.startDate));
-        const earliestStartDate = new Date(Math.min.apply(null, wigStartDates));
-        if ( prevMonday < earliestStartDate && getWeek(prevMonday) !== getWeek(earliestStartDate)) return;
+    //     const wigStartDates = wigData.map(wig => new Date(wig.startDate));
+    //     const earliestStartDate = new Date(Math.min.apply(null, wigStartDates));
+    //     if ( prevMonday < earliestStartDate && getWeek(prevMonday) !== getWeek(earliestStartDate)) return;
 
-        setCurrentMonday(prevMonday);
-        setCurrentWeek(getWeek(prevMonday));
-        setCurrentYear(prevMonday.getUTCFullYear());
-    }
+    //     setCurrentMonday(prevMonday);
+    //     setCurrentWeek(getWeek(prevMonday));
+    //     setCurrentYear(prevMonday.getUTCFullYear());
+    // }
 
-    const nextWeek = () => {
-        if ( wigData.length === 0 ) return;
+    // const nextWeek = () => {
+    //     if ( wigData.length === 0 ) return;
 
-        const nextMonday = addDays(currentMonday, 7);
+    //     const nextMonday = addDays(currentMonday, 7);
 
-        const wigEndDates = wigData.map(wig => new Date(wig.endDate));
-        const latestEndDate = new Date(Math.max.apply(null, wigEndDates));
-        if (nextMonday > latestEndDate) return;
+    //     const wigEndDates = wigData.map(wig => new Date(wig.endDate));
+    //     const latestEndDate = new Date(Math.max.apply(null, wigEndDates));
+    //     if (nextMonday > latestEndDate) return;
 
-        setCurrentMonday(nextMonday);
-        setCurrentWeek(getWeek(nextMonday));
-        setCurrentYear(nextMonday.getUTCFullYear());
-    }
+    //     setCurrentMonday(nextMonday);
+    //     setCurrentWeek(getWeek(nextMonday));
+    //     setCurrentYear(nextMonday.getUTCFullYear());
+    // }
 
     const getCurrentUserCommitments = () => {
         if (currentUserInfo.commitments.length > 0) {
@@ -96,7 +97,7 @@ export default function WigSession() {
             <section className="page-content wig-session-page">
                 <PageHeader pageTitle="Wig Session Page"/>
 
-                <div className="date-slider">
+                {/* <div className="date-slider">
                     <button onClick={prevWeek} className="date-slider__arrow"><BsFillCaretLeftFill /></button>
                     <div className="date-slider__dates">
                         <p className="date-slider__dates--week">Week {currentWeek} - {currentYear}</p>
@@ -104,7 +105,16 @@ export default function WigSession() {
                     </div>
                     <button onClick={nextWeek} className="date-slider__arrow"><BsFillCaretRightFill /></button>
                     <hr className="date-slider__underline"></hr>
-                </div>
+                </div> */}
+
+                <DateSlider 
+                    currentMonday={currentMonday}
+                    setCurrentMonday={setCurrentMonday}
+                    currentWeek={currentWeek}
+                    setCurrentWeek={setCurrentWeek}
+                    currentYear={currentYear}
+                    setCurrentYear={setCurrentYear}
+                />
 
                 <article className="form-container wig-session-page__col-1">
                     {leadDataToShow.length > 0 ? <LeadTrackerForm 
