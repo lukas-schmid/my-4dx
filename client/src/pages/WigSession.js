@@ -96,10 +96,12 @@ export default function WigSession() {
                 <article className="form-container wig-session-page__col-2">
                     <h2 className="form-title">Weekly Commitments</h2>
                     <AddCommitmentForm />
+                    <h3 className="form-title"> My commitments:</h3>
                     <ul className="commitment-list">
                         {commitmentsToShow.length > 0 && commitmentsToShow.map((commitment, index) => {
                             return <CommitmentItem key={index} commitment={commitment} index={index}/>
                         })}
+                        {commitmentsToShow.length === 0 && 'No commitments at the moment...'}
                     </ul>
                 </article>
                 <PageFooter nonRandomQuote={{
