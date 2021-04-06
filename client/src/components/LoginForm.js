@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../appContext';
 
 import FormLoaderOverlay from './FormLoaderOverlay';
@@ -17,13 +17,12 @@ export default function LoginForm() {
             password: e.target.password.value,
         }
 
-        logInUser(formData.email, formData.password)
-            .then(() => {
-                setIsLoading(false);
-                e.target.reset();
-            })
-            .catch(error => console.error(error));
+        logInUser(formData.email, formData.password);
     }
+
+    useEffect(() => {
+        return () => setIsLoading(false);
+    });
 
     return (
         <form className="form" onSubmit={handleSubmit} >
