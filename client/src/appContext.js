@@ -1,10 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 // Import helpers
-import { login, register, getAllWigsByTeamId, getTeamMembers } from './apiHelper';
-// Mock data
-import { teamMembersMock } from './assets/mockData';
-import { wigDataMock, demoAdminInfoMock, demoUserInfoMock } from './assets/demoMockData';
+import { login, register, getAllWigsByTeamId, getTeamMembers, getUser } from './apiHelper';
 
 const AppContext = React.createContext();
 
@@ -75,6 +72,26 @@ function AppProvider({ children }) {
     }
   }
 
+  const getAndUpdateTeamData = async () => {
+    try {
+      const response = await getTeamMembers(currentUserInfo.teamId);
+      setTeamData(response);
+      return response;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getAndUpdateCurrentUserInfo = async () => {
+    try {
+      const response = await getUser(currentUserInfo.id);
+      setCurrentUserInfo(response);
+      return response;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // ------- RETURN -------
   return (
     <AppContext.Provider value={{
@@ -90,6 +107,7 @@ function AppProvider({ children }) {
 
       currentUserInfo,
       setCurrentUserInfo,
+      getAndUpdateCurrentUserInfo,
       
       logOutUser,
       createNewTeam,
@@ -98,7 +116,8 @@ function AppProvider({ children }) {
       setWigData,
 
       teamData,
-      setTeamData
+      setTeamData,
+      getAndUpdateTeamData
     }}>
       {children}
     </AppContext.Provider>

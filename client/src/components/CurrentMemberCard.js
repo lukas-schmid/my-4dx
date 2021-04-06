@@ -4,28 +4,37 @@ import { useGlobalContext } from '../appContext';
 import { deleteMember, updateMember } from '../apiHelper';
 
 export default function CurrentMemberCard({teamMember, index}) {
+    const { getAndUpdateTeamData } = useGlobalContext();
+
     const [isLoading, setIsLoading] = useState(false);
 
     const [adminChecked, setAdminChecked] = useState(teamMember.isAdmin);
     const [scoreBoardIncludeChecked, setScoreBoardIncludeChecked] = useState(teamMember.scoreboardInclude);
 
-    const removeUser = (id) => {
+    const removeUser = async id => {
         setIsLoading(true);
-        deleteMember(teamMember.id)
-        .then(data => {
-            console.log(data);
+        console.log(id)
+        try {
+            const deleteResponse = await deleteMember(id);
+            const teamResponse = await getAndUpdateTeamData();
+        } catch (error) {
+            console.error(error);
             setIsLoading(false);
-        })
-        .catch(err => {
-            setIsLoading(false);
-            console.error(err);
-        });
+        }
     }
 
-    const inputChange = e => {
-        e.target.name.replace(/-.*/i, '') === 'isAdmin' 
-            ? setAdminChecked(!adminChecked)
-            : setScoreBoardIncludeChecked(!scoreBoardIncludeChecked);
+    const inputChange = async e => {
+        let adminInput;
+        let scoreboardInput;
+        if (e.target.name.replace(/-.*/i, '') === 'isAdmin') {
+            setAdminChecked(!adminChecked);
+            adminInput = !adminChecked;
+            scoreboardInput = scoreBoardIncludeChecked;
+        } else {
+            setScoreBoardIncludeChecked(!scoreBoardIncludeChecked);
+            adminInput = adminChecked;
+            scoreboardInput = !scoreBoardIncludeChecked;
+        }
         
         setIsLoading(true);
         const formData = {
@@ -35,20 +44,36 @@ export default function CurrentMemberCard({teamMember, index}) {
             teamId: teamMember.teamId,
             teamName: teamMember.teamName,
             title: teamMember.title,
-            isAdmin: adminChecked,
-            scoreboardInclude: scoreBoardIncludeChecked,
+            isAdmin: adminInput,
+            scoreboardInclude: scoreboardInput,
         };
 
-        updateMember(teamMember.id, formData)
-            .then(data => {
-                console.log(data);
-                setIsLoading(false);
-            })
-            .catch(err => {
-                setIsLoading(false);
-                console.error(err);
-            });
+        console.log('FORM DATA',formData);
+
+        try {
+            const updateResponse = await updateMember(teamMember.id, formData);
+            const teamResponse = await getAndUpdateTeamData();
+
+            console.log('UPDATE TEAM RESPONSE',teamResponse);
+
+            setIsLoading(false);
+        } catch (error) {
+            console.error(error);
+            setIsLoading(false);
+        }
     }
+
+    useEffect(() => {
+        setAdminChecked(teamMember.isAdmin);
+        setScoreBoardIncludeChecked(teamMember.scoreboardInclude);
+    }, [teamMember])
+
+    useEffect(() => {
+
+        return () => {
+            setIsLoading(false);
+        }
+    });
 
     return (
         <div className="card member-card">
@@ -66,7 +91,7 @@ export default function CurrentMemberCard({teamMember, index}) {
                             className="form-check-input"
                             name={`isAdmin-${index}`}
                             id={`isAdmin-${index}`}
-                            defaultChecked={teamMember.isAdmin}
+                            checked={adminChecked}
                             onChange={inputChange}
                             disabled={isLoading}
                         />
@@ -80,7 +105,7 @@ export default function CurrentMemberCard({teamMember, index}) {
                             className="form-check-input"
                             name={`scoreboardInclude-${index}`}
                             id={`scoreboardInclude-${index}`}
-                            defaultChecked={teamMember.scoreboardInclude}
+                            checked={scoreBoardIncludeChecked}
                             onChange={inputChange}
                             disabled={isLoading}
                         />

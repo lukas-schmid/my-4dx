@@ -9,7 +9,7 @@ import InviteUserForm from '../components/InviteUserForm';
 import { getTeamMembers } from '../apiHelper';
 
 export default function MemberManagement() {
-    const { currentUserInfo, isLoading, setIsLoading, teamData } = useGlobalContext();
+    const { currentUserInfo, teamData } = useGlobalContext();
 
     return (
         <main className="page-container page-container--multi-col member-management-page">

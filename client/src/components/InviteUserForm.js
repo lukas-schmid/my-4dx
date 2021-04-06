@@ -6,10 +6,10 @@ import FormLoaderOverlay from './FormLoaderOverlay';
 import { addMember } from '../apiHelper';
 
 export default function InviteUserForm() {
-    const { currentUserInfo } = useGlobalContext();
+    const { currentUserInfo, getAndUpdateTeamData } = useGlobalContext();
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         setIsLoading(true);
 
@@ -25,17 +25,15 @@ export default function InviteUserForm() {
             scoreboardInclude: e.target.scoreboardInclude.checked
         };
 
-        console.log(formData)
-
-        addMember(formData)
-            .then(data => {
-                console.log(data);
-                setIsLoading(false);
-            })
-            .catch(err => {
-                setIsLoading(false);
-                console.error(err);
-            });
+        try {
+            const response = await addMember(formData);
+            const teamResponse = await getAndUpdateTeamData();
+            setIsLoading(false);
+            e.target.reset();
+        } catch (error) {
+            console.error(error);
+            setIsLoading(false);
+        }
     }
 
     return (

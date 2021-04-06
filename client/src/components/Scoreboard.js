@@ -52,7 +52,9 @@ export default function Scoreboard(){
   useEffect(() => {
     getAllWigsByTeamId(currentUserInfo.teamId)
       .then(data => {
+          if (data.message && data.message === 'not found') return;
           setWigData(data); // global state
+          
           setAllWigs(data);
           setCurrentWig(data[0]);
           setCurrentLeadMeasure(data[0].leadMeasures[0]);
