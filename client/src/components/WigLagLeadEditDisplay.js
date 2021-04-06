@@ -57,7 +57,7 @@ export default function WigLagLeadEditDisplay({ wig, setIndex }) {
             <p className="form-section-title">Tracking Type:</p>
             <div className="form-check">
                 <input type="radio" className="form-check-input" id="trackingType" value="number" defaultChecked readOnly/>
-                    <label className="form-check-label" htmlFor="trackingType">
+                    <label className="capitalize" htmlFor="trackingType">
                     {currentWig.lagDataType === 'money' ? `${currentWig.lagDataType} (${currentWig.lagCurrency})` : currentWig.lagDataType}
                 </label>
             </div>
@@ -70,7 +70,7 @@ export default function WigLagLeadEditDisplay({ wig, setIndex }) {
             <p className="form-section-title">Tracking Time:</p>
             <div className="form-check">
                 <input type="radio" className="form-check-input" id="trackingTime" value="weekly" defaultChecked readOnly/>
-                <label className="form-check-label" htmlFor="trackingTime">
+                <label className="capitalize" htmlFor="trackingTime">
                     {currentWig.lagInterval}
                 </label>
             </div>
