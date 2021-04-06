@@ -21,6 +21,8 @@ export default function WigSession() {
     const [commitmentsToShow, setCommitmentsToShow] = useState([]);
 
     const prevWeek = () => {
+        if ( wigData.length === 0 ) return;
+
         const prevMonday = subtractDays(currentMonday, 7);
         
         if (prevMonday < new Date(wigData[0].startDate)) return;
@@ -31,6 +33,8 @@ export default function WigSession() {
     }
 
     const nextWeek = () => {
+        if ( wigData.length === 0 ) return;
+
         const nextMonday = addDays(currentMonday, 7);
 
         if (nextMonday > new Date(wigData[0].endDate)) return;
@@ -72,8 +76,6 @@ export default function WigSession() {
         setCommitmentsToShow(getCurrentUserCommitments());
         setLeadDataToShow(getCurrentLeadData());
     }, [currentMonday]);
-
-    const commitmentCategories = [...new Set(leadDataToShow.map(lm => lm.leadName)), 'Clear the Path', 'Other'];
 
     return (
         <main className="page-container">

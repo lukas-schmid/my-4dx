@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import helpers
-import { getAllWigsByTeamId, createLead } from '../apiHelper';
+import { createLead, getUser, getTeamMembers } from '../apiHelper';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
 
 export default function AddLeadMeasureForm() {
-    const { wigData } = useGlobalContext();
+    const { wigData, setWigData, currentUserInfo, setCurrentUserInfo, setTeamData } = useGlobalContext();
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         setIsLoading(true);
-        const wigId = e.target.wigSelect.value;
+        // const wigId = e.target.wigSelect.value;
         const formData = {
             leadName: e.target.leadName.value,
             leadInterval: e.target.trackingTime.value,
@@ -21,18 +21,25 @@ export default function AddLeadMeasureForm() {
             benchmark: e.target.benchmarkValue.value,
         };
 
-        console.log(formData, wigId);
-        
-        createLead(e.target.wigSelect.value, formData)
-            .then(data => {
-                console.log(data);
-                setIsLoading(false);
-                e.target.reset();
-            })
-            .catch(err => {
-                setIsLoading(false);
-                console.error(err);
-            });
+        try {
+            // Create new WIG
+            const wigResponse = await createLead(e.target.wigSelect.value, formData);
+            // Update WIG state
+            const newWigData = [...wigData];
+            const updateIndex = newWigData.findIndex(wig => wig.wigId === wigResponse.wigId);
+            newWigData.splice(updateIndex, 1, wigResponse);
+            setWigData(newWigData);
+            // Update currentUserInfo && teamData state
+            const [ newUser, newTeamData ] = await Promise.all([getUser(currentUserInfo.id), getTeamMembers(currentUserInfo.teamId)]);
+            setCurrentUserInfo(newUser);
+            setTeamData(newTeamData);
+            // Reset form
+            setIsLoading(false);
+            e.target.reset();
+        } catch (error) {
+            setIsLoading(false);
+            console.error(error);
+        }
     }
 
     return (

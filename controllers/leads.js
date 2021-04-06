@@ -58,11 +58,35 @@ exports.createLead = async (req, res, next) => {
       benchmark: req.body.benchmark,
     },
   ];
+
+  const leadData = await initLeadData(wigId, req.body.leadInterval);
+  const leadUserMeasures = [
+      {
+        leadId: leadId,
+        leadData
+      },
+    ]
+
   try {
     const wig = await wigService.getWig(wigId);
     const currentLeadMeasures = wig.leadMeasures;
     const newLeadMeasures = currentLeadMeasures.concat(leadMeasures);
     await leadService.addLeadToWig(wigId, newLeadMeasures);
+    
+    //add leadMeasures to users
+    
+    const teamId = wig.teamId;
+    const users = await userService.getAllUsers(teamId);
+    users.forEach(async user => {
+    const currentUserLeadMeasures = user.leadMeasures;
+    const newUserLeadMeasures = currentUserLeadMeasures.concat(leadUserMeasures);
+    await userService.addUserLeadMeasure(
+      user.id,
+      newUserLeadMeasures
+    );
+    });
+
+
     const response = await wigService.getWig(wigId);
     res.status(201).json(response);
   } catch (error) {

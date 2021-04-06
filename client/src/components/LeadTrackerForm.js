@@ -28,9 +28,6 @@ export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
 
     useEffect(() => {
         setLeadCopy([...leadMeasures]);
-
-        // console.log(leadMeasures[0].leadDataType)
-        // console.log(leadMeasures[1].leadDataType)
     }, [leadMeasures]);
 
     const onInputChange = e => {
@@ -40,10 +37,6 @@ export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
         leadCopyState[inputLeadCopyIndex].leadData[0].data = e.target.value;
         setLeadCopy(leadCopyState);
     }
-
-    function percentToDecimal(percent) { return percent / 100 }
-
-    function floatToPercent(float, toFixed = 0) { return (float * 100).toFixed(toFixed) }
 
     return (
         <form className="form" onSubmit={handleSubmit}>
