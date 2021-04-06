@@ -13,6 +13,6 @@ router.delete("/api/members/:userId", users.deleteUser);
 // register and login
 router.post("/api/register", users.registerTeam);
 router.post("/api/login", users.login);
-router.post("/api/logout", users.logout);
+//router.post("/api/logout", users.logout); delete!
 
 module.exports = router;
