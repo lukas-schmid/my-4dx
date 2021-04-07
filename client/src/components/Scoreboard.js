@@ -3,6 +3,7 @@ import { Bar } from '@reactchartjs/react-chart.js'
 import { Line } from '@reactchartjs/react-chart.js'
 import PageHeader from '../components/PageHeader';
 import { useGlobalContext } from '../appContext';
+import FormLoaderOverlay from './FormLoaderOverlay';
 import { getAllWigsByTeamId, getTeamMembers } from '../apiHelper';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,6 +15,7 @@ registerLocale('en', en)
 
 export default function Scoreboard(){
   const { currentUserInfo , wigData, setWigData, teamData, setTeamData } = useGlobalContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [currentWig, setCurrentWig] = useState();
   const [currentLeadMeasure, setCurrentLeadMeasure] = useState();
   const [defaultLeadMeasureDropdownValue, setDefaultLeadMeasureDropdownValue] = useState();
@@ -34,9 +36,13 @@ export default function Scoreboard(){
   }, [])
 
   useEffect(() => {
+    setIsLoading(true);
     getAllWigsByTeamId(currentUserInfo.teamId)
       .then(data => {
-          if (data.message && data.message === 'not found') return;
+          if (data.message && data.message === 'not found') {
+            setIsLoading(false);
+            return;
+          };
           setWigData(data); // global state
           setCurrentWig(data[0]);
           setCurrentLeadMeasure(data[0].leadMeasures[0]);
@@ -44,6 +50,7 @@ export default function Scoreboard(){
           setEndDate(new Date(data[0].endDate));
           setDateRange(handleDateFilter(data[0], new Date(data[0].startDate), new Date(data[0].endDate)));
           setfilteredLagData(handleLagData(handleLagDateFilter(data[0], new Date(data[0].startDate), new Date(data[0].endDate)), data[0].lagData));
+          setIsLoading(false);
       })
       .catch(err => {
           console.error(err);
@@ -195,7 +202,8 @@ export default function Scoreboard(){
 
   return (
     <>
-      {wigData.length === 0 
+      {isLoading && <FormLoaderOverlay size="small"/>}
+      {wigData.length === 0 && isLoading
       ? 
       <div className="noWigMessage page-content">
       <PageHeader pageTitle="No Wig" />
