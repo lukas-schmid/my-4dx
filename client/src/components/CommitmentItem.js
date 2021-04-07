@@ -17,7 +17,7 @@ export default function CommitmentItem({commitment, index}) {
             commitmentName: commitment.commitmentName,
             startDate: commitment.startDate
         }
-
+        
         const response = await updateCommitment( commitment.commitmentId, currentUserInfo.id, commitmentData );
         getAndUpdateCurrentUserInfo();
 

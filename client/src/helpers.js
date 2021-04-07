@@ -96,5 +96,6 @@ export function formatWeekFromTo(date) {
 }
 
 export function formatDate(date) {
-    return date.toISOString().split("T")[0];
+    const d = new Date(date);
+    return d.toISOString().split("T")[0];
   };

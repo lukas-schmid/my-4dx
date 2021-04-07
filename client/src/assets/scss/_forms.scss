@@ -64,10 +64,6 @@
     // }
 }
 
-.form-check-label {
-    text-transform: capitalize;
-}
-
 .check-gap {
     margin: 15px 0;
 }
@@ -82,6 +78,7 @@
 .form-label {
     margin-bottom: 0.5rem;
     display: inline-block;
+    width: 100%;
 
     &--italic {
         font-style: italic;

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
+// Import helpers
+import { formatDate } from '../helpers';
 
 export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
     const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +16,7 @@ export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
         e.target.querySelectorAll('.lead-data-input').forEach(dataInput => {
             formDataArray.push({
                 leadData: {
-                    startDate: dataInput.dataset.startdate,
+                    startDate: formatDate(dataInput.dataset.startdate),
                     data: dataInput.value,
                 },
                 leadId: dataInput.dataset.lmid,
@@ -60,7 +62,7 @@ export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
                         data-lmid={leadMeasure.leadId}
                         data-wigid={leadMeasure.wigId}
                         onChange={onInputChange}
-                        value={leadMeasure.leadData[0].data}
+                        value={leadMeasure.leadData[0] && (leadMeasure.leadData[0].data || '')}
                         placeholder={leadMeasure.leadDataType === 'percent' ? 'E.g. 0.67' : ''}
                         step={leadMeasure.leadDataType === 'percent' ? '0.01' : '1'}
                     />
