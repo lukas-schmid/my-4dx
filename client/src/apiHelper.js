@@ -152,6 +152,21 @@ export function addUserLeadMeasure(wigId, leadId, userId, body) {
 }
 
 // body = {
+//     "leadData": {
+//         "startDate": "Mon Apr 05 2021 18:24:27 GMT+0200 (Central European Summer Time)",
+//         "data": "0"
+//     },
+//     "leadId": "4a1fc5ee-0113-40cf-a058-687238c7b7bf",
+//     "wigId": "be0dd4bf-50c9-4dd9-a549-e72315977eb2"
+// }
+
+export function updateUserLeadMeasure(wigId, leadId, userId, body) {
+  const url = `https://my-4dx.herokuapp.com/api/${wigId}/leads/${leadId}/users/${userId}`;
+  return putFetch(url, body);
+}
+
+
+// body = {
 //     "leadName": "200 phone calls per day",
 //     "leadInterval": "weekly",
 //     "leadDataType": "number",

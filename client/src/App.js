@@ -18,6 +18,9 @@ import Navbar from './components/navbar/Navbar';
 import Footer from './components/Footer';
 // Import context
 import { AppProvider } from './appContext';
+import LoggedInRoute from './components/routes/LoggedInRoute';
+import AdminRoute from './components/routes/AdminRoute';
+import FormLoaderOverlay from './components/FormLoaderOverlay';
 
 function App() {
   return (
@@ -32,15 +35,16 @@ function App() {
           <Route path="/register"><Registration /></Route>
 
           {/* isLoggedIn */}
-          <Route path="/welcome"><Welcome /></Route>
-          <Route path="/wig-session-summary"><WigSessionSummary /></Route>
-          <Route path="/wig-session"><WigSession /></Route>
-          <Route path="/account"><Account /></Route>
+          <LoggedInRoute path="/welcome"><Welcome /></LoggedInRoute>
+          <LoggedInRoute path="/wig-session-summary"><WigSessionSummary /></LoggedInRoute>
+          <LoggedInRoute path="/wig-session"><WigSession /></LoggedInRoute>
+          <LoggedInRoute path="/account"><Account /></LoggedInRoute>
+
           {/* ADMIN Routes - Add ternary: isAdmin ? <Page /> : <Redirect to="/welcome"*/}
-          <Route path="/admin/member-management"><MemberManagement /></Route>
-          <Route path="/setup/add-wig"><AddWig /></Route>
-          <Route path="/setup/add-lead-measures"><AddLeadMeasures /></Route>
-          <Route path="/setup/lag-tracker"><LagTracker /></Route>
+          <AdminRoute path="/admin/member-management"><MemberManagement /></AdminRoute>
+          <AdminRoute path="/setup/add-wig"><AddWig /></AdminRoute>
+          <AdminRoute path="/setup/add-lead-measures"><AddLeadMeasures /></AdminRoute>
+          <AdminRoute path="/setup/lag-tracker"><LagTracker /></AdminRoute>
 
           {/* 404 */}
           <Route path="*"><NotFound /></Route>

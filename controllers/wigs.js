@@ -1,6 +1,7 @@
 const { createWIG } = require("../models/wigs");
 const { v4: uuidv4 } = require("uuid");
 const service = require("../services/wigs");
+const userService = require('../services/users');
 const {
   getFirstOfMonth,
   getMondayDate,
@@ -116,7 +117,18 @@ exports.updateWIG = async (req, res, next) => {
 exports.deleteWIG = async (req, res, next) => {
   const wigId = req.params.wigId;
   try {
+    const wig = await service.getWig(wigId);
+    const teamId = wig.teamId;
+    const users = await userService.getAllUsers(teamId);
+    users.forEach(async user => {
+      const newLeadMeasures = user.leadMeasures.filter(obj => obj.wigId !== wigId);
+      await userService.addUserLeadMeasure(
+        user.id,
+        newLeadMeasures
+      )
+    })
     await service.deleteWig(wigId);
+
     res.status(204).json({ message: `WIG with id ${wigId} has been deleted` });
   } catch (error) {
     next(error);
