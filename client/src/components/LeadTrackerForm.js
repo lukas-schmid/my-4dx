@@ -1,78 +1,70 @@
 import React, { useState, useEffect } from 'react';
+import { useGlobalContext } from '../appContext';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
 // Import helpers
 import { formatDate } from '../helpers';
+import { updateUserLeadMeasure } from '../apiHelper';
 
-export default function LeadTrackerForm({ leadMeasures, currentMonday }) {
+export default function LeadTrackerForm({ leadMeasure, currentMonday }) {
+    const { currentUserInfo, getAndUpdateTeamData, getAndUpdateCurrentUserInfo } = useGlobalContext();
+
     const [isLoading, setIsLoading] = useState(false);
-    const [leadCopy, setLeadCopy] = useState([...leadMeasures]);
+    const [leadCopy, setLeadCopy] = useState(leadMeasure);
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         setIsLoading(true);
 
-        const formDataArray = [];
-        e.target.querySelectorAll('.lead-data-input').forEach(dataInput => {
-            formDataArray.push({
-                leadData: {
-                    startDate: formatDate(dataInput.dataset.startdate),
-                    data: dataInput.value,
-                },
-                leadId: dataInput.dataset.lmid,
-                wigId: dataInput.dataset.wigid
-            });
-        });
+        const formData = {
+            leadData: {
+                startDate: formatDate(currentMonday),
+                data: leadCopy.leadData[0].data,
+            },
+            leadId: leadMeasure.leadId,
+            wigId: leadMeasure.wigId
+        }
 
-        console.log(formDataArray[0])
+        const response = await updateUserLeadMeasure(leadMeasure.wigId, leadMeasure.leadId, currentUserInfo.id, formData)
 
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
+        getAndUpdateCurrentUserInfo();
+        getAndUpdateTeamData();
+
+        setIsLoading(false);
+    }
+
+    const onInputChange = e => {
+        const stateCopy = {...leadCopy};
+        stateCopy.leadData[0].data = e.target.value;
+        setLeadCopy(stateCopy);
     }
 
     useEffect(() => {
-        setLeadCopy([...leadMeasures]);
-    }, [leadMeasures]);
-
-    const onInputChange = e => {
-        const leadCopyState = [...leadCopy];
-        const inputValue = parseFloat(e.target.value) || 0;
-        const inputLeadCopyIndex = e.target.dataset.lmindex;
-        leadCopyState[inputLeadCopyIndex].leadData[0].data = e.target.value;
-        setLeadCopy(leadCopyState);
-    }
+        setLeadCopy(leadMeasure);
+    }, [leadMeasure, currentMonday, currentUserInfo])
 
     return (
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form mb-20" onSubmit={handleSubmit}>
             {isLoading && <FormLoaderOverlay size="small"/>}
-            <h2 className="form-title">Update Lead Measures</h2>
+            <div className={leadMeasure && leadMeasure.leadDataType === 'percent' ? 'form-section input-group mt-10' : 'form-section mt-10'} >
+                <label className="form-label" htmlFor={`data-${leadMeasure.leadId}`}>{leadMeasure.leadName}</label>
+                <br />
+                <input 
+                    type="number" 
+                    className={leadMeasure.leadDataType === 'percent' ? 'form-control lead-data-input input-group-text--left' : 'form-control lead-data-input'}
+                    id={`data-${leadMeasure.leadId}`}
+                    name={`data-${leadMeasure.leadId}`}
+                    placeholder={leadMeasure.leadDataType === 'percent' ? 'E.g. 0.67' : ''}
+                    step={leadMeasure.leadDataType === 'percent' ? '0.01' : '1'}
 
-            {leadMeasures.length > 0 && leadMeasures.map((leadMeasure, index) => {
-                return <div className={leadMeasure.leadDataType === 'percent' ? 'form-section input-group' : 'form-section'} key={index}>
-                    <label className="form-label" htmlFor={`data-${index}`}>{leadMeasure.leadName}</label>
-                    <br />
-                    <input 
-                        type="number" 
-                        className={leadMeasure.leadDataType === 'percent' ? 'form-control lead-data-input input-group-text--left' : 'form-control lead-data-input'}
-                        id={`data-${index}`}
-                        name={`data-${index}`}
-                        data-lmindex={index}
-                        data-startdate={currentMonday}
-                        data-lmid={leadMeasure.leadId}
-                        data-wigid={leadMeasure.wigId}
-                        onChange={onInputChange}
-                        value={leadMeasure.leadData[0] && (leadMeasure.leadData[0].data || '')}
-                        placeholder={leadMeasure.leadDataType === 'percent' ? 'E.g. 0.67' : ''}
-                        step={leadMeasure.leadDataType === 'percent' ? '0.01' : '1'}
-                    />
-                    {leadMeasure.leadDataType === 'percent' && <span className="input-group-text input-group-text--right">%</span>}
-                    {leadMeasure.leadDataType === 'percent' && <div className="form-text">Please format percentages as decimals...</div>} 
-                </div>
-            })}
-
+                    onChange={onInputChange}
+                    value={leadCopy.leadData[0].data}
+                />
+                {leadMeasure.leadDataType === 'percent' && <span className="input-group-text input-group-text--right">%</span>}
+                {leadMeasure.leadDataType === 'percent' && <div className="form-text">Please format percentages as decimals...</div>} 
+            </div>
             <button className="btn btn-success">
-                {isLoading ? 'Updating...' : 'Update Lead Measures'}
+                {isLoading ? 'Updating...' : 'Update'}
             </button>
         </form>
     )
