@@ -7,7 +7,7 @@ import { createCommitment } from '../apiHelper';
 import { formatDate } from '../helpers';
 
 export default function AddCommitmentForm({ currentMonday }) {
-    const { currentUserInfo, setCurrentUserInfo } = useGlobalContext();
+    const { currentUserInfo, getAndUpdateCurrentUserInfo, getAndUpdateTeamData } = useGlobalContext();
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -21,7 +21,9 @@ export default function AddCommitmentForm({ currentMonday }) {
         };
 
         const response = await createCommitment(currentUserInfo.id, formData);
-        setCurrentUserInfo(response);
+
+        getAndUpdateCurrentUserInfo();
+        getAndUpdateTeamData();
 
         setIsLoading(false);
         e.target.reset();
