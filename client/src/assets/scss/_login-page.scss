@@ -1,0 +1,7 @@
+.login-page {
+    max-width: 350px;
+  
+    @include min-width (768px) {
+      max-width: 700px;
+    }
+}
