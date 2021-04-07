@@ -219,23 +219,22 @@ export default function Scoreboard(){
             <div className="charts-wigDate">
               <h2>from: {dateRange && dateRange[0]} until: {dateRange && dateRange[dateRange.length - 1]}</h2>
             </div>
-            
-            <div className="scoreboards">
-              <div className= 'scoreBoard'>
-                <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
-                    <PageHeader pageTitle="Individual Data"/> 
-                        <Bar data={dataBar} options={optionsBar} style={{
-                            backgroundColor: 'white',
-                            }}/>
-                </section>
-              </div>
               <div className= 'scoreBoard'>
                   <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
-                      <PageHeader pageTitle="Team Goal"/> 
+                      <PageHeader pageTitle="Lag Measure"/> 
                           <Line data={dataLine} options={optionsLine} style={{
                               backgroundColor: 'white',
                               }}/>
                   </section>
+              </div>
+              <div className="scoreboards">
+              <div className= 'scoreBoard'>
+                <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
+                    <PageHeader pageTitle="Lead Measure"/> 
+                        <Bar data={dataBar} options={optionsBar} style={{
+                            backgroundColor: 'white',
+                            }}/>
+                </section>
               </div>
             </div>
           </div>
