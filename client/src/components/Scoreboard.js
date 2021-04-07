@@ -203,7 +203,7 @@ export default function Scoreboard(){
   return (
     <>
       {isLoading && <FormLoaderOverlay size="small"/>}
-      {wigData.length === 0 && isLoading
+      {wigData.length === 0 || isLoading
       ? 
       <div className="noWigMessage page-content">
       <PageHeader pageTitle="No Wig" />
