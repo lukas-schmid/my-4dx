@@ -445,3 +445,63 @@ hr {
     }
   }
 }
+
+.not-found-page {
+  max-width: 400px;
+
+  .page-header {
+    text-align: center;
+  }
+}
+
+.wig-session-summary-page {
+  
+  .page-content {
+    @include min-width (500px) {
+      max-width: 500px;
+      min-width: 500px;
+    }
+
+    @include min-width (600px) {
+      max-width: 600px;
+      min-width: 600px;
+    }
+  }
+
+  .page-header {
+    text-align: center;
+  }
+}
+
+.member-wig-summary {
+  width: 80%;
+  margin: 10px auto;
+
+  &__title {
+    text-align: center;
+
+    @include min-width (400px) {
+      text-align: left;
+    }
+  }
+
+  &__underline {
+    margin: 20px 0 40px 0;
+  }
+}
+
+.table-container {
+  padding: 10px;
+  border: 1px solid $light-gray;
+  border-radius: 10px;
+  margin: 10px 0 20px 0;
+  overflow-x: scroll;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.break-word {
+  word-break: break-word;
+}

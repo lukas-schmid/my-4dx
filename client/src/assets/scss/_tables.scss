@@ -11,6 +11,7 @@
     color: #212529;
     vertical-align: top;
     border-color: #dee2e6;
+    min-width: 0;
     
     caption-side: bottom;
     border-collapse: collapse;
@@ -47,7 +48,6 @@
         --bs-table-accent-bg: var(--bs-table-hover-bg);
         color: var(--bs-table-hover-color);
     }
-
 }
 
 tbody, td, tfoot, th, thead, tr {
