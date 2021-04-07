@@ -45,7 +45,7 @@ export default function LeadTrackerForm({ leadMeasure, currentMonday }) {
 
     return (
         <form className="form mb-20" onSubmit={handleSubmit}>
-            {isLoading && <FormLoaderOverlay size="small"/>}
+            {isLoading && <FormLoaderOverlay hide={true}/>}
             <div className={leadMeasure && leadMeasure.leadDataType === 'percent' ? 'form-section input-group mt-10' : 'form-section mt-10'} >
                 <label className="form-label" htmlFor={`data-${leadMeasure.leadId}`}>{leadMeasure.leadName}</label>
                 <br />
@@ -63,7 +63,7 @@ export default function LeadTrackerForm({ leadMeasure, currentMonday }) {
                 {leadMeasure.leadDataType === 'percent' && <span className="input-group-text input-group-text--right">%</span>}
                 {leadMeasure.leadDataType === 'percent' && <div className="form-text">Please format percentages as decimals...</div>} 
             </div>
-            <button className="btn btn-success">
+            <button type="submit"className="btn btn-success" disabled={isLoading}>
                 {isLoading ? 'Updating...' : 'Update'}
             </button>
         </form>
