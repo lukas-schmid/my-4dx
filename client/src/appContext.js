@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 // Import helpers
 import { login, register, getAllWigsByTeamId, getTeamMembers, getUser } from './apiHelper';
@@ -7,21 +7,15 @@ const AppContext = React.createContext();
 
 function AppProvider({ children }) {
   // ------- STATE -------
-  const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const [error, setError] = useState({isError: false, message: ''});
-
   const [currentUserInfo, setCurrentUserInfo] = useState({});
-
   const [wigData, setWigData] = useState([]);
   const [teamData, setTeamData] = useState([]);
+
   // ------- HOOKS -------
   let history = useHistory();
-
-  // ------- LIFECYCLE METHODS -------
-
 
   // ------- STATE MANAGEMENT FUNCTIONS -------
   const logInUser = async (email, password) => {

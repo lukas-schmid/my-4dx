@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useGlobalContext } from '../appContext';
 // Import components
 import PageHeader from '../components/PageHeader';
 import PageFooter from '../components/PageFooter';
 import CurrentMemberCard from '../components/CurrentMemberCard';
 import InviteUserForm from '../components/InviteUserForm';
-// Import helpers
-import { getTeamMembers } from '../apiHelper';
 
 export default function MemberManagement() {
-    const { currentUserInfo, teamData } = useGlobalContext();
+    const { teamData } = useGlobalContext();
 
     return (
         <main className="page-container page-container--multi-col member-management-page">

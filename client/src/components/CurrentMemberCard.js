@@ -51,11 +51,8 @@ export default function CurrentMemberCard({teamMember, index}) {
         console.log('FORM DATA',formData);
 
         try {
-            const updateResponse = await updateMember(teamMember.id, formData);
-            const teamResponse = await getAndUpdateTeamData();
-
-            console.log('UPDATE TEAM RESPONSE',teamResponse);
-
+            await updateMember(teamMember.id, formData);
+            await getAndUpdateTeamData();
             setIsLoading(false);
         } catch (error) {
             console.error(error);

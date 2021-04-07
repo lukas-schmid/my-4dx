@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import components
 import LagTrackerInputGroup from './LagTrackerInputGroup';
@@ -31,11 +31,6 @@ export default function LagTrackerForm({ wig }) {
             const value = input.value;
             newLagData[index][key] = value;
         });
-        
-        const newWig = {
-            ...wig,
-            lagData: newLagData
-        } // formData === entire WIG object
 
         try {
             const response = await updateLag(wig.wigId, { lagData: newLagData });

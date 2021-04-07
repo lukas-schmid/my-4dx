@@ -32,7 +32,7 @@ export default function AddWigForm() {
             lagInterval: e.target.trackingTime.value,
             startDate: e.target.startDate.value,
             endDate: e.target.endDate.value,
-            //teamId: currentUserInfo.teamId
+            teamId: currentUserInfo.teamId
         };
 
         createWig(formData)

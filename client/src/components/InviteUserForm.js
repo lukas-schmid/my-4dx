@@ -42,8 +42,8 @@ export default function InviteUserForm() {
             setTimeout(() => {
                 setShowSuccess(false);
             }, 3000);
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            console.error(err);
             setIsLoading(false);
             setIsError({
                 isError: true,
