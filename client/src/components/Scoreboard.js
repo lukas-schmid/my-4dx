@@ -118,7 +118,7 @@ export default function Scoreboard(){
     labels: teamData.length > 0 && teamData.map(member => member.name),
     datasets: [
       {
-        label: '# of cold calls',
+        label: currentLeadMeasure && currentLeadMeasure.leadName,
         data: individualLeadData,
         backgroundColor: [
           'rgba(21, 115, 71, 0.4)',
@@ -145,14 +145,14 @@ export default function Scoreboard(){
       labels: dateRange,
       datasets: [
         {
-          label: '# of cold calls / team',
+          label: 'Actual',
           data: filteredLagData?.length > 0 ? filteredLagData.map(data => data.actual) : 0,
           fill: false,
           backgroundColor: 'rgb(47, 72, 88)',
           borderColor: 'rgba(47, 72, 88, 0.2)',
         },
         {
-          label: 'goal',
+          label: 'Target',
           data: filteredLagData?.length > 0 ? filteredLagData.map(data => data.goal) : 0,
           fill: false,
           backgroundColor: 'rgb(21, 115, 71)',
@@ -191,7 +191,15 @@ export default function Scoreboard(){
 
   return (
     <>
-      {wigData.length === 0 ? <p>no Wig found</p> :
+      {wigData.length === 0 
+      ? 
+      <div className="noWigMessage page-content">
+      <PageHeader pageTitle="No Wig" />
+        <div className="charts-wigDate">
+          <h2>No Wig found. Please add one first!</h2>
+        </div>
+      </div>
+      :
       <main className="page-container page-container--multi-col">
         <div className="page-content filters">
           <div className="filterOptions">
@@ -234,7 +242,7 @@ export default function Scoreboard(){
           <div className="charts">
             <PageHeader pageTitle={currentWig && currentWig.wigName} />
             <div className="charts-wigDate">
-              <h2>from: {currentWig?.startDate} until: {currentWig?.endDate}</h2>
+              <h2>from: {dateRange && dateRange[0]} until: {dateRange && dateRange[dateRange.length - 1]}</h2>
             </div>
             
             <div className="scoreboards">
