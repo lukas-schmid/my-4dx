@@ -102,16 +102,21 @@ exports.updateUserLead = async (req, res, next) => {
   try{ 
     const user = await userService.getUser(userId);
     const matchingLeadMeasure = user.leadMeasures.filter(obj => obj.wigId === wigId && obj.leadId === leadId);
+    const indexMatchingLeadMeasure = user.leadMeasures.findIndex(obj => obj === matchingLeadMeasure[0]);
+    //console.log(matchingLeadMeasure);
+    //console.log(indexMatchingLeadMeasure);
     const leadData = matchingLeadMeasure[0].leadData;
     const index = leadData.findIndex(obj => obj.startDate === req.body.leadData.startDate);
     leadData.splice(index, 1, req.body.leadData);
     matchingLeadMeasure[0].leadData = leadData;
     
-    const filteredLeadMeasures = user.leadMeasures.filter(obj => obj.wigId !== wigId || obj.leadId !== leadId);
-    let newLeadMeasures = [];
-    if (filteredLeadMeasures.length > 0){
-      newLeadMeasures = filteredLeadMeasures.concat(matchingLeadMeasure);
-    } 
+    const newLeadMeasures = user.leadMeasures;
+    newLeadMeasures.splice(indexMatchingLeadMeasure, 1 ,matchingLeadMeasure[0]);
+    //const filteredLeadMeasures = user.leadMeasures.filter(obj => obj.wigId !== wigId || obj.leadId !== leadId);
+    // let newLeadMeasures = [];
+    // if (filteredLeadMeasures.length > 0){
+    //   newLeadMeasures = filteredLeadMeasures.concat(matchingLeadMeasure);
+    //} 
 
     await userService.addUserLeadMeasure(
       user.id,
