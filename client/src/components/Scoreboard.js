@@ -54,7 +54,8 @@ export default function Scoreboard(){
     if (currentLeadMeasure) {
       getIndividualLeadData(currentLeadMeasure);
     }
-  }, [currentLeadMeasure, dateRange])
+  }, [teamData, currentLeadMeasure, dateRange])
+
 
   const handleSelectedWig = (e) => {
     const wig = wigData.filter(wig => wig.wigId === e.target.value)
@@ -99,11 +100,14 @@ export default function Scoreboard(){
   const handleLagData = (dateRange, lagData) => {
     return lagData.filter(data => dateRange.includes(data.startDate));
   }
-// && obj.scoreboardInclude === true
+
   const getIndividualLeadData = (currentLead) => {
     const data = teamData.map(member => member.leadMeasures.filter(obj => obj.leadId === currentLead.leadId)[0]);
     const sumArray = data.map(obj => {
       let sum = 0;
+      if (obj === undefined){
+        return sum
+      }
       obj.leadData.forEach(dataSet => {
         if (dateRange && dateRange.includes(dataSet.startDate)){
         sum += parseInt(dataSet.data) || 0;
@@ -200,7 +204,34 @@ export default function Scoreboard(){
         </div>
       </div>
       :
-      <main className="page-container page-container--multi-col">
+      <main className="page-container scoreboard-page page-container--multi-col">
+        <div className="page-content scoreboard-charts">
+          <div className="charts">
+            <PageHeader pageTitle={currentWig && currentWig.wigName} />
+            <div className="charts-wigDate">
+              <h2>from: {dateRange && dateRange[0]} until: {dateRange && dateRange[dateRange.length - 1]}</h2>
+            </div>
+            
+            <div className="scoreboards">
+              <div className= 'scoreBoard'>
+                <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
+                    <PageHeader pageTitle="Individual lead measures"/> 
+                        <Bar data={dataBar} options={optionsBar} style={{
+                            backgroundColor: 'white',
+                            }}/>
+                </section>
+              </div>
+              <div className= 'scoreBoard'>
+                  <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
+                      <PageHeader pageTitle="Team lag data"/> 
+                          <Line data={dataLine} options={optionsLine} style={{
+                              backgroundColor: 'white',
+                              }}/>
+                  </section>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="page-content filters">
           <div className="filterOptions">
             <PageHeader pageTitle="Filters" />
@@ -235,33 +266,6 @@ export default function Scoreboard(){
                   inline
                 />
               </section>
-            </div>
-          </div>
-        </div>
-        <div className="page-content scoreboard-charts">
-          <div className="charts">
-            <PageHeader pageTitle={currentWig && currentWig.wigName} />
-            <div className="charts-wigDate">
-              <h2>from: {dateRange && dateRange[0]} until: {dateRange && dateRange[dateRange.length - 1]}</h2>
-            </div>
-            
-            <div className="scoreboards">
-              <div className= 'scoreBoard'>
-                <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
-                    <PageHeader pageTitle="Individual lead measures"/> 
-                        <Bar data={dataBar} options={optionsBar} style={{
-                            backgroundColor: 'white',
-                            }}/>
-                </section>
-              </div>
-              <div className= 'scoreBoard'>
-                  <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
-                      <PageHeader pageTitle="Team lag data"/> 
-                          <Line data={dataLine} options={optionsLine} style={{
-                              backgroundColor: 'white',
-                              }}/>
-                  </section>
-              </div>
             </div>
           </div>
         </div>
