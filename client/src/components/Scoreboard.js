@@ -192,64 +192,72 @@ export default function Scoreboard(){
   return (
     <>
       {wigData.length === 0 ? <p>no Wig found</p> :
-      <div id="scoreboardContainer">
-        <div className="page-content">
-          <PageHeader pageTitle={currentWig && currentWig.wigName} />
-          <div>
-            <h2>from: {currentWig?.startDate} until: {currentWig?.endDate}</h2>
-          </div>
+      <main className="page-container page-container--multi-col">
+        <div className="page-content filters">
           <div className="filterOptions">
-            <section className="filterOption-wig">
-              <label htmlFor="wigSelect" className="form-label">WIG</label>
-              <select onChange={handleSelectedWig} className="form-select" id="wigSelect" name="wigSelect">
-              {wigData.length > 0 && wigData.map((wig, index) => 
-                  <option key={index} value={wig.wigId}>{wig.wigName}</option>
-              )}
-              </select>
-            </section>
-            <section className="filterOption-leadMeasure">
-                <label htmlFor="leadMeasureSelect" className="form-label">Lead Measures</label>
-                <select value={defaultLeadMeasureDropdownValue} onChange={handleSelectedLeadMeasure} className="form-select" id="leadMeasureSelect" name="leadMeasureSelect">
-                {currentWig && currentWig.leadMeasures.map((lead, index) => 
-                    <option key={index} value={lead.leadId}>{lead.leadName}</option>
+            <PageHeader pageTitle="Filters" />
+            <div className="options">
+              <section className="filterOption-wig">
+                <label htmlFor="wigSelect" className="form-label">WIG</label>
+                <select onChange={handleSelectedWig} className="form-select" id="wigSelect" name="wigSelect">
+                {wigData.length > 0 && wigData.map((wig, index) => 
+                    <option key={index} value={wig.wigId}>{wig.wigName}</option>
                 )}
                 </select>
-            </section>
-            <section className="filterOption-date">
-              <label className="form-label" htmlFor="datePicker">Date:</label>
-              <DatePicker
-                locale="en"
-                id="datePicker" 
-                name="datePicker" 
-                selected={startDate}
-                onChange={onChangeDate}
-                startDate={startDate}
-                endDate={endDate}
-                selectsRange
-                inline
-              />
-            </section>
-          </div>
-          <div className="scoreboards">
-            <div className= 'scoreBoard'>
-              <section className="page-content" style={{width: 400, height: 300}}>
-                  <PageHeader pageTitle="Individual lead measures"/> 
-                      <Bar data={dataBar} options={optionsBar} style={{
-                          backgroundColor: 'white',
-                          }}/>
               </section>
-            </div>
-            <div className= 'scoreBoard'>
-                <section className="page-content" style={{width: 400, height: 300}}>
-                    <PageHeader pageTitle="Team lag data"/> 
-                        <Line data={dataLine} options={optionsLine} style={{
-                            backgroundColor: 'white',
-                            }}/>
-                </section>
+              <section className="filterOption-leadMeasure">
+                  <label htmlFor="leadMeasureSelect" className="form-label">Lead Measures</label>
+                  <select value={defaultLeadMeasureDropdownValue} onChange={handleSelectedLeadMeasure} className="form-select" id="leadMeasureSelect" name="leadMeasureSelect">
+                  {currentWig && currentWig.leadMeasures.map((lead, index) => 
+                      <option key={index} value={lead.leadId}>{lead.leadName}</option>
+                  )}
+                  </select>
+              </section>
+              <section className="filterOption-date">
+                <label className="form-label" htmlFor="datePicker">Date:</label>
+                <DatePicker
+                  locale="en"
+                  id="datePicker" 
+                  name="datePicker" 
+                  selected={startDate}
+                  onChange={onChangeDate}
+                  startDate={startDate}
+                  endDate={endDate}
+                  selectsRange
+                  inline
+                />
+              </section>
             </div>
           </div>
         </div>
-      </div>}
+        <div className="page-content scoreboard-charts">
+          <div className="charts">
+            <PageHeader pageTitle={currentWig && currentWig.wigName} />
+            <div className="charts-wigDate">
+              <h2>from: {currentWig?.startDate} until: {currentWig?.endDate}</h2>
+            </div>
+            
+            <div className="scoreboards">
+              <div className= 'scoreBoard'>
+                <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
+                    <PageHeader pageTitle="Individual lead measures"/> 
+                        <Bar data={dataBar} options={optionsBar} style={{
+                            backgroundColor: 'white',
+                            }}/>
+                </section>
+              </div>
+              <div className= 'scoreBoard'>
+                  <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
+                      <PageHeader pageTitle="Team lag data"/> 
+                          <Line data={dataLine} options={optionsLine} style={{
+                              backgroundColor: 'white',
+                              }}/>
+                  </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>}
     </>
         /* 
         

@@ -18,3 +18,33 @@
     // background-color: red;
     width: 50%;
 }
+
+.options {
+    padding: 11px;
+}
+
+.charts-wigDate {
+    padding: 10px 20px;
+    font-size: 11px;
+    text-align: center;
+}
+
+.chartjs-render-monitor {
+    width: -webkit-fill-available;
+}
+
+.page-content.scoreboard-charts {
+    width: 520px;
+}
+
+.filterOption-wig * {
+    margin: 5px 0px;
+}
+
+.filterOption-leadMeasure * {
+    margin: 5px 0px;
+}
+
+.filterOption-date {
+    margin-top: 10px;
+}
