@@ -31,7 +31,11 @@
 
 .chartjs-render-monitor {
     width: -webkit-fill-available;
+    padding: 10px;
+    border: 1px solid #5b899e;
+    border-radius: 0px 0px 5px 5px;
 }
+
 
 .page-content.scoreboard-charts {
     width: 520px;

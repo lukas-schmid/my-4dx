@@ -223,7 +223,7 @@ export default function Scoreboard(){
             <div className="scoreboards">
               <div className= 'scoreBoard'>
                 <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
-                    <PageHeader pageTitle="Individual lead measures"/> 
+                    <PageHeader pageTitle="Individual Data"/> 
                         <Bar data={dataBar} options={optionsBar} style={{
                             backgroundColor: 'white',
                             }}/>
@@ -231,7 +231,7 @@ export default function Scoreboard(){
               </div>
               <div className= 'scoreBoard'>
                   <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
-                      <PageHeader pageTitle="Team lag data"/> 
+                      <PageHeader pageTitle="Team Goal"/> 
                           <Line data={dataLine} options={optionsLine} style={{
                               backgroundColor: 'white',
                               }}/>
