@@ -7,11 +7,19 @@ import { addMember } from '../apiHelper';
 
 export default function InviteUserForm() {
     const { currentUserInfo, getAndUpdateTeamData } = useGlobalContext();
+
     const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState({ isError: false, message: '' });
+    const [showSuccess, setShowSuccess] = useState(false);
 
     const handleSubmit = async e => {
         e.preventDefault();
         setIsLoading(true);
+        setShowSuccess(false);
+        setIsError({
+            isError: false,
+            message: ''
+        });
 
         const formData = {
             email: e.target.email.value,
@@ -30,9 +38,17 @@ export default function InviteUserForm() {
             const teamResponse = await getAndUpdateTeamData();
             setIsLoading(false);
             e.target.reset();
+            setShowSuccess(true);
+            setTimeout(() => {
+                setShowSuccess(false);
+            }, 3000);
         } catch (error) {
             console.error(error);
             setIsLoading(false);
+            setIsError({
+                isError: true,
+                message: err.message
+            });
         }
     }
 
@@ -60,6 +76,13 @@ export default function InviteUserForm() {
                 <input type="checkbox" className="form-check-input" id="scoreboardInclude" name="scoreboardInclude" defaultChecked/>
                 <label className="form-check-label not-italic" htmlFor="scoreboardInclude">Include in scoreboard?</label>
             </div>
+
+            {showSuccess && <div className="alert alert-success">Invitation sent!</div>}
+            {isError.isError && <div className="alert alert-danger">
+                <p>Ooops! Something went wrong:</p>
+                <p className="italic">{isError.message}</p>
+            </div>}
+
             <button type="sbumit" className="btn btn-success" disabled={isLoading}>Invite Member</button>
         </form>
     )

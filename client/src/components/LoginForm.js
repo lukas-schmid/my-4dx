@@ -8,7 +8,7 @@ export default function LoginForm() {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         setIsLoading(true);
 
@@ -16,13 +16,9 @@ export default function LoginForm() {
             email: e.target.email.value,
             password: e.target.password.value,
         }
-
+        
         logInUser(formData.email, formData.password);
     }
-
-    useEffect(() => {
-        return () => setIsLoading(false);
-    });
 
     return (
         <form className="form" onSubmit={handleSubmit} >

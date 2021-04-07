@@ -25,7 +25,6 @@ function AppProvider({ children }) {
 
   // ------- STATE MANAGEMENT FUNCTIONS -------
   const logInUser = async (email, password) => {
-    console.log('logging in...', email, password)
     try {
       const data = await login({ email, password });
       if (!data.errorCode) {
@@ -34,12 +33,7 @@ function AppProvider({ children }) {
         setIsLoggedIn(true);
         setIsAdmin(data.isAdmin);
         history.push('/welcome');
-
-        //console.log(data);
       }
-
-      console.log(data.teamId)
-
     } catch (error) {
         console.error(error);
     }
@@ -63,11 +57,12 @@ function AppProvider({ children }) {
         setIsLoggedIn(true);
         setIsAdmin(true);
         history.push('/welcome');
-
-        console.log(data);
+      } else {
+        return data;
       }
     } catch (error) {
       console.error(error);
+      return error;
     }
   }
 
@@ -104,9 +99,6 @@ function AppProvider({ children }) {
   // ------- RETURN -------
   return (
     <AppContext.Provider value={{
-      isLoading,
-      setIsLoading,
-
       isAdmin,
       setIsAdmin,
 

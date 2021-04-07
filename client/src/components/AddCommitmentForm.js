@@ -10,23 +10,36 @@ export default function AddCommitmentForm({ currentMonday }) {
     const { currentUserInfo, getAndUpdateCurrentUserInfo, getAndUpdateTeamData } = useGlobalContext();
 
     const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState({ isError: false, message: '' });
 
     const handleSubmit = async e => {
         e.preventDefault()
         setIsLoading(true);
+        setIsError({
+            isError: false,
+            message: ''
+        });
 
         const formData = {
             commitmentName: e.target.commitmentName.value,
             startDate: formatDate(currentMonday),
         };
 
-        const response = await createCommitment(currentUserInfo.id, formData);
+        try {
+            const response = await createCommitment(currentUserInfo.id, formData);
 
-        getAndUpdateCurrentUserInfo();
-        getAndUpdateTeamData();
+            getAndUpdateCurrentUserInfo();
+            getAndUpdateTeamData();
 
-        setIsLoading(false);
-        e.target.reset();
+            setIsLoading(false);
+            e.target.reset();
+        } catch (err) {
+            console.log(err);
+            setIsError({
+                isError: true,
+                message: err.message
+            });
+        }
     }
 
     return (
@@ -42,6 +55,12 @@ export default function AddCommitmentForm({ currentMonday }) {
                         placeholder="For next week, I will..."
                 />
             </div>
+
+            {isError.isError && <div className="alert alert-danger">
+                <p>Ooops! Something went wrong:</p>
+                <p className="italic">{isError.message}</p>
+            </div>}
+
             <button type="submit" className="btn btn-success" disabled={isLoading}>
                 {isLoading ? 'Loading...' : 'Add Commitment'}
             </button>
