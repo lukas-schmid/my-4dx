@@ -13,10 +13,9 @@ export default function CurrentMemberCard({teamMember, index}) {
 
     const removeUser = async id => {
         setIsLoading(true);
-        console.log(id)
         try {
-            const deleteResponse = await deleteMember(id);
-            const teamResponse = await getAndUpdateTeamData();
+            await deleteMember(id);
+            await getAndUpdateTeamData();
         } catch (error) {
             console.error(error);
             setIsLoading(false);
@@ -47,8 +46,6 @@ export default function CurrentMemberCard({teamMember, index}) {
             isAdmin: adminInput,
             scoreboardInclude: scoreboardInput,
         };
-
-        console.log('FORM DATA',formData);
 
         try {
             await updateMember(teamMember.id, formData);
