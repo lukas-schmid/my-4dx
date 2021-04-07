@@ -99,14 +99,14 @@ export default function Scoreboard(){
   const handleLagData = (dateRange, lagData) => {
     return lagData.filter(data => dateRange.includes(data.startDate));
   }
-
+// && obj.scoreboardInclude === true
   const getIndividualLeadData = (currentLead) => {
     const data = teamData.map(member => member.leadMeasures.filter(obj => obj.leadId === currentLead.leadId)[0]);
     const sumArray = data.map(obj => {
       let sum = 0;
       obj.leadData.forEach(dataSet => {
         if (dateRange && dateRange.includes(dataSet.startDate)){
-        sum += dataSet.data || 0;
+        sum += parseInt(dataSet.data) || 0;
         }
       })
       return sum;
