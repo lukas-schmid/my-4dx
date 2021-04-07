@@ -19,6 +19,24 @@ const sendPasswordReset = async (email) => {
     });
 };
 
+const initLeadMeasureForNewUser = async (teamId) => {
+  const users = await service.getAllUsers(teamId);
+  const existingleadMeasures = users[0].leadMeasures;
+  const initLeadMeasure = existingleadMeasures.map(leadMeasure => {
+    return ({
+      leadId: leadMeasure.leadId,
+      wigId: leadMeasure.wigId,
+      leadData: leadMeasure.leadData.map(leadData => {
+        return ({
+          startDate: leadData.startDate,
+          data: 0,
+        })
+      })
+    })
+  })
+  return initLeadMeasure;
+}
+
 exports.registerTeam = async (req, res, next) => {
   try {
     const body = {
@@ -139,6 +157,9 @@ exports.getUserById = async (req, res, next) => {
 
 exports.addMember = async (req, res, next) => {
   try {
+    
+    const initLeadMeasure = await initLeadMeasureForNewUser(req.body.teamId);
+
     const body = {
       email: req.body.email,
       password: req.body.password,
@@ -149,7 +170,7 @@ exports.addMember = async (req, res, next) => {
       title: req.body.title,
       isAdmin: req.body.isAdmin,
       scoreboardInclude: req.body.scoreboardInclude,
-      leadMeasures: [],
+      leadMeasures: initLeadMeasure,
       commitments: []
     };
 
