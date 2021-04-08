@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { Bar } from '@reactchartjs/react-chart.js'
-import { Line } from '@reactchartjs/react-chart.js'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Bar } from '@reactchartjs/react-chart.js';
+import { Line } from '@reactchartjs/react-chart.js';
 import PageHeader from '../components/PageHeader';
 import { useGlobalContext } from '../appContext';
 import FormLoaderOverlay from './FormLoaderOverlay';
@@ -9,7 +10,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from  "react-datepicker";
 import en from 'date-fns/locale/en-GB';
-registerLocale('en', en)
+registerLocale('en', en);
 
 
 
@@ -206,9 +207,10 @@ export default function Scoreboard(){
       {wigData.length === 0 || isLoading
       ? 
       <div className="noWigMessage page-content">
-      <PageHeader pageTitle="No Wig" />
+      <PageHeader pageTitle="No WIG found..." />
         <div className="charts-wigDate">
-          <h2>No Wig found. Please add one first!</h2>
+          <h2 style={{fontWeight: 'normal'}}>You don't appear to have any WIGs yet!</h2>
+          <button className="btn btn-success mb-20"><Link to="/setup/add-wig">Add WIG</Link></button>
         </div>
       </div>
       :

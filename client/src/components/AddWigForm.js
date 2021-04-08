@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
+import { Link } from 'react-router-dom';
 // Import components
 import FormLoaderOverlay from './FormLoaderOverlay';
 // Import helpers
@@ -43,9 +44,6 @@ export default function AddWigForm() {
                 e.target.reset();
 
                 setShowSuccess(true);
-                setTimeout(() => {
-                    setShowSuccess(false);
-                }, 3000);
             })
             .catch(err => {
                 setIsLoading(false);
@@ -160,10 +158,13 @@ export default function AddWigForm() {
                 <label className="form-check-label" htmlFor="check6">It is written in the form "from X to Y by When"</label>
             </div>
 
-            {showSuccess && <div className="alert alert-success">WIG successfully created!</div>}
+            {showSuccess && <div className="alert alert-success">
+                <p className="mt-0">WIG successfully created!</p>
+                <button className="btn btn-success"><Link to="/setup/add-lead-measures">Add a Lead Measure</Link></button>
+            </div>}
             {isError.isError && <div className="alert alert-danger">
-                <p>Ooops! Something went wrong:</p>
-                <p className="italic">{isError.message}</p>
+                <p className="mt-0">Ooops! Something went wrong:</p>
+                <p className="italic mt-0">{isError.message}</p>
             </div>}
 
             <button type="submit" className="btn btn-primary" disabled={isLoading}>Add WIG</button>

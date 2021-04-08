@@ -57,8 +57,8 @@ export default function AddCommitmentForm({ currentMonday }) {
             </div>
 
             {isError.isError && <div className="alert alert-danger">
-                <p>Ooops! Something went wrong:</p>
-                <p className="italic">{isError.message}</p>
+                <p className="mt-0">Ooops! Something went wrong:</p>
+                <p className="italic mt-0">{isError.message}</p>
             </div>}
 
             <button type="submit" className="btn btn-success" disabled={isLoading}>
