@@ -8,7 +8,7 @@ import { createWig } from '../apiHelper';
 import currencyCodes from '../assets/currencyList.json';
 
 export default function AddWigForm() {
-    const { currentUserInfo, setWigData, wigData } = useGlobalContext();
+    const { currentUserInfo, getAndUpdateWigs } = useGlobalContext();
 
     const [isLoading, setIsLoading] = useState(false);
     const [showCurrencyField, setShowCurrencyField] = useState(false);
@@ -36,9 +36,8 @@ export default function AddWigForm() {
         };
 
         createWig(formData)
-            .then(data => {
-                const newWigData = [...wigData, data];
-                setWigData(newWigData);
+            .then(() => {
+                getAndUpdateWigs();
 
                 setIsLoading(false);
                 e.target.reset();
