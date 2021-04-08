@@ -63,7 +63,7 @@ export default function LeadTrackerForm({ leadMeasure, currentMonday }) {
     }, [leadMeasure, currentMonday, currentUserInfo])
 
     return (
-        <form className="form mb-20" onSubmit={handleSubmit}>
+        <form className="form mb-20" autocomplete="off" onSubmit={handleSubmit}>
             {isLoading && <FormLoaderOverlay hide={true}/>}
             <div className={leadMeasure && leadMeasure.leadDataType === 'percent' ? 'form-section input-group mt-10' : 'form-section mt-10'} >
                 <label className="form-label" htmlFor={`data-${leadMeasure.leadId}`}>{leadMeasure.leadName}</label>

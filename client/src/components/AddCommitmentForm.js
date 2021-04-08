@@ -43,7 +43,7 @@ export default function AddCommitmentForm({ currentMonday }) {
     }
 
     return (
-        <form className="form mb-30" onSubmit={handleSubmit}>
+        <form className="form mb-30" autocomplete="off" onSubmit={handleSubmit}>
             {isLoading && <FormLoaderOverlay hide={true}/>}
             <div className="form-section mt-0">
                 <label className="form-label" htmlFor='commitmentName'>Add new commitment here:</label>
