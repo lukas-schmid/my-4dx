@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useGlobalContext } from '../appContext';
 // Import components
 import { BsFillCaretRightFill, BsFillCaretLeftFill } from "react-icons/bs";

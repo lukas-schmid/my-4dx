@@ -9,12 +9,19 @@ import { updateUserLeadMeasure } from '../apiHelper';
 export default function LeadTrackerForm({ leadMeasure, currentMonday }) {
     const { currentUserInfo, getAndUpdateTeamData, getAndUpdateCurrentUserInfo } = useGlobalContext();
 
-    const [isLoading, setIsLoading] = useState(false);
     const [leadCopy, setLeadCopy] = useState(leadMeasure);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState({ isError: false, message: '' });
+    const [showSuccess, setShowSuccess] = useState(false);
 
     const handleSubmit = async e => {
         e.preventDefault();
         setIsLoading(true);
+        setShowSuccess(false);
+        setIsError({
+            isError: false,
+            message: ''
+        });
 
         const formData = {
             leadData: {
@@ -25,12 +32,24 @@ export default function LeadTrackerForm({ leadMeasure, currentMonday }) {
             wigId: leadMeasure.wigId
         }
 
-        const response = await updateUserLeadMeasure(leadMeasure.wigId, leadMeasure.leadId, currentUserInfo.id, formData)
+        try {
+            const response = await updateUserLeadMeasure(leadMeasure.wigId, leadMeasure.leadId, currentUserInfo.id, formData)
 
-        getAndUpdateCurrentUserInfo();
-        getAndUpdateTeamData();
+            getAndUpdateCurrentUserInfo();
+            getAndUpdateTeamData();
 
-        setIsLoading(false);
+            setIsLoading(false);
+            setShowSuccess(true);
+            setTimeout(() => {
+                setShowSuccess(false);
+            }, 1500);
+        } catch (err) {
+            console.log(err);
+            setIsError({
+                isError: true,
+                message: err.message
+            });
+        }
     }
 
     const onInputChange = e => {
@@ -63,8 +82,16 @@ export default function LeadTrackerForm({ leadMeasure, currentMonday }) {
                 {leadMeasure.leadDataType === 'percent' && <span className="input-group-text input-group-text--right">%</span>}
                 {leadMeasure.leadDataType === 'percent' && <div className="form-text">Please format percentages as decimals...</div>} 
             </div>
+
+            {isError.isError && <div className="alert alert-danger">
+                <p>Ooops! Something went wrong:</p>
+                <p className="italic">{isError.message}</p>
+            </div>}
+
             <button type="submit"className="btn btn-success" disabled={isLoading}>
-                {isLoading ? 'Updating...' : 'Update'}
+                {isLoading && 'Updating...'}
+                {showSuccess && 'Success!'}
+                {!isLoading && !showSuccess && 'Update'}
             </button>
         </form>
     )

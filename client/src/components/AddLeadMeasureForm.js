@@ -9,10 +9,18 @@ export default function AddLeadMeasureForm() {
     const { wigData, setWigData, getAndUpdateCurrentUserInfo, getAndUpdateTeamData } = useGlobalContext();
     const [isLoading, setIsLoading] = useState(false);
 
+    const [isError, setIsError] = useState({ isError: false, message: '' });
+    const [showSuccess, setShowSuccess] = useState(false);
+
     const handleSubmit = async e => {
         e.preventDefault();
         setIsLoading(true);
-        // const wigId = e.target.wigSelect.value;
+        setShowSuccess(false);
+        setIsError({
+            isError: false,
+            message: ''
+        });
+
         const formData = {
             leadName: e.target.leadName.value,
             leadInterval: e.target.trackingTime.value,
@@ -34,9 +42,17 @@ export default function AddLeadMeasureForm() {
             // Reset form
             setIsLoading(false);
             e.target.reset();
-        } catch (error) {
+            setShowSuccess(true);
+            setTimeout(() => {
+                setShowSuccess(false);
+            }, 3000);
+        } catch (err) {
             setIsLoading(false);
-            console.error(error);
+            console.error(err);
+            setIsError({
+                isError: true,
+                message: err.message
+            });
         }
     }
 
@@ -107,6 +123,12 @@ export default function AddLeadMeasureForm() {
                 <input type="checkbox" className="form-check-input" id="check4" required/>
                 <label className="form-check-label" htmlFor="check4">Results are primarily driven by the performance of the team and not the team leader</label>
             </div>
+
+            {showSuccess && <div className="alert alert-success">Lead Measure successfully created!</div>}
+            {isError.isError && <div className="alert alert-danger">
+                <p>Ooops! Something went wrong:</p>
+                <p className="italic">{isError.message}</p>
+            </div>}
 
             <button type="submit" className="btn btn-primary" disabled={isLoading}>Add Lead Measure</button>
         </form>

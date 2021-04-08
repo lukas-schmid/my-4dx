@@ -1,0 +1,90 @@
+.wig-session-page {
+    max-width: 350px;
+  
+    .page-header {
+      text-align: center;
+    }
+  
+    @include min-width (850px) {
+      max-width: 800px;
+      min-width: 800px;
+  
+      display: grid;
+      grid-template-columns: repeat(2, 1fr );
+      align-items: flex-start;
+      justify-content: center;
+  
+      .page-header,
+      .page-footer,
+      .date-slider {
+        grid-column: span 2;
+      }
+  
+      &__col-1 {
+        max-width: 350px;
+        justify-self: center;
+      }
+  
+      &__col-2 {
+        max-width: 400px;
+        justify-self: left;
+      }
+  
+      &__col-1, &__col-2 {
+        //max-height: 400px;
+        min-height: 400px;
+  
+        padding-top: 20px;
+        overflow: scroll;
+        align-content: flex-start;
+      }
+    }
+}
+
+.commitment-list {
+    margin-bottom: 20px;
+  }
+  
+  .commitment-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    margin-bottom: 20px;
+  
+    &__text {
+      grid-row: span 2;
+      padding-left: 10px;
+    }
+  
+    &__checkbox {
+      margin: 0.35rem auto;
+      height: 1.2rem;
+      width: 1.2rem;
+    }
+  
+    &__delete-btn {
+      grid-row: 2;
+  
+      color: red;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 5px;
+      padding: 4px 6px;
+      margin: 0 2px;
+      border: 1px solid transparent;
+      font-size: 1.1rem;
+  
+      &:active {
+          background-color: red;
+          color: white;
+          outline: none;
+      }
+  
+      &:hover {
+        border: 1px solid red;
+      }
+    }
+}

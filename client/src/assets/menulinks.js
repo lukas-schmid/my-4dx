@@ -1,7 +1,7 @@
 import React from 'react';
 import { BiStats } from "react-icons/bi";
 import { ImStatsDots, ImStatsBars2 } from "react-icons/im";
-import { GiStairsGoal, GiTeamUpgrade } from "react-icons/gi";
+import { GiStairsGoal } from "react-icons/gi";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import { RiTeamLine, RiAccountCircleLine } from "react-icons/ri";
 import { FaCalendarCheck } from "react-icons/fa";

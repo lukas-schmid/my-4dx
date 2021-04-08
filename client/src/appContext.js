@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 // Import helpers
 import { login, register, getAllWigsByTeamId, getTeamMembers, getUser } from './apiHelper';
@@ -7,25 +7,18 @@ const AppContext = React.createContext();
 
 function AppProvider({ children }) {
   // ------- STATE -------
-  const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const [error, setError] = useState({isError: false, message: ''});
-
   const [currentUserInfo, setCurrentUserInfo] = useState({});
-
   const [wigData, setWigData] = useState([]);
   const [teamData, setTeamData] = useState([]);
+
   // ------- HOOKS -------
   let history = useHistory();
 
-  // ------- LIFECYCLE METHODS -------
-
-
   // ------- STATE MANAGEMENT FUNCTIONS -------
   const logInUser = async (email, password) => {
-    console.log('logging in...', email, password)
     try {
       const data = await login({ email, password });
       if (!data.errorCode) {
@@ -34,12 +27,7 @@ function AppProvider({ children }) {
         setIsLoggedIn(true);
         setIsAdmin(data.isAdmin);
         history.push('/welcome');
-
-        //console.log(data);
       }
-
-      console.log(data.teamId)
-
     } catch (error) {
         console.error(error);
     }
@@ -63,11 +51,12 @@ function AppProvider({ children }) {
         setIsLoggedIn(true);
         setIsAdmin(true);
         history.push('/welcome');
-
-        console.log(data);
+      } else {
+        return data;
       }
     } catch (error) {
       console.error(error);
+      return error;
     }
   }
 
@@ -104,9 +93,6 @@ function AppProvider({ children }) {
   // ------- RETURN -------
   return (
     <AppContext.Provider value={{
-      isLoading,
-      setIsLoading,
-
       isAdmin,
       setIsAdmin,
 

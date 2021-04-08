@@ -1,6 +1,6 @@
 import React from 'react';
 // Import components
-import {FaTimesCircle, FaCheckCircle, FaCircle, FaAngleRight} from 'react-icons/fa';
+import {FaTimesCircle, FaCheckCircle, FaCircle } from 'react-icons/fa';
 import {BsPersonLinesFill} from 'react-icons/bs';
 
 export default function MemberWigSummary({ teamMember }) {

@@ -93,3 +93,10 @@ tbody, td, tfoot, th, thead, tr {
     border-color: #dfc2c4;
 }
 
+.table-container {
+    padding: 10px;
+    border: 1px solid $light-gray;
+    border-radius: 10px;
+    margin: 10px 0 20px 0;
+    overflow-x: scroll;
+}
