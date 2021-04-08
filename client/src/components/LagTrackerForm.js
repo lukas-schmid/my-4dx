@@ -50,7 +50,7 @@ export default function LagTrackerForm({ wig }) {
     }
 
     return (
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form" autocomplete="off" onSubmit={handleSubmit}>
             {isLoading && <FormLoaderOverlay />}
             {wig && wig.lagData.length > 0 && wig.lagData.map((data, index) => {
                 return <LagTrackerInputGroup 
