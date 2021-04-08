@@ -67,7 +67,7 @@ export default function UserAccountForm() {
     }
 
     return (
-        <form className="form" autocomplete="off" onSubmit={handleSubmit}>
+        <form className="form" autoComplete="off" onSubmit={handleSubmit}>
             {isLoading && <FormLoaderOverlay size="medium"/>}
             <div className="form-section mt-0">
                 <label className="form-label form-title" htmlFor="name">Name:</label>
