@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import helpers
 import { deleteCommitment, updateCommitment } from '../apiHelper';
 
 export default function CommitmentItem({commitment, index}) {
-    const { currentUserInfo, getAndUpdateCurrentUserInfo } = useGlobalContext();
+    const { currentUserInfo, getAndUpdateCurrentUserInfo, getAndUpdateTeamData } = useGlobalContext();
 
     const [isLoading, setIsLoading] = useState(false);
     const [checked, setChecked] = useState(commitment.isCompleted)
@@ -20,6 +20,7 @@ export default function CommitmentItem({commitment, index}) {
         
         const response = await updateCommitment( commitment.commitmentId, currentUserInfo.id, commitmentData );
         getAndUpdateCurrentUserInfo();
+        getAndUpdateTeamData();
 
         setIsLoading(false);
     }
@@ -28,7 +29,8 @@ export default function CommitmentItem({commitment, index}) {
         setIsLoading(true);
         
         const response = await deleteCommitment(commitment.commitmentId, currentUserInfo.id);
-        getAndUpdateCurrentUserInfo()
+        getAndUpdateCurrentUserInfo();
+        getAndUpdateTeamData();
     }
 
     useEffect(() => {

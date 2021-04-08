@@ -1,0 +1,20 @@
+.lagTracker-page {
+    --infoColumn-width: 300px;
+  
+    &__select {
+      max-width: 250px;
+      margin: 0 auto 30px auto;
+    }
+  
+    &__infoColumn {
+      
+      width: 70vw;
+      min-width: 0;
+      max-width: var(--infoColumn-width) ;
+    }
+    & > section {
+      @include min-width (700px) {
+        margin: 0 30px;
+      }
+    }
+}

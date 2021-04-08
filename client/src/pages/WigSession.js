@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../appContext';
 // Import components
-import { BsFillCaretRightFill, BsFillCaretLeftFill } from "react-icons/bs";
 import PageHeader from '../components/PageHeader';
 import PageFooter from '../components/PageFooter';
 import LeadTrackerForm from '../components/LeadTrackerForm';
@@ -9,7 +8,7 @@ import CommitmentItem from '../components/CommitmentItem';
 import AddCommitmentForm from '../components/AddCommitmentForm';
 import DateSlider from '../components/DateSlider';
 // Import helpers
-import { addDays, getMondayDate, getWeek, subtractDays } from '../helpers';
+import { getMondayDate, getWeek } from '../helpers';
 
 export default function WigSession() {
     const { currentUserInfo, wigData } = useGlobalContext();

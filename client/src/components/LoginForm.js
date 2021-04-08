@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../appContext';
 
 import FormLoaderOverlay from './FormLoaderOverlay';
@@ -8,7 +8,7 @@ export default function LoginForm() {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         setIsLoading(true);
 
@@ -16,13 +16,9 @@ export default function LoginForm() {
             email: e.target.email.value,
             password: e.target.password.value,
         }
-
+        
         logInUser(formData.email, formData.password);
     }
-
-    useEffect(() => {
-        return () => setIsLoading(false);
-    });
 
     return (
         <form className="form" onSubmit={handleSubmit} >

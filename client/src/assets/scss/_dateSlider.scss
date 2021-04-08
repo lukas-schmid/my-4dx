@@ -1,0 +1,59 @@
+.date-slider {
+    padding: 10px;
+  
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+  
+    &__arrow {
+      font-size: 3rem;
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      color: $primary-blue;
+      outline: none;
+      border: 1px solid transparent;
+      margin-top: 10px;
+  
+      &:hover {
+        border: 1px solid white;
+        color: $dark-blue;
+      }
+  
+      &:active {
+        border: 1px solid transparent;
+        color: $primary-gold;
+        outline: none;
+        background: none;
+      }
+    }
+  
+    &__dates {
+      padding: 10px;
+      text-align: center;
+  
+      &--week,
+      &--weekdays {
+        margin: 0;
+      }
+  
+      &--week {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: $dark-blue;
+        margin-bottom: 10px;
+      }
+  
+      &--weekdays {
+        font-size: 0.85rem;
+        font-style: italic;
+        color: $dark-blue;
+      }
+    }
+  
+    &__underline {
+      border: 1px solid $primary-blue;
+      width: 80%;
+      grid-column: span 3;
+    }
+}

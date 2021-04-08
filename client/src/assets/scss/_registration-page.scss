@@ -1,0 +1,19 @@
+.registration-page {
+    max-width: 400px;
+  
+    @include min-width (768px) {
+      max-width: 800px;
+    }
+}
+  
+.register-prompt {
+    margin: 20px 0 5px 0;
+  
+    &__link {
+      color: $primary-blue;
+  
+      &:hover {
+        color: $primary-gold;
+      }
+    }
+}

@@ -8,14 +8,22 @@ import { createWig } from '../apiHelper';
 import currencyCodes from '../assets/currencyList.json';
 
 export default function AddWigForm() {
-    const { currentUserInfo, setWigData, wigData } = useGlobalContext();
+    const { currentUserInfo, getAndUpdateWigs } = useGlobalContext();
 
     const [isLoading, setIsLoading] = useState(false);
     const [showCurrencyField, setShowCurrencyField] = useState(false);
+    const [isError, setIsError] = useState({ isError: false, message: '' });
+    const [showSuccess, setShowSuccess] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();
         setIsLoading(true);
+        setShowSuccess(false);
+        setIsError({
+            isError: false,
+            message: ''
+        });
+
         const formData = {
             wigName: e.target.wigName.value,
             lagName: e.target.lagName.value,
@@ -28,15 +36,23 @@ export default function AddWigForm() {
         };
 
         createWig(formData)
-            .then(data => {
-                const newWigData = [...wigData, data];
-                setWigData(newWigData);
+            .then(() => {
+                getAndUpdateWigs();
 
                 setIsLoading(false);
                 e.target.reset();
+
+                setShowSuccess(true);
+                setTimeout(() => {
+                    setShowSuccess(false);
+                }, 3000);
             })
             .catch(err => {
                 setIsLoading(false);
+                setIsError({
+                    isError: true,
+                    message: err.message
+                })
                 console.error(err);
             });
     }
@@ -143,6 +159,12 @@ export default function AddWigForm() {
                 <input type="checkbox" className="form-check-input" id="check6" required/>
                 <label className="form-check-label" htmlFor="check6">It is written in the form "from X to Y by When"</label>
             </div>
+
+            {showSuccess && <div className="alert alert-success">WIG successfully created!</div>}
+            {isError.isError && <div className="alert alert-danger">
+                <p>Ooops! Something went wrong:</p>
+                <p className="italic">{isError.message}</p>
+            </div>}
 
             <button type="submit" className="btn btn-primary" disabled={isLoading}>Add WIG</button>
         </form>
