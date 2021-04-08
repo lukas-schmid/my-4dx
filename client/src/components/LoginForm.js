@@ -21,7 +21,7 @@ export default function LoginForm() {
     }
 
     return (
-        <form className="form" autocomplete="off" onSubmit={handleSubmit} >
+        <form className="form" autoComplete="off" onSubmit={handleSubmit} >
             {isLoading && <FormLoaderOverlay size="small"/>}
             <h2 className="form-title">Login</h2>
             <div className="form-section">
