@@ -110,15 +110,16 @@ export default function Scoreboard(){
   }
 
   const getIndividualLeadData = (currentLead) => {
+    const dates = dateRange && dateRange.map(date => new Date(date).getTime());
     const data = teamData.map(member => member.leadMeasures.filter(obj => obj.leadId === currentLead.leadId)[0]);
     const sumArray = data.map(obj => {
       let sum = 0;
       if (obj === undefined){
-        return sum
+        return sum;
       }
       obj.leadData.forEach(dataSet => {
-        if (dateRange && dateRange.includes(dataSet.startDate)){
-        sum += parseInt(dataSet.data) || 0;
+        if (dateRange &&  new Date(dataSet.startDate).getTime() >= Math.min(...dates) && new Date(dataSet.startDate).getTime() <= Math.max(...dates)){
+        sum += parseFloat(dataSet.data) || 0;
         }
       })
       return sum;
