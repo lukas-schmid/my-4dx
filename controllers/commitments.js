@@ -28,17 +28,18 @@ exports.createCommitment = async (req, res, next) => {
 exports.updateCommitment = async (req, res, next) => {
   const commitmentId = req.params.commitmentId;
   const userId = req.params.userId;
-  const body = [{
+  const body = {
     commitmentId,
     startDate: req.body.startDate,
     isCompleted: req.body.isCompleted,
     commitmentName: req.body.commitmentName
-  }];
+  };
   try {
     const user = await userService.getUser(userId);
     const commitments = user.commitments;
-    const filteredCommitments = commitments.filter(commitment => commitment.commitmentId !== commitmentId);
-    const newCommitments = filteredCommitments.concat(body);
+    const index = commitments.findIndex(commitment => commitment.commitmentId === commitmentId);
+    const newCommitments = commitments;
+    newCommitments.splice(index, 1, body);
     await userService.updateCommitment(
       userId,
       newCommitments
