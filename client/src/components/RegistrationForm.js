@@ -28,7 +28,7 @@ export default function RegistrationForm() {
     }
 
     return (
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form" autocomplete="off" onSubmit={handleSubmit}>
             {isLoading && <FormLoaderOverlay />}
             <h2 className="form-title">Team Creation Wizard</h2>
             <div className="form-section">

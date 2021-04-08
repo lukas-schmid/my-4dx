@@ -99,7 +99,7 @@ const commitments = [
     'Complete face-to-face meetings with two companies that have just opened new offices downtown',
     'Create a special upsell experience for our premium bar package with the three clients that were scheduled for site visits',
     'Send a memories packet to two of my clients who held events with us last year, along with a handwritten note.',
-    'Have a conversation, by phone or in person, with two of my clients who held their annual meeting with us last year but haven\'t commited for this year',
+    'Have a conversation, by phone or in person, with two of my clients who held their annual meeting with us last year but haven\'t committed for this year',
     'Contact at least five new prospective clients by the end of the day Monday and have at least one of them commit to making a site visit before the end of the week',
     'Create memory packages for five more clients from last year and send them out.',
 ]
