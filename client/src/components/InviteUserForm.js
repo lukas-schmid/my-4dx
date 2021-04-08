@@ -53,7 +53,7 @@ export default function InviteUserForm() {
     }
 
     return (
-        <form className="form" autocomplete="off" onSubmit={handleSubmit}>
+        <form className="form" autoComplete="off" onSubmit={handleSubmit}>
             {isLoading && <FormLoaderOverlay size="medium"/>}
             <div className="form-section mt-0">
                 <label className="form-label" htmlFor="name">Name:</label>
