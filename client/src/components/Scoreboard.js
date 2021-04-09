@@ -11,8 +11,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from  "react-datepicker";
 import en from 'date-fns/locale/en-GB';
 registerLocale('en', en);
-
-
+// Import helpers
+import { getMondayDate } from '../helpers';
 
 export default function Scoreboard(){
   const { currentUserInfo , wigData, setWigData, teamData, setTeamData } = useGlobalContext();
@@ -113,8 +113,6 @@ export default function Scoreboard(){
   }
 
   const getIndividualLeadData = (currentLead) => {
-    console.log(dateRange)
-    const dates = dateRange && dateRange.map(date => new Date(date).getTime());
     const data = teamData.map(member => member.leadMeasures.filter(obj => obj.leadId === currentLead.leadId)[0]);
     const sumArray = data.map(obj => {
       let sum = 0;
@@ -123,7 +121,7 @@ export default function Scoreboard(){
         return sum;
       }
       obj.leadData.forEach(dataSet => {
-        if (dateRange && new Date(dataSet.startDate).getTime() >= Math.min(...dates) && new Date(dataSet.startDate).getTime() <= Math.max(...dates)){
+        if (dateRange && new Date(dataSet.startDate).getTime() >= getMondayDate(startDate) && new Date(dataSet.startDate).getTime() <= endDate){
           sum += parseFloat(dataSet.data) || 0;
           counter = parseFloat(dataSet.data) ? counter + 1 : counter;
         }
@@ -228,11 +226,11 @@ export default function Scoreboard(){
           <div className="charts">
             <PageHeader pageTitle={currentWig && currentWig.wigName} />
             <div className="charts-wigDate">
-              <h2>from: {dateRange && dateRange[0]} until: {dateRange && dateRange[dateRange.length - 1]}</h2>
+              <h2>Showing data from {dateRange && dateRange[0]} to {dateRange && dateRange[dateRange.length - 1]}</h2>
             </div>
               <div className= 'scoreBoard'>
-                  <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
-                      <PageHeader pageTitle="Lag Measure"/> 
+                  <section className="page-content" style={{width: "-webkit-fill-available"}}>
+                      <PageHeader pageTitle={currentWig ? `LAG - ${currentWig.lagName}` : 'Lag Measure'}/> 
                           <Line data={dataLine} options={optionsLine} style={{
                               backgroundColor: 'white',
                               }}/>
@@ -240,8 +238,8 @@ export default function Scoreboard(){
               </div>
               <div className="scoreboards">
               <div className= 'scoreBoard'>
-                <section className="page-content" style={{height: 300, width: "-webkit-fill-available"}}>
-                    <PageHeader pageTitle="Lead Measure"/> 
+                <section className="page-content" style={{width: "-webkit-fill-available"}}>
+                    <PageHeader pageTitle={currentLeadMeasure ? `LEAD - ${currentLeadMeasure.leadName}` : 'Lead Measure'}/> 
                         <Bar data={dataBar} options={optionsBar} style={{
                             backgroundColor: 'white',
                             }}/>
