@@ -57,7 +57,7 @@ export default function AddLeadMeasureForm() {
     }
 
     return (
-        <form className="form" autoComplete="off" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
             {isLoading && <FormLoaderOverlay />}
             <div className="form-section">
                 <label htmlFor="wigSelect" className="form-label">Which WIG is this lag measure for?</label>

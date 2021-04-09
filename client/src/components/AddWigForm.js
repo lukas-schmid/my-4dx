@@ -56,7 +56,7 @@ export default function AddWigForm() {
     }
 
     return (
-        <form className="form" autoComplete="off" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
             {isLoading && <FormLoaderOverlay />}
             <div className="form-section">
                 <label className="form-label" htmlFor="wigName ">What is your WIG?</label>
