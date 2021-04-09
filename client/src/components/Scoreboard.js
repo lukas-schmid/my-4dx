@@ -1,3 +1,4 @@
+import { getMondayDate } from '../helpers';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Bar } from '@reactchartjs/react-chart.js';
@@ -11,8 +12,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from  "react-datepicker";
 import en from 'date-fns/locale/en-GB';
 registerLocale('en', en);
-// Import helpers
-import { getMondayDate } from '../helpers';
 
 export default function Scoreboard(){
   const { currentUserInfo , wigData, setWigData, teamData, setTeamData } = useGlobalContext();
