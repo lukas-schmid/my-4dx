@@ -94,6 +94,9 @@ export default function Scoreboard(){
     const endDate = to?.getTime();
     const lagDates = currentWig.lagData.map(date => new Date(date.startDate).getTime());
     const range = lagDates.filter(date => date >= startDate && date <= endDate);
+
+    // console.log(range)
+
     return range.map(date => new Date(date).toISOString().split("T")[0]);
   }
 
@@ -110,19 +113,24 @@ export default function Scoreboard(){
   }
 
   const getIndividualLeadData = (currentLead) => {
+    console.log(dateRange)
     const dates = dateRange && dateRange.map(date => new Date(date).getTime());
     const data = teamData.map(member => member.leadMeasures.filter(obj => obj.leadId === currentLead.leadId)[0]);
     const sumArray = data.map(obj => {
       let sum = 0;
+      let counter = 0;
       if (obj === undefined){
         return sum;
       }
       obj.leadData.forEach(dataSet => {
-        if (dateRange &&  new Date(dataSet.startDate).getTime() >= Math.min(...dates) && new Date(dataSet.startDate).getTime() <= Math.max(...dates)){
-        sum += parseFloat(dataSet.data) || 0;
+        if (dateRange && new Date(dataSet.startDate).getTime() >= Math.min(...dates) && new Date(dataSet.startDate).getTime() <= Math.max(...dates)){
+          sum += parseFloat(dataSet.data) || 0;
+          counter = parseFloat(dataSet.data) ? counter + 1 : counter;
         }
-      })
-      return sum;
+      });
+      const objWig = wigData.find(wig => wig.wigId === obj.wigId);
+      const objLead = objWig.leadMeasures.find(lm => lm.leadId === obj.leadId);
+      return objLead.leadDataType === 'percent' ? sum / counter : sum;
     })
     setIndividualLeadData(sumArray);
   }
