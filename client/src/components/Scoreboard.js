@@ -112,7 +112,6 @@ export default function Scoreboard(){
   }
 
   const getIndividualLeadData = (currentLead) => {
-    console.log(teamData.filter(member => member.scoreboardInclude === true))
     const data = teamData.filter(member => member.scoreboardInclude === true).map(member => member.leadMeasures.filter(obj => obj.leadId === currentLead.leadId)[0]);
     const sumArray = data.map(obj => {
       let sum = 0;
