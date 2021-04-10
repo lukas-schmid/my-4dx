@@ -111,29 +111,6 @@ exports.login = async (req, res, next) => {
   }
 };
 
-// delete!
-// exports.logout = async (req, res, next) => {
-//   try {
-//     firebase
-//       .auth()
-//       .signOut()
-//       .then(() => {
-//         const response = {
-//           isLoggedIn: false,
-//         };
-//         res.status(200).json(response);
-//       })
-//       .catch((error) => {
-//         const err = {
-//           errorCode: error.code,
-//           errorMessage: error.message,
-//         };
-//         res.status(401).json(err);
-//       });
-//   } catch (err) {
-//     next(err);
-//   }
-// };
 
 exports.sendPasswortReset = async (req, res, next) => {
   const email = req.body.email;

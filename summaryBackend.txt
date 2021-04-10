@@ -11,14 +11,13 @@
 2.6 post("/api/members/passwordreset")
 
 3. WIG
-3.1 post("/api/wigs") -- OK
+3.1 post("/api/wigs")
 3.2 put("/api/wigs/:wigId)
 3.3 delete("/api/wigs/:wigId)
 3.4 get("/api/wigs/:teamId)
 
 4. Leads
-4.1 post("/api/:wigId/leads") -- OK
-// add user leads
+4.1 post("/api/:wigId/leads")
 4.2 post("/api/:wigId/leads/:leadId/users/:userId")
 4.3 put("/api/:wigId/leads/:leadId")
 4.4 delete("/api/:wigId/leads/:leadId")
@@ -26,7 +25,7 @@
 4.5 put("/api/:wigId/leads/:leadId/users/:userId")
 
 5. Commitments
-5.1 post("/api/commitments/:userId") -- OK
+5.1 post("/api/commitments/:userId")
 5.2 put("/api/commitments/:commitmentId/users/:userId")
 5.3 delete("/api/commitments/:commitmentId/users/:userId")
 
