@@ -112,7 +112,7 @@ export default function Scoreboard(){
   }
 
   const getIndividualLeadData = (currentLead) => {
-    const data = teamData.map(member => member.leadMeasures.filter(obj => obj.leadId === currentLead.leadId)[0]);
+    const data = teamData.filter(member => member.scoreboardInclude === true).map(member => member.leadMeasures.filter(obj => obj.leadId === currentLead.leadId)[0]);
     const sumArray = data.map(obj => {
       let sum = 0;
       let counter = 0;
@@ -133,7 +133,7 @@ export default function Scoreboard(){
   }
   
   const dataBar = {
-    labels: teamData.length > 0 && teamData.map(member => member.name),
+    labels: teamData.length > 0 && teamData.filter(member => member.scoreboardInclude === true).map(member => member.name),
     datasets: [
       {
         label: currentLeadMeasure && currentLeadMeasure.leadName,
