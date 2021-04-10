@@ -1,9 +1,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/lukas-schmid/my-4dx">
-    <img src="" alt="Logo" width="80" height="80">
-  </a>
 
   <h1 align="center">My 4DX</h1>
 
@@ -106,18 +103,3 @@ Go to [Firebase](https://firebase.google.com/) and create a project.
    CLIENT_X509_CERT_URL=XXXX
    ```
 
-### Demo Data for Database
-
-1. Start server in root directory (localhost:8080)
-   ```sh
-   npm start
-   ```
-   or with nodemon
-   ```sh
-   npm run start-dev
-   ```
-
-2. Run command in root directory
-    ```sh
-   bash initDemoData.sh
-   ```
