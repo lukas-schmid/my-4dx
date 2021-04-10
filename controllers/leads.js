@@ -103,8 +103,6 @@ exports.updateUserLead = async (req, res, next) => {
     const user = await userService.getUser(userId);
     const matchingLeadMeasure = user.leadMeasures.filter(obj => obj.wigId === wigId && obj.leadId === leadId);
     const indexMatchingLeadMeasure = user.leadMeasures.findIndex(obj => obj === matchingLeadMeasure[0]);
-    //console.log(matchingLeadMeasure);
-    //console.log(indexMatchingLeadMeasure);
     const leadData = matchingLeadMeasure[0].leadData;
     const index = leadData.findIndex(obj => obj.startDate === req.body.leadData.startDate);
     leadData.splice(index, 1, req.body.leadData);
@@ -112,11 +110,6 @@ exports.updateUserLead = async (req, res, next) => {
     
     const newLeadMeasures = user.leadMeasures;
     newLeadMeasures.splice(indexMatchingLeadMeasure, 1 ,matchingLeadMeasure[0]);
-    //const filteredLeadMeasures = user.leadMeasures.filter(obj => obj.wigId !== wigId || obj.leadId !== leadId);
-    // let newLeadMeasures = [];
-    // if (filteredLeadMeasures.length > 0){
-    //   newLeadMeasures = filteredLeadMeasures.concat(matchingLeadMeasure);
-    //} 
 
     await userService.addUserLeadMeasure(
       user.id,
@@ -129,31 +122,6 @@ exports.updateUserLead = async (req, res, next) => {
     next(error);
   }
 }
-// exports.addUserLeadMeasure = async (req, res, next) => {
-//   const wigId = req.params.wigId;
-//   const leadId = req.params.leadId;
-//   const userId = req.params.userId;
-//   const leadData = await initLeadData(wigId, req.body.leadInterval);
-//   const leadMeasures = [
-//     {
-//       leadId: leadId,
-//       leadData
-//     },
-//   ]
-//   try {
-//     const user = await userService.getUser(userId);
-//     const currentLeadMeasures = user.leadMeasures;
-//     const newLeadMeasures = currentLeadMeasures.concat(leadMeasures);
-//     await userService.addUserLeadMeasure(
-//       user.id,
-//       newLeadMeasures
-//     );
-//     const updatedUser = await userService.getUser(userId);
-//     res.status(201).json(updatedUser);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 
 exports.updateLead = async (req, res, next) => {
   const wigId = req.params.wigId;
