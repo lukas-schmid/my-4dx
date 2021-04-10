@@ -39,7 +39,17 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Project description and pictures here...
+My 4DX ist a business managment tool that allows and helps you to focus on the "wildly important goal".  
+It is based on the book "The 4 disciplines of execution".
+The four disciplines are: 
+
+1. Focus on the Wildly Important Goal (WIG)
+2. Act on the lead measures
+3. Keep a compelling scoreboard
+4. Create a cadence of accountability.   
+  
+Preview![image](https://user-images.githubusercontent.com/70095024/114282282-3655a180-9a43-11eb-8b76-c9d39f36da08.png)
+
 
 ### Built With
 
