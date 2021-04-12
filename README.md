@@ -1,9 +1,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/lukas-schmid/my-4dx">
-    <img src="" alt="Logo" width="80" height="80">
-  </a>
 
   <h1 align="center">My 4DX</h1>
 
@@ -27,6 +24,7 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
+    <li><a href="#the-team">The Team</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -42,24 +40,54 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Project description and pictures here...
+My 4DX is a business managment tool that allows you to solve the execution problem inherent to any big origanisational goals. It is based on the book "[The 4 Disciplines of Execution](https://www.amazon.com/Disciplines-Execution-Achieving-Wildly-Important/dp/1491517751)". The four disciplines are: 
+
+1. Focus on the Wildly Important Goal (WIG)
+2. Act on the lead measures
+3. Keep a compelling scoreboard
+4. Create a cadence of accountability.
+
+A full demonstration of the application can be found here: [My 4DX Youtube Demo](https://youtu.be/-uHWajweORA)
+
+Preview![image](https://user-images.githubusercontent.com/70095024/114282282-3655a180-9a43-11eb-8b76-c9d39f36da08.png)
+
 
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+This is the tech stack used for this project:
 * [React](https://reactjs.org/)
 * [Express](https://expressjs.com/)
-* [Bootstrap](https://getbootstrap.com/)
 * [Sass](https://sass-lang.com/)
 * [ChartJs](https://www.chartjs.org/)
 * [Firebase](https://firebase.google.com/)
 
 
+## The Team
+
+The team that built this consisted of the following members.
+
+#### Lukas Schmid
+
+Former Technical Project Manager in a SaaS company.
+* [LinkedIn](https://www.linkedin.com/in/lukas-schmid2/)
+* [Github](https://github.com/lukas-schmid)
+
+
+#### Petter Carlsson
+
+Former Head of SEO and Web Analytics for the fashion brand Filippa K.
+* [LinkedIn](https://www.linkedin.com/in/petter0619/)
+* [Github](https://github.com/petter0619/)
+
+#### Johan Lyckenvik
+
+Former startup co worker and engineer.
+* [LinkedIn](https://www.linkedin.com/in/johanlyckenvik/)
+* [Github](https://github.com/johanlyckenvik)
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
 ### Firebase Setup
@@ -106,18 +134,3 @@ Go to [Firebase](https://firebase.google.com/) and create a project.
    CLIENT_X509_CERT_URL=XXXX
    ```
 
-### Demo Data for Database
-
-1. Start server in root directory (localhost:8080)
-   ```sh
-   npm start
-   ```
-   or with nodemon
-   ```sh
-   npm run start-dev
-   ```
-
-2. Run command in root directory
-    ```sh
-   bash initDemoData.sh
-   ```
